@@ -51,6 +51,8 @@
         alt + shift + F 格式化代码
 
         搜狗输入法设置  中文时使用英文标点. 提高开发效率
+
+        CTRL+B 关闭左边的导航栏
    -->
 
     <script>
@@ -62,6 +64,16 @@
 
         var myName = "刘德华";
         console.log(myName);
+
+        //一个小细节
+        console.log(name); //name是window上的一个属性  最好不要使用name这个变量名字 这里没有定义直接打印不会报错
+        console.log(address); //这里会报错
+
+        var myName = "zhangsan";
+        var address = "湖南省";
+
+        var myName1 = "zhangsan",
+            address1 = "lisi";
     </script>
 
 </body>
