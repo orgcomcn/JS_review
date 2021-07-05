@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+      ECMAScript   语法规定
+
+      BOM     浏览器对象模型  -- 前进后退，调用打印机
+      
+
+      DOM     文档对象模型  页面上的元素 
+
+      console.log();
+      document.write();
+      alert(); //不推荐使用，会造成页面阻塞
+
+      页面的简单渲染过程
+      //打开页面，页面的标签和css进行解析，
+      // !!!  在解析 html标签的过程中，如果遇到js，将暂停html的渲染 
+      // !! 执行js完毕后 ，js的阻塞，js没有执行完，后面的html css都不执行。
+      // 核心原因： js的单线程
+
+
+      正是因为js的阻塞，就推出了两个属性 （解决了阻塞问题）
+      async（不保证顺序，那个js先加载完先执行谁） 等页面加载完，立即执行  （有多个script ，谁先加载完，谁先去执行）
+
+
+      defer（顺序执行） 等页面加载完，有顺序执行
+
+
+      defer 和 async的不同之处？
+        都是用来解决页面的阻塞问题，defer是等页面加载完后，按顺序一个个执行js文件，而async等页面加载完后，那个js文件
+        先加载完，就先执行哪个js，不能保证顺序的问题。
+
+        JavaScipt脚本阻塞问题。当前最稳妥的办法还是把Script标签放在body的底部，
+        没有兼容性问题。不会因此产生白屏问题，没有执行顺序问题。
+
+   -->
+
+    <script>
+        console.log(" console.log day1");
+
+        document.write("document.write day1" + "<div> day1 </div>");
+
+        alert('会造成页面阻塞，不建议使用');
+    </script>
+
+</body>
+
+</html>
