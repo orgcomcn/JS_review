@@ -6,7 +6,7 @@
  * BOM (browser object model 浏览器对象模型)
  * DOM (document object model 文档对象模型)
 
-#### ES6之前六大数据类型
+#### JavaScript数据类型
 
  * Number/String/Boolean/NULL/undefined/Object
  * 值类型
@@ -15,8 +15,11 @@
     * boolean
     * undefined
     * null(至于存在那里，这取决于解释器的具体实现)
+    
  * 引用类型
     * Object(Array,Function,Date .....)
+ * ES6新增
+    * Symbol 是 ES6 引入了一种新的原始数据类型，表示独一无二的值.
 
 ####  页面的渲染过程
 
