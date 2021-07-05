@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+      JS有两个特性的类型,null 和 undefiend
+
+
+      1.undefiend
+        在变量声明时,未赋予初始值,就是undefined
+      2.null 
+        它是一个特殊的类,指向是空地址
+      
+      null 和 undefined 是什么关系?
+        派生关系,null派生了undefined
+      
+      3.Boolean 类型 它只有两种 , 就是true和 false
+
+      4.Number 类型, 它有一个特殊的值 NaN not a number
+      var n = 100;
+      n *= 100; //按理报错,为了程序能够正常执行,推出了一个值NaN
+      //检测NaN  isNaN() 是数值则为false 不是数值则为true
+      console.log(isNaN("你好")) //false
+      console.log(isNan(NaN)) //false
+      console.log(NaN == NaN) // false
+      只要有NaN就是false
+
+      用isNaN 来判断是否为一个数值,只要是false,就认为是数值.
+
+
+      //Infinity 无穷大
+      var b = 12 / 0; //Infinity
+      console.log(b); //Infinity
+
+      //Number最大的值
+      console.log(Number.MAX_VALUE); //1后面存308个0
+
+      //Number最小的值
+      console.log(Number.MIN_VALUE); //0.0 前面324个0
+
+
+      转换(重点)
+      1.字符串转boolean的规则
+        非空字符串为true,空字符串为false
+
+      2.数值转boolean规则
+        非0为true,0为false NaN也是false
+
+      3.null 和 undefined 转boolean始终为 false
+      
+      4.Object 转 boolean 
+        只要是对象就为true, null为false
+
+
+
+
+
+      题目:
+          var str = "0";
+          console.log(Boolean(str)) //true
+
+          var str1 = "0" - 0;
+          console.log(Boolean(str1)) //false
+
+          var str2 = "A" - 0; //会变成NaN
+          console.log(Boolean(str2)) //false
+
+          var obj = {};
+          console.log(obj); //true  只要不为null就是true
+          
+          //
+
+
+     
+
+    -->
+
+
+</body>
+<script>
+</script>
+
+</html>

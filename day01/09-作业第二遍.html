@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 入职薪水10K，每年涨幅入职薪水的5%，50年后工资多少？
+        // 为抵抗洪水，战士连续作战89小时，编程计算共多少天零多少小时？
+        // 小明要到美国旅游，可是那里的温度是以华氏度为单位记录的。它需要一个程序将华氏温度（80度）转换为摄氏度，提示：摄氏度与华氏度的转换公式为：摄氏度 = 5/9.0*(华氏度-32)
+        // 给定一个三位数，分别把这个数字的百位、十位、个位算出来并显示。
+
+
+
+        //  T1:
+        var salary = 10000;
+        var increase = 0.05;
+        var year = 50;
+        var ret = salary + (salary * increase) * year;
+        console.log("T1 : 50年后工资为:" + ret);
+
+
+        // T2:
+        var total = 89;
+        var day = parseInt(total / 24);
+        var hours = parseInt(total % 24);
+        console.log("T2 : "　 + day + "天" + hours + "时");
+
+        // T3:
+        var hsd = 80;
+        var ssd = (5 / 9.0) * (80 - 32);
+        console.log("T3 : 华氏度" + hsd + "摄氏度" + ssd);
+
+
+        // T4:
+        var a = 123;
+        var gw = parseInt(a % 10);
+        var sw = parseInt(a / 10 % 10);
+        var bw = parseInt(a / 100);
+
+        console.log("T4 : 个位" + gw + "十位" + sw + "百位" + bw);
+    </script>
+
+
+</body>
+
+</html>
