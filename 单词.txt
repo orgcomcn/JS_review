@@ -1,0 +1,164 @@
+关键字：
+break     delete    function    return    typeof
+case      do        if          switch    var
+catch     else      in          this      void
+continue  false     instanceof  throw     while
+debugger  finally   new         true      with  (不太记得)
+default   for       null        try
+ES5保留字:
+class const enum export extendes inport super
+关键字在普通的JS代码中是合法的，但是在严格模式下是保留字：
+implements let private public yield (不太记得)
+interface package protected(不太记得) static
+严格模式同样对下面的标识符的使用作出了严格限制，它们并不完全是保留字，但是不能用作变量名、函数名或参数名：
+arguments eval
+JS中内置了很多全局变量和函数
+arguments             Error             Math            String    
+Array                 eval              NaN             super
+Boolean               EvalError         Number          synchronized
+Date                  Function          Object          throws
+decodeURI             Infinity          parseFloat      transient
+decodeURIComponent    isFinite          parseInt        volatile
+encodeURI             isNaN             RangeError
+encodeURIComponent    JSON              regExp
+
+
+
+defer        延迟
+async       异步
+variable	可变的量	var的缩写
+language	语言
+charset	字符集
+console	控制台
+weight	体重
+width	宽度
+break	中断,间断
+return	返回
+new	新的	创建新的实例化
+function	函数	函数,方法
+if..else...		如果..否则...
+switch	开关,转换	编程里的分支关键字之一
+case	案例	switch case break
+catch	捕获	try..catch..finally
+continue	继续	结束本次循环,不结束整个循环
+default	默认
+delete	删除
+while	虽然;在…期间;
+do..while	
+instance	实例
+abstract	抽象的
+interface	接口
+boolean	布尔	一种数据类型
+export	导出
+import	导入
+package	包裹
+static	静态的
+extends	延伸,扩展
+volatile	易变的
+public	公共的
+private	私有的
+protected	受保护的
+final	最终的	不可变
+const	不可变的	用于修饰常量
+native	本地	native app（原生app）,hybrid app（混合app）,web app
+class	班级	一类,例如一个班的人,他们的身份都是学生
+implement	工具
+synchronized	同步的
+async	异步的
+string	串;绳子	[计算机科学]字符串
+float	浮动	浮点,小数点
+array	数组
+number	数量;号码	数值类型
+undefined	未定义
+type	类型
+math	数学	上初中时,数学课本上印着Math
+round	四舍五入
+mod	余数
+expr	表达式
+document	文件	文档
+write	写
+read	读
+ready	准备
+really	真的
+print	打印
+arguments	论据,争论	js里的形参,伪数组
+global	全球
+local	局部,本地
+element	元素
+push	推	js删除最后一个,返回被删除的元素
+pop		js往最后一个位置添加,返回新的长度
+shift	转移	js往第一个位置添加,返回新的长度
+unshift	不转移	js删除第一个,返回被删除的元素
+sort	分类	排序
+concat	合并
+Contact	联系	(网站上经常看到 联系我们)
+slice	切成片
+splice	剪接
+join	加入	连接
+quick	快速	quickSort 快速排序
+Time	时间
+Year	年
+Month	月
+Day	天
+Hours	小时
+Minutes	分
+Seconds	秒
+Milliseconds	毫秒
+setInterval	设置间隔	定时器
+setTimeout	设置超时	延时器
+browser	浏览器
+model	模特儿	模型
+window	窗口
+history	历史
+location	定位; 位置
+screen	屏幕	screenX,screenY
+navigator	导航员	导航对象
+search	搜索
+prot	端口
+host	主人	主机
+reload	重新装	重新加载
+replace	替换
+back	后面
+forward	前面
+agent	代理	userAgent
+style		样式
+node	节点	节点
+children	儿童	孩子
+parents	父母
+remove	移除
+filter	过滤
+attribute	属性
+first	首先
+last	最后
+sibling	兄弟姐妹
+parentNode		父节点
+previousSibling		前一个
+nextSibling		后一个
+create	创建
+select	选择
+insert	插入
+before	在..之前
+after	在..之后
+clone	克隆
+text	文本
+body	身体	主体
+main	重要的	主要的
+scroll	卷纸,卷轴	滚动条
+wheel	轮子;旋转	滚轮键
+event	事件
+mouse	鼠标
+keyboard	键盘
+enter	进入	onmouseenter 鼠标进入
+leave	离开	onmouseleave 鼠标离开
+change	改变
+load	加载
+focus	聚焦,焦点
+submit	提交
+reset	重置
+client	客户端
+offset	偏移
+page	页面
+target	目标
+cookie	小甜点
+expires	到期	失效时间
+Component	成分; 组分
