@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+      1.算数运算符 
+        + - * / %
+        注意:算数运算符会发生隐式转换 除了+
+          console.log( "100" - 10);
+          console.log( "100" * 10);
+          console.log( "100" / 10);
+          console.log( "100" % 10);
+        强制转换
+          Number() Boolean() parseInt() parseFloat()
+      
+      2.拼接运算符
+        + , 加号左右两边只要有一边是字符串,就是字符串的拼接.
+          console.log("100"+"200");
+          借助隐式转换
+             console.log("100 * 1"+"200 * 1");
+          借助强制转换
+             console.log(Number("100")+ Number("200"));
+      3.逻辑运算符
+        && || !
+          &&一般用来做登录
+          ||一般用来做兼容
+
+      4.关系运算符
+        > < >= <= == === != !==
+        1.如果两边有字符串,比较ascii比较
+        2.如果一边有数字一边是字符,比较数字
+        3.如果两边都是数字,直接比较大小
+        ASCII码 128个
+          0-9 0-48
+          a-z 97-122
+          A-Z 65-90
+
+        console.log( "10" < "9") true 用"10"的1 ascii 码和 "9"比较
+        console.log("10" < 9); false  会隐式转换 10 和 9 比较
+
+      5.赋值运算符
+        += -= *= /= %= =
+
+      6.一元运算符(自增和自减)
+        ++ --
+        var n = 10;
+        var res = n++ + n++ + ++n + n++;
+        res是多少? n是多少?
+        var n = 10;
+        var res = ++n + n++ + n++ + ++n;
+        res是多少? n是多少?
+
+        var i = 12;
+        var sum = i++ + ++i + ++i * 2 + i-- + i--;
+
+      7.三木运算符
+        ?:
+          1在什么情况下不等于1? 在三木运算符写反的时候
+          var res = (1 == 1 ? false : true);
+        
+      8.位移运算符
+        >>右移运算符  <<左移运算符
+        2 _ 2 == 0 >>
+        2 _ 2 == 8 <<
+     -->
+
+    <!-- 
+        var num1 = 1 && 2;
+        var num = true || false;
+        var result = num1 * num2 + 3;
+        console.log(result);
+
+        var num1 = 1 || 2;
+        var num = true || false;
+        var result = num1 * num2 + 3;
+        console.log(result);
+
+        习题
+        null == Undefined
+        'NaN' == NaN
+        5 == NaN
+        NaN== NaN
+        false ==0
+        true == 1
+        true == 2
+        undefined == 0
+        null ==0 
+        '100' == 100
+        '100' === 100
+      -->
+
+    <script>
+        var ret = (1 == 1 ? false : true);
+        console.log(ret)
+    </script>
+
+</body>
+
+</html>

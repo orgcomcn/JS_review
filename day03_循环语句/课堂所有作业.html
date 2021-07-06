@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        // 计算1+2+3+……+100之和。 for
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            sum += i;
+        }
+        // 计算1+2+3+……+100之和。 while
+        var sum = 0;
+        var i = 1;
+        while (i <= 100) {
+            sum += i;
+            i++;
+        }
+        // 计算1+2+3+……+100之和。 do-while
+        var sum = 0;
+        var i = 1;
+        do {
+            sum += i;
+            i++;
+        } while (i <= 100)
+
+        // 打印100以内 7的倍数
+        for (var i = 0; i < 100; i++) {
+            if (i % 7 == 0) {
+                // console.log(i);
+            }
+        }
+
+        // 打印100以内的奇数
+        for (var i = 0; i < 100; i++) {
+            if (i % 2 == 1) {
+                // console.log(i);
+            }
+        }
+
+        // 打印100以内所有偶数的和
+        var sum = 0;
+        for (var i = 0; i < 100; i++) {
+            if (i % 2 == 0) {
+                sum += i;
+            }
+        }
+        console.log(sum);
+
+        // 打印图形
+        // * * * * * * * * * *
+        // * * * * * * * * * *
+        // * * * * * * * * * *
+        // * * * * * * * * * *
+        for (var j = 0; j < 4; j++) {
+            for (var i = 0; i < 10; i++) {
+                document.write("* ")
+            }
+            document.write("<br>")
+        }
+
+        // 打印三角形
+        // *
+        // * *
+        // * * *
+        // * * * *
+        for (var i = 0; i < 4; i++) {
+            for (var j = 0; j <= i; j++) {
+                document.write("* ")
+            }
+            document.write("<br>")
+        }
+        // 判断一个数是不是合数。(指自然数中除了能被1和本身整除外，还能被其他的数整除（不包括0)的数。)
+        // 判断一个数是不是素数。(除了1和它本身以外不再有其他的除数整除。)
+        var num = 7;
+        var flag = true;
+        for (var i = 2; i < num; i++) {
+            if (num % i == 0) {
+                flag = false;
+                break;
+            }
+        }
+        if (flag) {
+            console.log("是素数");
+        } else {
+            console.log("是合数");
+        }
+
+        //打印3-100之间的所有素数 和 合数 最小合数是4,最小质数3,最小自然数0,最小偶数2。
+        var arr1 = []; //装素数
+        var arr2 = []; //装合数
+        for (i = 3; i <= 100; i++) {
+            var flag = true;
+            for (var j = 2; j < i; j++) {
+                if (i % j == 0) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                arr1.push(i);
+            } else {
+                arr2.push(i);
+            }
+
+        }
+        console.log(arr1, arr2);
+        // 求整数1～100的累加值，但要求跳过所有个位为3的数。
+
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            if (i % 10 == 3) {
+                continue;
+            }
+            sum += i;
+        }
+        console.log(sum);
+    </script>
+
+
+</body>
+
+</html>

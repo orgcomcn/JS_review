@@ -125,9 +125,9 @@ console.log("num:" + num);
 var num = parseInt(11,16);
 console.log("num:" + num);
 var num = parseInt(3,2);
-console.log("num:" + num);
+console.log("num:" + num);  //NaN
 var num = parseInt("3",2);
-console.log("num:" + num);
+console.log("num:" + num); //NaN
 var num = parseInt("01010101",2);
 console.log("num:" + num);
 ```
@@ -199,7 +199,7 @@ var num = null.toString(); //不能用 报错
 ```javascript
 //以10进制为基底转换为目标进制  radix:2-36
 var num = 123;
-//以10进制123为基底转换为8进制
+//以10进制123为基底转换为16进制
 console.log(num.toString(16));
 
 
@@ -331,5 +331,19 @@ console.log(parseInt("123abc"));
 var num =123123.3456789;
 console.log(num.toFixed(3));
 console.log(typeof(typeof(a)));
+
+
+
+null == Undefined
+'NaN' == NaN
+5 == NaN
+NaN== NaN
+false ==0
+true == 1
+true == 2
+undefined == 0
+null ==0 
+'100' == 100
+'100' === 100
 ```
 

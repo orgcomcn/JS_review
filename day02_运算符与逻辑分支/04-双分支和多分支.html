@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 这里我理解错, 我以为是取0-5
+        // 实际上执行顺序 本来是0-4,每完事之后加1
+        // 所以取值范围被控制在了1-5 这样操作后不可能为0
+        parseInt(Math.random() * 10) % 5 + 1;
+
+        //取0-100; 为什么*101因为 如果写100,它会取0-99.9999
+        parseInt(parseInt(Math.random() * 101))
+
+
+        var y; //声明一个变量,等待接受值
+        var x = 1;
+        if (　x < 1) {
+            y = x;
+        } else if (x < 10) {
+            y = 2 * x + 1;
+        } else {
+            y = 5 * x - 17;
+        }
+        console.log(y);
+
+        var score = 60;
+        if (score > 85) {
+            console.log("优秀")
+        } else if (score >= 75 && score <= 85) {
+            console.log("还好");
+        } else if (score >= 60 && score < 75) {
+            console.log("及格")
+        } else {
+            console.log("不挂科不完整")
+        }
+    </script>
+
+</body>
+
+</html>

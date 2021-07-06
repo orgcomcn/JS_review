@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+        // 判断一个整数， 属于哪个范围： 大于0； 小于0； 等于0
+        var num = 10;
+        if (num > 0) console.log("> 0");
+        else if (num < 0) console.log("< 0");
+        else console.log("== 0");
+        // 判断一个整数是偶数还是奇数， 并输出判断结果
+        console.log(num % 2 == 0 ? true : false);
+
+        // 开发一款软件， 根据公式（ 身高 - 108） * 2 = 标准体重， 可以有10斤左右的浮动。 来观察测试者体重是否合适
+        var height = 180;
+        var weight = 133;
+        var ret = (height - 108) * 2;
+        var pang = ret + 10;
+        var shou = ret - 10;
+        console.log(ret, pang, shou)
+        if (weight <= pang && weight >= shou) console.log("正常");
+        else console.log("不正常")
+
+        //已知圆的半径r， 求出圆的面积s(S = π× r2)
+        var r = 3;
+        console.log("面积", Math.PI * r * r);
+
+        //随意输入一个年份，判断这个年份是否为闰年.
+        var year = 2005;
+        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) console.log("闰年")
+        else console.log("非闰年")
+
+        // 优化
+        var year = 2004;
+        var exp1 = (year % 4 == 0 && year % 100 != 0);
+        var exp2 = (year % 100 == 0);
+        if (exp1 || exp2) console.log("是闰年")
+        else console.log("不是闰年")
+
+
+        // 输入赵本山的考试成绩， 显示所获奖励
+        // 成绩 == 100 分， 爸爸给他买辆车
+        // 成绩 >= 90 分， 妈妈给他买MP4
+        // 90 分 > 成绩 >= 60 分， 妈妈给他买本参考书
+        // 成绩 < 60 分， 什么都不买
+        var score = 89;
+        // if (score == 100) console.log("爸爸买车子");
+        // else if (score >= 90) console.log("妈妈买M4P");
+        // else if (score >= 60) console.log("妈妈买参考书");
+        // else console.log("什么都不买");
+
+        switch (parseInt(score / 10)) {
+            case 10:
+                console.log("爸爸买车子");
+                break;
+            case 9:
+                console.log("妈妈买M4P");
+                break;
+            case 8:
+            case 7:
+            case 6:
+                console.log("妈妈买参考书");
+                break;
+            default:
+                console.log("什么也不买");
+                break;
+        }
+
+        // 会员购物时，根据积分的不同享受不同的折扣，计算会员购物时所获得折扣
+        // < 2000 9 折
+        // 2000 <= x < 4000 8折
+        // 4000 <= x < 8000 7折
+        // x >= 8000 6折
+        var sum = 7999;
+        if (sum < 2000) {
+            console.log(sum - sum * 0.09);
+        } else if (sum < 4000) {
+            console.log(sum - sum * 0.08);
+        } else if (sum < 8000) {
+            console.log(sum - sum * 0.07);
+        } else {
+            console.log(sum - sum * 0.06);
+        }
+    </script>
+
+
+</body>
+
+</html>

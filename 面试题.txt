@@ -7,3 +7,17 @@
 变量未定义使用 
 只有一种情况不会发生报错 就是使用typeof 会返回undefined
 typeof(typeof(a)) // string
+
+
+var num1 = 1 && 2;
+var num = true || false;
+var result = num1 * num2 + 3;
+console.log(result);
+
+var num1 = 1 || 2;
+var num = true || false;
+var result = num1 * num2 + 3;
+console.log(result);
+
+2 _ 2 == 0 >>
+2 _ 2 == 8 <<

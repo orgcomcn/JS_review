@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <!-- 
+      二进制 0 1
+      八进制 0 1 2 3 4 5 6 7 
+      十进制 0 1 2 3 4 5 6 7 8 9 10
+      十六进制 0 1 2 3 4 5 6 7 8 9 10 a b c d e f 
+
+      
+      parseInt(string,radix);  把string 转成 radix 进制 radix:2-36,String要对应进制的取值范围
+        例如parseInt("01010111",2);  二进制转10进制
+            parseInt("1a",16);  16进制转10进制
+      toString(string);
+            toString(radix) 把里面的进制转换成10进制
+            var num = 123;
+            以10进制123为基底转换为16进制
+            console.log(num.toString(16));
+
+    -->
+
+
+    <script>
+        //二进制转 十进制 十六进制
+        var n = 11001101; //二进制
+        console.log(parseInt(n, 2) + " " + parseInt(n, 2).toString(16));
+
+        //十进制转 二进制 八进制 十六进制
+        var n1 = 12; //十进制
+        console.log(n1.toString(2) + " " + n1.toString(8) + " " + n1.toString(16))
+
+        //十六进制转十进制
+        var n2 = "f"; //十六进制
+        console.log(parseInt(n2, 16));
+
+        // 27 八进制 转 二进制
+        var n3 = 27;
+        console.log(parseInt(n3, 8).toString(2));
+    </script>
+
+
+</body>
+
+</html>
