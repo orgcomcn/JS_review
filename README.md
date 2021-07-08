@@ -1,4 +1,4 @@
-### day1自我总结
+### day1基础
 
 #### JavaScript三部分
 
@@ -62,7 +62,7 @@
 
  * 进制转换过了一遍
 
-### day2自我总结
+### day2运算符与逻辑分支
 
 #### 进制手动转换以及方法转换
 
@@ -107,7 +107,7 @@
  *	三木运算符
  *	位移运算符
 
->​	运算符里涉及到隐式类型转换,需要多做题目,才能掌握,在day01_js基础/typeof.md有很多类似这样的题目,没事多去刷一下,自然而言就会掌握.这里实际上比较复杂.其次就是运算符里面day02_运算符与逻辑分支/运算符.html 里面的题目还需要看一下,有的做错了,需要日后在回顾.
+>​	运算符里涉及到隐式类型转换,需要多做题目,才能掌握,在day01_js基础/typeof.md有很多类似这样的题目,没事多去刷一下,自然而然就会掌握.这里实际上比较复杂.其次就是运算符里面day02_运算符与逻辑分支/运算符.html 里面的题目还需要看一下,有的做错了,需要日后在回顾.
 
 #### 碎片知识点
 
@@ -131,5 +131,449 @@
 
  * switch() 括号里面做的运算是 === 恒等于 , 以前不知道.
 
-### day3自我总结
+ * 基本数据类型:Number String Boolean null undefined object Symbol
 
+ * typeof能返回的值:Number String Boolean undefined object function
+
+ * null和undefined是派生关系,null派生了undefined
+
+### day3循环语句
+
+* for循环做了20多个题目,有难有易,以下代码是对for循环的拓展,以前没考虑过这样的问题,记录一下
+
+  ```javascript
+  //默认以逗号后面的那个为准
+  for (var i = 0, j = 0; i < 5, j < 10; i++, j++) {
+      console.log(i * j); //0 1 4 9 16 25 36 49 61 81
+  }
+  
+  for (i = 0, j = 0; i < 10, j < 6; i++, j++) {
+      k = i + j;
+  }
+  console.log(k); // 10
+  
+  for (i = 0, j = 0; i < 6, j < 10; i++, j++) {
+      k = i + j;
+  }
+  console.log(k); // 18
+  
+   // break 终止指定循环,地球都毁灭了,那么中国肯定也没了. aaa毁灭,bbb自然而言就没了.
+  aaa: for (var i = 0; i < 10; i++) {
+      console.log("i" + i)
+      bbb: for (var j = 0; j < 10; j++) {
+          console.log("j" + j)
+          break aaa;
+      }
+  }
+  ```
+
+* 碎片知识点
+
+  * 没什么好说的,关于循环,直接做题,看10遍不如自己动手敲一遍.
+
+### day4函数
+
+ * 直接撸题目,把功能都用函数封装起来,没有很多细节,主要是多写代码,掌握好函数的灵活运用.
+
+ * 碎片知识点
+   	* 代码写完后,尽量优化代码
+   	* 函数如果没有返回值,默认为undefined
+    * arguments是伪数组
+      	* 伪数组没有pop,push等方法
+      	* 伪数组的 **proto**是**Object**  真数组的**proto**是**Arrar**
+   	* document.write()一般用于页面 onload 的时候。如果页面已经 onload 完了，也就是页面加载完成了，再调用docume.write()的话，那么，整个 HTML 页面将被覆盖我们尽量少用
+
+### day5数组
+
+#### 构造函数
+
+​	Array是JavaScript的原生对象,同时也是一个构造函数,我们可以用它来生成新的数组.
+
+``` java
+// 无参数时返回一个新的数组
+new Array(); //[]
+
+// 单个正整数参数,表示返回数组的长度
+new Aarray(2); // [empty * 2]
+
+// 多参数时,所有参数都是返回的新数组的成员
+new Array(1,2); //[1,2]
+new Array('1','2'); // ['1','2']
+```
+
+​	实际开发中我们不建议使用Array来生成数组,因为不同的参数会导致不一致的行为.直接使用数组字面量是一个更好的办法.
+
+``` javascript
+var arr = [1,2];
+```
+
+#### 静态方法
+
+​	Array.isArray()返回一个布尔值,表示参数是否为数组,它可以弥补typeof的不足.
+
+```javascript
+var arr = [1,2,3];
+typeof (arr); //object
+
+Array.isArray(arr); // true
+```
+
+#### 实例方法
+
+##### valueOf(),toString()
+
+​	valueOf方法是一个所有对象都拥有的方法,表示对该对象求值,不同对象的valueOf方法不尽一致.它的作用是返回原始值
+
+​	toString(),也是对象的通用方法(不包括null和undefined),数组的toString()方法返回数组的字符串形式.
+
+```javascript
+var arr = [1,2,3]
+
+arr.valueOf(); // [1,2,3]
+arr.toString(); "1,2,3"
+document.write(new Date().valueOf());  //拿到时间戳
+```
+
+##### push(),pop()
+
+​	push()方法用于在数组的末端添加一个或多个元素,并返回添加元素后数组的长度.该方法会改变原来的数组.
+
+```javascript
+var arr = [1,2,3,4];
+arr.push(5);     //  返回值5,[1,2,3,4,5]
+arr.push(6,7,8); //  返回值8,[1,2,3,4,5,6,7,8]
+```
+
+​	pop()方法用于删除数组的最后一个元素,并返回该元素,该方法会改变原来的数组.
+
+```javascript
+var arr = [1,2,3,4];
+arr.pop();    //返回值3,[1,2,3]
+
+//注意:
+[].pop(); //不会报错,返回undefined
+```
+
+##### shift(),unshift()   
+
+​	shift()方法用于删除数组的第一个元素,并返回该元素,该方法会改变原来的数组  shift()+pop()队列
+
+```javascript
+var arr = [1,2,3,4];
+arr.shift(); //   返回值1,[2,3,4]
+
+//用来清空数组
+var item;
+var list = [1,2,3,4];
+while(item = list.shift()){
+    console.log(item);
+}
+//上面代码通过list.shift()方法每次取出一个元素，从而遍历数组。它的前提是数组元素不能是0或任何布尔值等于false的元素，因此这样的遍历不是很可靠。
+```
+
+​	unshift()方法用于在数组的第一个位置添加元素,并返回添加元素后数组的长度,该方法会改变原来的数组
+
+```javascript
+var arr = [1,2,3,4];
+
+arr.unshift(-3,-2,-1,0); //返回值8 [-3,-2,-1,0,1,2,3,4]
+```
+
+##### join()
+
+​	join()方法以制定参数作为分割符,将所有数组成员连接为一个字符串返回,如果不提供参数,默认以逗号分割,该方法会改变原数组
+
+``` javascript
+var arr[1,2,3,4];
+
+arr.join(); // "1,2,3,4"
+arr.join("-"); // "1-2-3-4"
+arr.join(" "); // "1 2 3 4"
+
+//如果数组成员是null或undefined或空位,会被转换成空字符串
+var arr = [1,'',null,2,undefined];
+arr.join() // "1,,,2,"
+arr.join("-") // "1---2-"
+```
+
+##### concat()
+
+​	concat()方法用于多个数组的合并,它将组成一个新的数组,将自身数组添加到原数组的后面,然后返回一个新数组,该方法不会改变原数组
+
+```javascript
+var str = "123";
+var str1 = str.concat("456"); // 123456
+
+```
+
+##### reverse()
+
+​	reverse()方法用于颠倒排列数组元素,返回改变后的数组,该方法会改变原数组
+
+```javascript
+var str = [1,2,3,4];
+str.reverse();  // [4,3,2,1];
+```
+
+##### slice()
+
+​	slice()用于提取目标数组的一部分,返回一个新数组,该方法不会改变原数组
+
+```javascript
+var str = [1,2,3,4];
+
+var str1 = str.slice(0); 		//[1,2,3,4];
+var str = str.slice(1,3);		//[2,3]
+var str1 = str.slice(0,2); 		//[1,2]
+//slice(start,end); 不包含end 
+//slice() 不写参数可以返回原数组的拷贝
+
+```
+
+##### splice()
+
+​	splice()方法用于删除原数组的一部分成员,并可以在删除的位置添加新的数组成员,返回值是被删除是元素,该方法会改变原数组
+
+``` javascript
+//arr.splice(start, count, addElement1, addElement2, ...);
+
+var str = [0,1,2,3,4,5,6,7];
+str.splice(4,4); //从下标4开始,删除4个元素,参数1代表删除的起始位置,参数2代表删除的个数  [0,1,2,3] 返回值是被删除的元素[4,5,6,7]
+
+var str = [1,2,3,5,6,7];
+str.splice(3,0,4,4.1,4.2); //下标3,删除0个,插入三个元素 返回值[] 因为没有删除,  [1,2,3,4,4.1,4.2,5,6,7]
+```
+
+##### sort()
+
+​	sort()方法对数组成员进行排序，默认是按照字典顺序排序。排序后，原数组将被改变。
+
+```javascript
+//sort只能排0-10的数字,超过就会有问题,因为内部是ascii码的比较.
+
+//解决方法就是自定义排序规则
+//升序
+var str = [1,2,3,4,5,6];
+str.sort( function(a,b){
+    return a - b;
+});
+//降序
+var str = [1,2,3,4,5,6];
+str.sort( function(a,b){
+    return b - a;
+});
+```
+
+##### map()
+
+​	map()方法将数组所有的成员依次传入参数,然后把每一次的执行结果组成一个新数组返回.
+
+```javascript
+var str = [1,2,3,4];
+
+var str1 = str.map(function(n){
+    return n * 2;
+})
+// str1 : 2 4 6 8
+
+
+var obj = [
+    {age:11,name:'11'},
+    {age:22,name:'22'},
+    {age:33,name:'33'}
+];
+//elem当前数组中第几个成员,index索引,arr数组本身(this)
+var obj1 = obj.map(function(elem,index,arr){
+    console.log(elem,index,arr);
+    return elem.age;
+})
+//obj1 = [11,22,33];
+
+
+//如果你想要一个新的数组 用map方法
+//如果你想要一个新的结果 用reduce方法
+//如果你想要过滤一个结果 请使用filter方法
+```
+
+##### forEach()
+
+​	forEach()方法和map()方法很相似,也是对数组的所有成员依次执行参数.诞生forEach方法没有返回值,只用来操作数据.
+
+```html
+var str = [1,2,3,4];
+str.forEach(function(n){
+	console.log(n);
+});
+// 1 2 3 4
+
+
+var obj = [
+	{age:123,name:'1'},
+	{age:456,name:'2'},
+	{age:789,name:'3'}
+];
+
+obj.forEach(function(elem,index,arr){
+	console.log(elem.age);
+})
+//123 456 789
+```
+
+##### reduct()和reductRight()
+
+​	reduct方法和reduceRight方法依次处理数组的每个成员，最终累计为一个值。它们的差别是，reduce是从左到右处理（从第一个成员到最后一个成员），reduceRight则是从右到左（从最后一个成员到第一个成员），其他完全一样。
+
+```javascript
+[1, 2, 3, 4, 5].reduce(function (a, b) {
+  console.log(a, b);
+  return a + b;
+})
+// 1 2
+// 3 3
+// 6 4
+// 10 5
+//最后结果：15
+```
+
+##### filter()
+
+​	filter()方法用于过滤数组成员，满足条件的成员组成一个新数组返回。
+
+```java
+var obj = [
+    {age:11,name:'11'},
+    {age:22,name:'22'},
+    {age:33,name:'33'}
+];
+	
+var obj1 = obj.map(function(elem,index,arr){
+    return elem.age;
+}).filter(function(elem){
+    return (elem % 2 == 0)
+});
+// 22
+```
+
+##### some(),every()
+
+​	这两个方法类似“断言”（assert），返回一个布尔值，表示判断数组成员是否符合某种条件。
+
+​	some()方法一个成立,直接返回true
+
+​	every()方法全部成立才返回true,否则是false;
+
+```javascript
+//有一个 >3  flag = true
+var arr = [1, 2, 3, 4, 5];
+var flag = arr.some( function(elem){
+    return elem > 3;
+})
+
+//要求全部大于3  flag = false
+var arr = [1, 2, 3, 4, 5];
+var flag = arr.every( function(elem){
+    return elem > 3;
+})
+```
+
+##### indexOf(),lastIndexOf()
+
+​	indexOf()方法返回给定元素在数组中第一次出现的位置，如果没有出现则返回-1,indexOf()可以有两个参数,第二个参数代表开始的位置.
+
+​	lastIndexOf()方法返回给定元素在数组中最后一次出现的位置，如果没有出现则返回-1。lastIndexOf()可以有两个参数,第二个参数代表开始的位置.
+
+```javascript
+var arr = [1,2,3,4,5];
+
+//返回下标4
+var flag = arr.indexOf(5);
+
+//从下标1开始找,数值2,返回下标1
+var flag = arr.indexOf(2,1);
+
+//返回下标4
+var flag = arr.lastIndexOf(5);
+
+//从倒数第一个开始找,返回下标4
+var flag = arr.lastIndexOf(5,-1);
+
+
+//注意，这两个方法不能用来搜索NaN的位置，即它们无法确定数组成员是否包含NaN。
+[NaN].indexOf(NaN) // -1
+[NaN].lastIndexOf(NaN) // -1
+```
+
+##### 链式使用
+
+```javascript
+//我们的目标是：获取属性为 isForceUser: true 的用户总值，读者可以先自行思考一下，用于巩固前面所学知识，我们可以如下处理。
+var personnel = [
+  {
+    id: 5,
+    name: "Luke Skywalker",
+    pilotingScore: 98,
+    shootingScore: 56,
+    isForceUser: true,
+  },
+  {
+    id: 82,
+    name: "Sabine Wren",
+    pilotingScore: 73,
+    shootingScore: 99,
+    isForceUser: false,
+  },
+  {
+    id: 22,
+    name: "Zeb Orellios",
+    pilotingScore: 20,
+    shootingScore: 59,
+    isForceUser: false,
+  },
+  {
+    id: 15,
+    name: "Ezra Bridger",
+    pilotingScore: 43,
+    shootingScore: 67,
+    isForceUser: true,
+  },
+  {
+    id: 11,
+    name: "Caleb Dume",
+    pilotingScore: 71,
+    shootingScore: 85,
+    isForceUser: true,
+  },
+];
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+三步走:map提取--reduce处理--filter过滤
+
+push和pop就是栈,push和shift就是队列
+
+什么是伪数组
+
+1，具有length属性
+
+2，能够使用数组遍历方法遍历它们
+
+3，不具有数组的push,pop等方法
+
+
+
+如何判断数据是不是真数组：
+
+数据 instanceof Array
+
+Object.prototype.toString.call( 数据 ) === '[object Array]'

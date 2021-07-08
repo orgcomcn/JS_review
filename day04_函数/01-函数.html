@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 1.定义动画 */
+    @keyframes move {
+      0% {
+        left: 0px;
+      }
+
+      100% {
+        left: 800px;
+      }
+    }
+
+    .box {
+      height: 100px;
+      width: 100px;
+      background-color: yellow;
+      position: absolute;
+      /* 2.使用动画 */
+      /* forwards 动画走完 停留在结束位置 */
+      /* backwards 动画走完 回到初始化位置(默认) */
+      animation: move 2s 1s linear forwards;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">123213 </div>
+  123123
+<!-- 函数没有返回值的话是undefined -->
+
+
+  <script>
+    //1, 写一个函数计算1到n的和, 并返回结果打印出来;(n为函数参数)
+    function fn1(n) {
+      var sum = 0;
+      for (var i = 1; i <= n; i++) {
+        sum += i;
+      }
+      return sum;
+    }
+    var ret1 = fn1(3);
+    console.log(ret1);
+
+    //2, 写一个函数计算n的阶乘,并返回结果打印出来
+    function fn2(n) {
+      var sum = 1;
+      for (var i = 1; i <= n; i++) {
+        sum *= i;
+      }
+      return sum;
+    }
+    var ret2 = fn2(5);
+    console.log(ret2);
+
+    //3, 写一个函数计算两个数的最小公倍数; 并返回结果打印出来
+    function fn3(n, m) {
+      var max = n > m ? n : m;
+
+      for (var i = max; i <= n * m; i++) {
+        if (i % n == 0 && i % m == 0) {
+          return i;
+        }
+      }
+    }
+    var ret3 = fn3(6,9);
+    console.log(ret3);
+
+
+    function fn4(){
+      arguments.length =100;
+      document.write("123")
+    }
+    fn4();
+
+
+
+
+  </script>
+
+
+
+</body>
+
+</html>

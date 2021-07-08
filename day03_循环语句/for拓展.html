@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+
+    <script>
+        //默认以逗号后面的那个为准
+        for (var i = 0, j = 0; i < 5, j < 10; i++, j++) {
+            console.log(i * j); //0 1 4 9 16 25 36 49 61 81
+        }
+
+
+        for (var j = 0, i = 0; j < 10, i < 5; i++, j++) {
+            console.log(i * j); //0 1 4 9 16
+        }
+
+        // var i = 0 开始前执行
+        // i< 10 定义运行循环（代码块）的条件
+        // 循环执行后执行
+        for (var i = 0; i < 10; i++) {}
+
+        //接下来看面试题
+        for (i = 0, j = 0; i < 10, j < 6; i++, j++) {
+            k = i + j;
+        }
+        console.log(k); // 10
+        // 第六次： j = 5, i = 5, 符合条件， k = j + i = 10;
+        //  第七次： j = 6, i = 6 不符合条件, 循环结束
+
+        for (i = 0, j = 0; i < 6, j < 10; i++, j++) {
+            k = i + j;
+        }
+        console.log(k); // 18
+        //   第十次： j = 9, i = 9, 符合条件， k = j + i = 18;
+        //  第十一次： j = 10, i = 10, 不符合条件， 循环结束。
+
+        //  原因:
+        //       每次for循环的i和j值是相等的, 主要看条件的执行
+        //    循环继续的判断依据以 分号前 的最后一项为准
+
+
+        // break 终止指定循环
+        aaa: for (var i = 0; i < 10; i++) {
+            console.log("i" + i)
+            bbb: for (var j = 0; j < 10; j++) {
+                console.log("j" + j)
+                break aaa;
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

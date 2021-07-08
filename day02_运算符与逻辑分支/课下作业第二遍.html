@@ -10,11 +10,16 @@
 
 <body>
     <script>
-        // 判断一个整数， 属于哪个范围： 大于0； 小于0； 等于0
-        var num = 10;
+        //判断一个整数， 属于哪个范围： 大于0； 小于0； 等于0
+        var num = 0;
         if (num > 0) console.log("> 0");
         else if (num < 0) console.log("< 0");
         else console.log("== 0")
+
+
+        var num = 10;
+        res = num == 0 ? '等于0' : (num > 0 ? '大于0' : '小于0');
+        console.log(res)
 
 
         // 判断一个整数是偶数还是奇数， 并输出判断结果
@@ -24,7 +29,7 @@
 
         // 开发一款软件， 根据公式（ 身高 - 108） * 2 = 标准体重， 可以有10斤左右的浮动。 来观察测试者体重是否合适
         var height = 180;
-        var weight = 140;
+        var weight = 180;
         var ret = (height - 108 * 2);
         var pang = (ret + 10);
         var shou = (ret - 10);

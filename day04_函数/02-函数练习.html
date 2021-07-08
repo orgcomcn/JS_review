@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+
+
+
+
+    // 1, 写一个函数判断一个年份是不是闰年 true是闰年 false 不是闰年
+    function isYear(year) {
+      //闰年的条件1
+      var exp1 = (year % 4 == 0 && year % 100 != 0);
+      //闰年的条件2
+      var exp2 = (year % 400 == 0);
+
+      return (exp1 || exp2) ? true : false;
+    }
+
+
+
+    // 2, 写一个函数判断一个数是不是素数 (又称质数,除了1和本身以外不再有其他数整除)
+    function fn2(n) {
+      for (var i = 2; i < n; i++) {
+        if (n % i == 0) return false;
+      }
+      return true;;
+    }
+
+
+
+    // 3, 年月日分别为自定义函数的参数，判断某一个日期是否为合法的日期;
+    // 	      如: 2016年12月33日不是合法的日期
+    // 	          2016年11月13日是合法的日期
+
+    function fn3(yyyy, MM, dd) {
+      if (MM < 1 || MM > 12) return false;
+
+      var maxDay;
+      if (MM == 1 || MM == 3 || MM == 5 || MM == 7 || MM == 8 || MM == 10 || MM == 12) {
+        maxDay = 31;
+      } else if (MM == 4 || MM == 6 || MM == 9 || MM == 11) {
+        maxDay = 30;
+      } else {
+        maxDay = isYear(yyyy) ? 29 : 28;
+      }
+      return dd > 1 && dd <= maxDay;
+    }
+
+    //  练习: 
+    // 4, 写一个函数计算1到n的和, 并返回结果打印出来;(n为函数参数)
+    // 5, 写一个函数计算n的阶乘,并返回结果打印出来
+    // 6, 写一个函数计算两个数的最小公倍数; 并返回结果打印出来
+
+
+    function fn4(n) {
+      var sum = 0;
+      for (var i = 1; i <= n; i++) {
+        sum += i;
+      }
+      return sum;
+    }
+    console.log(fn4(100))
+
+
+    function fn5(n) {
+      var sum = 1;
+      for (var i = 1; i <= n; i++) {
+        sum *= i;
+      }
+      return sum;
+    }
+    console.log(fn5(5));
+
+
+    function fn6(n, m) {
+      var max = n > m ? n : m;
+      for (var i = max; i <= n * m; i++){
+        if(i % n == 0 && i % m == 0){
+          return i;
+        }
+      }
+    }
+
+
+  </script>
+
+</body>
+
+</html>

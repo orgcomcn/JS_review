@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 5的阶乘是多少?  递归  
+    function fn1(n) {
+      if (n < 0) return 0;
+      if (n == 1) return 1;
+
+      return n * fn1(n - 1);
+    }
+
+    console.log(fn1(5))
+
+
+    // 1计算1+2+3+…+100的和
+
+
+    function fn2(n) {
+      if (n == 1) return 1;
+
+      return n + fn2(n - 1);
+    }
+
+    // 输入一个n,打印n个hello world
+    function fn3(n) {
+      if (n == 1) {
+        document.write('hello world' + n);
+        return true;
+      }
+      document.write('hello world ' + n + '<br>');
+      return fn3(n - 1);
+
+    }
+    fn3(100);
+
+
+    //写个函数计算所有传入参数相乘的结果(参数数量不定)
+    function fn4() {
+      var sum = 1;
+      for (var i = 0; i < arguments.length; i++) {
+        sum *= arguments[i];
+      }
+      return sum;
+    }
+    console.log(fn4(1, 2, 3, 4, 5))
+
+    //写个函数实现加减乘除运算(两个操作数, 一个操作符)
+    function fn5(num1, num2, operator) {
+
+      switch (operator) {
+        case '+':
+          return num1 + num2;
+        case '-':
+          return num1 - num2;
+        case '*':
+          return num1 * num2;
+        case '/':
+          return num1 / num2;
+      }
+
+    }
+
+    //写个函数实现n的阶乘
+    function fn6(n) {
+      if (n == 0) return 0;
+      if (n == 1) return 1;
+
+      return n * fn6(n - 1);
+    }
+
+    //找出0-1000之间7的倍数，和包含7的数字
+    function fn7() {
+      for (var i = 1; i < 1000; i++) {
+        if (i % 7 == 0) {
+          console.log(i);
+        } else if (parseInt(i % 10) == 7 || parseInt(i / 10 % 10) == 7 || parseInt(i / 100) == 7) {
+          console.log(i);
+        }
+      }
+    }
+
+    //不用循环，计算0-100以内的数字和
+    function fn8(n) {
+      if (n == 1) return 1;
+
+      return n + fn8(n - 1);
+    }
+    console.log(fn8(100));
+
+    //制作一个简易计算器（计算两个数的加减乘除, 带可手动输入数字和运算符）
+
+    var num1 = Number(prompt('请输入数字1'));
+    var num2 = Number(prompt('请输入数字1'));
+    var operator = prompt('请输入运算符');
+    console.log(fn5(num1, num2, operator));
+
+
+
+
+    //兔子繁殖问题，设有一只新生兔子，从第四个月开始他们每个月, 
+    //月初都生一只兔子, 新生的兔子从第四个月月初开始又每个月生一只兔子按此规律，并假定兔子没有死亡, n(n<=20)个月月末共有多少只兔子？
+    function fn9(n) {
+      if (n < 4)
+        return 1;
+    
+
+    }
+
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>

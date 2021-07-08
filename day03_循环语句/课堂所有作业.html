@@ -68,6 +68,18 @@
             document.write("<br>")
         }
 
+        // 输入一个数判断是否合法
+        var num;
+        do {
+            num = prompt('请输入一个数字');
+            if (!isNaN(num)) {
+                var res = num % 2 == 0 ? "偶数" : "奇数";
+                console.log(res);
+            }
+
+        } while (isNaN(num));
+
+
         // 打印三角形
         // *
         // * *
@@ -124,6 +136,31 @@
             sum += i;
         }
         console.log(sum);
+
+
+        var sum = 0;
+        for (var i = 1; i <= 100; i++) {
+            sum += i;
+        }
+        console.log(sum)
+
+        //100米高度落下, 每次反弹一半, 第10次经过多少米, 第10次反弹多高 ? (难度 ****)
+        var height = 100;
+        var sum = 0;
+
+        for (var i = 0; i < 10; i++) {
+            sum += height;
+            height /= 2;
+            sum += height;
+        }
+        console.log(sum, height);
+
+        // 请从 100 输出到 - 100  注意从大往小输出(难度 ***)
+        for (var i = 100; i >= -100; i--) {
+            console.log(i);
+        }
+
+        var num = 10;
     </script>
 
 

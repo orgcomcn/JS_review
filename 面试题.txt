@@ -9,6 +9,7 @@
 typeof(typeof(a)) // string
 
 
+考虑错了的题目
 var num1 = 1 && 2;
 var num = true || false;
 var result = num1 * num2 + 3;
@@ -21,3 +22,15 @@ console.log(result);
 
 2 _ 2 == 0 >>
 2 _ 2 == 8 <<
+
+null 和 undefined的区别?
+null 值则是表示空对象指针,undefined定义了没有赋值.
+null == undefined  true  null派生了undefined
+null === undefined false 涉及到了原型链的问题 他们最好的类型是不一样的
+
+var/let/const的区别,实际开发有限使用哪一个？
+巴拉巴拉一堆
+
+
+
+

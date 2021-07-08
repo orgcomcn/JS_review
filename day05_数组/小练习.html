@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+
+     
+
+      for in遍历 数组 对象
+
+
+
+   -->
+
+    <script>
+        //对象
+        var obj = {
+            name: 'zhangsan',
+            say: function() {
+                console.log("123");
+            }
+        }
+
+        //数组
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+        // for和for..in的区别?
+        // for 根据长度,遍历,长度有多少,就遍历多少次
+        // 遇到了数组里有空元素,就直接跳过,不遍历空元素
+        //for in遍历
+        for (key in arr) {
+            console.log(key, arr[key])
+        }
+
+        for (key in obj) {
+            console.log(key, obj[key]);
+        }
+
+
+        //求数组中所有元素的和
+        var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        var sum = 0;
+        for (var i = 0; i < arr.length; i++) {
+            sum += arr[i];
+        }
+        console.log(sum)
+
+        var arr = new Array("aa");
+        console.log(arr);
+
+        //数组元素交换位置
+        var temp = 0;
+        var arr = [1, 2];
+        temp = arr[0];
+        arr[0] = arr[1];
+        arr[1] = temp;
+        console.log(arr);
+
+        //求数组的最大数和最小数（重要）
+        var arr = [1, 2, 3, 4, 5, 6];
+        var max = arr[0];
+        var min = arr[0];
+        for (var i = 0; i < arr.length; i++) {
+            if (max < arr[i]) max = arr[i];
+            if (min > arr[i]) min = arr[i];
+        }
+        console.log(max, min)
+
+        // 求最大值最小值的下标
+        var min_index = 0;
+        var max_index = 0;
+
+        var arr = [1, 2, 3, 4, 5, 6];
+        var max = arr[0];
+        var min = arr[0];
+        for (var i = 0; i < arr.length; i++) {
+            if (max < arr[i]) max_index = i;
+            if (min > arr[i]) min_index = i;
+        }
+        console.log(min_index, max_index)
+    </script>
+
+
+</body>
+
+</html>
