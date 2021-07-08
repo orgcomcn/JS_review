@@ -161,6 +161,26 @@
         }
 
         var num = 10;
+
+        //假设我有一千万, 一天花一半, 问我能花多少天(少于1元就不能花了)
+        var num = 10000000;
+        count = 0;
+        while(num >= 1){
+            count ++;
+            num /= 2;
+        }
+
+        console.log(count);
+
+        //作业8: 点名: 每次刷新网页运行, 在控制台 随机输出一位同学的名字 ["老赵", "老李", "小传", "小黑"] 
+        //下标控制在0-3
+        var arr = ["老赵", "老李"];
+        // 控制在0 - 3
+        //return Math.floor(Math.random() * ( max - min) + min); //不包含max (max - min )相当于扩大十倍随机小数
+        //return Math.floor(Math.random() * ( max - min + 1) + min); //包含max 
+        console.log( arr[Math.floor( Math.random() * (arr.length) + 0)] )
+
+
     </script>
 
 

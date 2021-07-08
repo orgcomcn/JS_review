@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  练习1: 尝试封装函数 - 实现数组里求大值的函数 
+  练习2: 尝试封装函数 - 求数组里和的平均值的函数 
+  练习3: 尝试封装函数 - 传入数组(里面都是人名) - 每次调用返回一个随机人
+
+
+
+  <script>
+    // 练习1: 尝试封装函数 - 实现数组里求大值的函数 
+    function getAdd(){
+      var max = arguments[0];
+      for(var i=0; i<arguments.length; i++){
+        if(max < arguments[i]){
+          max = arguments[i];
+        }
+      }
+      return max;
+    }
+
+    //练习2: 尝试封装函数 - 求数组里和的平均值的函数 
+    function getAvg(){
+      var avg = 0;
+      for(var i=0; i<arguments.length; i++){
+        avg += arguments[i];
+      }
+      return avg/arguments.length;
+    }
+
+
+    // 练习3: 尝试封装函数 - 传入数组(里面都是人名) - 每次调用返回一个随机人
+    //return Math.floor(Math.random() * ( max - min) + min); //不包含max (max - min )相当于扩大十倍随机小数
+    //return Math.floor(Math.random() * ( max - min + 1) + min); //包含max 
+    function getName(){
+      return arguments[ Math.floor( Math.random() * (arguments.length) + 0)  ];
+    }
+   var str = getName('张三','李四','1');
+   console.log(str);
+
+
+  </script>
+
+
+
+
+</body>
+</html>

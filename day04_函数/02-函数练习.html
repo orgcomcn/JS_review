@@ -84,12 +84,26 @@
 
     function fn6(n, m) {
       var max = n > m ? n : m;
-      for (var i = max; i <= n * m; i++){
-        if(i % n == 0 && i % m == 0){
+      for (var i = max; i <= n * m; i++) {
+        if (i % n == 0 && i % m == 0) {
           return i;
         }
       }
     }
+
+
+    //function createNine() 99 乘法表
+
+    function createNice() {
+      for (var i = 1; i < 10; i++) {
+        for (var j = 1; j <= i; j++) {
+          document.write(i + "*" + j + "=" + i * j);
+        }
+        document.write("<br>");
+      }
+    }
+    createNice();
+    createNice();
 
 
   </script>

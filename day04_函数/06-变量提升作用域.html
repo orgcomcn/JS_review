@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+
+
+    // 需求: 回答下面的结果 
+    var num = 10; 
+    fun(); 
+    console.log(num);
+
+    function fun() { 
+      console.log(num); 
+      var num = 20; 
+      console.log(num); 
+    }
+
+
+
+
+    var num = 10; 
+    fun(); 
+    console.log(num);
+    function fun() {    
+      console.log(num);  //这里没有var num, 所以没有变量提升, 作用域内找不到num 所以去上一个作用域找
+      num = 20; 
+      console.log(num); 
+    }
+ 
+
+
+  </script>
+
+
+</body>
+
+</html>

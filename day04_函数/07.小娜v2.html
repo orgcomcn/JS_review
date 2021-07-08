@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    var toolObj = {
+      jokeArr: ["'生'的反义词是什么, 一般人都会想到'死', 出货就和你想的不一样, 人家觉得是'熟'", "你好烦 人, 废话, 我不是凡人, 我难道是神仙?", "从前有个北极熊, 无聊拔毛玩, 拔着拔着就冻死了", "主人, 还是你给我 讲个笑话吧, 虽然我也听不懂"]
+    };
+
+
+    toolObj.getSum = function () {
+      var num = prompt('请输入数数字,中间用逗号隔开,输入错误无法计算');
+      var ret = num.split(',');
+      var dataIntArr=[];
+      dataIntArr = ret.map( ret => +ret);
+      var sum = 0;
+      for (var i = 0; i < dataIntArr.length; i++) {
+        sum += dataIntArr[i];
+      }
+      return sum;
+    }
+
+
+    toolObj.getNowDate = function () {
+      var date = new Date();
+      //获取年
+      var year = date.getFullYear();
+      //获取月
+      var month = date.getMonth() + 1;
+      //获取日
+      var day = date.getDate();
+      // 时
+      var hours = date.getHours();
+      // 分
+      var minutes = date.getMinutes();
+      // 秒
+      var seconds = date.getSeconds();
+      month = month < 10 ? "0" + month : month;
+      day = day < 10 ? "0" + day : day;
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      alert(`现在是 ${year}年${month}月${day}日${hours}时${minutes}分${seconds}秒`)
+      return `现在是 ${year}年${month}月${day}日${hours}时${minutes}分${seconds}秒`;
+    }
+
+    
+    toolObj.getRandom = function () {
+      //return Math.floor(Math.random() * ( max - min) + min); //不包含max (max - min )相当于扩大十倍随机小数
+      //return Math.floor(Math.random() * ( max - min + 1) + min); //包含max 
+
+      var arr = ["'生'的反义词是什么, 一般人都会想到'死', 出货就和你想的不一样, 人家觉得是'熟'", "你 好烦人, 废话, 我不是凡人, 我难道是神仙?", "从前有个北极熊, 无聊拔毛玩, 拔着拔着就冻死了", "主人, 还是你 给我讲个笑话吧, 虽然我也听不懂"];
+      var rand = Math.floor(Math.random() * toolObj.jokeArr.length);
+
+      alert(arr[rand]);
+
+      return `${arr[rand]}`;
+    }
+
+
+
+    while (true) {
+      var val = prompt('你好,我是小娜V1,请选择功能:\n输入q:退出;\n输入1:求和;\n输入2:系统时间;\n输入3:随机笑话\n');
+      if (val === 'q') {
+        break;
+      } else if (val === '1') {
+
+        console.log(toolObj.getSum());
+        break;
+      } else if (val === '2') {
+        toolObj.getNowDate();
+        break;
+      } else if (val === '3') {
+        toolObj.getRandom();
+        break;
+      } else {
+        alert('功能还未开发,请重新输入')
+      }
+    }
+
+    // 要把随机取值背下来
+
+
+  </script>
+
+
+</body>
+
+</html>
