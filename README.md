@@ -36,6 +36,7 @@
   	首先他们两都是为了解决页面的阻塞问题.
   	async是等页面渲染完成后,立即执行.哪个js先加载,就会去执行哪个js,不保证js的执行顺序.
   	defer是等页面渲染完成后,按顺序执行js.
+    都只支持外部脚本
   
   	JavaScipt脚本阻塞问题。当前最稳妥的办法还是把Script标签放在body的底部，没有兼容性问题。不会因此产生白屏问题，没有执行顺序问题。
   ```
@@ -167,21 +168,24 @@
   }
   ```
 
-* 碎片知识点
 
-  * 没什么好说的,关于循环,直接做题,看10遍不如自己动手敲一遍.
+#### 碎片知识点
+
+​	没什么好说的,关于循环,直接做题,看10遍不如自己动手敲一遍.
 
 ### day4函数
 
  * 直接撸题目,把功能都用函数封装起来,没有很多细节,主要是多写代码,掌握好函数的灵活运用.
 
- * 碎片知识点
-   	* 代码写完后,尽量优化代码
-   	* 函数如果没有返回值,默认为undefined
-    * arguments是伪数组
-      	* 伪数组没有pop,push等方法
-      	* 伪数组的 **proto**是**Object**  真数组的**proto**是**Arrar**
-   	* document.write()一般用于页面 onload 的时候。如果页面已经 onload 完了，也就是页面加载完成了，再调用docume.write()的话，那么，整个 HTML 页面将被覆盖我们尽量少用
+
+#### 碎片知识点
+
+* 代码写完后,尽量优化代码
+  	* 函数如果没有返回值,默认为undefined
+* arguments是伪数组
+  	* 伪数组没有pop,push等方法
+  	* 伪数组的 **proto**是**Object**  真数组的**proto**是**Arrar**
+  	* document.write()一般用于页面 onload 的时候。如果页面已经 onload 完了，也就是页面加载完成了，再调用docume.write()的话，那么，整个 HTML 页面将被覆盖我们尽量少用
 
 ### day5数组
 
@@ -216,6 +220,36 @@ var arr = [1,2,3];
 typeof (arr); //object
 
 Array.isArray(arr); // true
+```
+
+#### 数组去重
+
+```javascript
+//案例1
+var arr = [1, 3, 3, 2, 5, 5, 61, 2, 1];
+var ret = [];
+
+for (var i = 0; i < arr.length; i++) {
+    if (ret.indexOf(arr.[i]) == -1) {
+    	ret.push(arr[i]);
+    }
+}
+console.log(ret);
+
+
+//案例2
+var arr = [1, 3, 5, 6, 6, 9, 8, 8, 7];
+var temp = [1, 6, 8];
+
+for ( var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < temp.length; j++ ) {
+        if( arr[i] == temp[j] ){
+            arr.splice(i,1);
+            i--; //这里要想清楚为什么要i--
+        }
+    }
+}
+
 ```
 
 #### 实例方法
@@ -281,7 +315,7 @@ arr.unshift(-3,-2,-1,0); //返回值8 [-3,-2,-1,0,1,2,3,4]
 
 ##### join()
 
-​	join()方法以制定参数作为分割符,将所有数组成员连接为一个字符串返回,如果不提供参数,默认以逗号分割,该方法会改变原数组
+​	join()方法以制定参数作为分割符,将所有数组成员连接为一个字符串返回,如果不提供参数,默认以逗号分割,该方法不会改变原数组
 
 ``` javascript
 var arr[1,2,3,4];
@@ -298,7 +332,9 @@ arr.join("-") // "1---2-"
 
 ##### concat()
 
-​	concat()方法用于多个数组的合并,它将组成一个新的数组,将自身数组添加到原数组的后面,然后返回一个新数组,该方法不会改变原数组
+​	concat()方法用于多个数组的合并,它将组成一个新的数组,将自身数组添加到原数组的后面,然后返回一个新数组,该方法不会改变原数组,
+
+我们可以用来拷贝数组(浅拷贝)
 
 ```javascript
 var str = "123";
@@ -545,6 +581,238 @@ var personnel = [
   },
 ];
 ```
+
+#### 碎片知识点
+
+* 改变原数组的：
+
+  1、shift:将一个元素删除并且返回删除元素，删除第一项
+
+  2、unshift:在原数组的最前端依次添加，并且返回新数组的长度
+
+  3、posh：在原数组的最后依次添加项，并返回新数组的长度
+
+  4、pop：将一个元素移除并返回移除的项，最后一项
+
+  5、reverse：反转数组的顺序
+
+  6、sort：对数组进行依次排序
+
+  7、splice：三个参数。第一个代表开始的下标，第二个代表 要删除的个数，第三个代表要替换的东西    返回被删除的数组
+
+* 不改变原数组的：
+
+  1、concat:拼接，连接多个数组
+
+  2、slice:提取，返回被提取的字符
+
+  3：join：将数组中所有元素以参数作为分隔符放入一个字符
+
+  4、map,filter,some,ever等不改变原数组
+
+### day6字符串
+
+#### 字符串的定义
+
+​	ECMAScript中的字符串是不可变的; 也就是说，字符串一旦创建，它们的值就不能改变.
+
+```javascript
+//以下三种方式都可以定义一个字符串
+var str = "hello world";
+var str = String("hello world");
+var str = new String("hello world");
+```
+
+#### new String()和String()的区别
+
+```javascript
+var str1 = new String("test");
+var str2 = String("test");
+
+console.log(typeof str1) // object
+console.log(typeof str2) // string
+
+// new String()是作为构造函数来使用的,它返回的是一个string对象.
+// String()它只会把里面的内容转换成string,并返回转换后的值.
+```
+
+#### 实例方法
+
+##### charAt()
+
+​	charAt() 方法返回字符串中指定下标的字符串：
+
+```javascript
+var str = "HELLO WORLD";
+str.charAt(0);   //返回H
+
+//另外一种方法
+var str = "HELLO WORLD";
+str[0];                   // 返回 H
+//它让字符串看起来像是数组（其实并不是）
+//如果找不到字符，[ ] 返回 undefined，而 charAt() 返回空字符串。
+//它是只读的。str[0] = "A" 不会产生错误（但也不会工作！）
+```
+
+##### charCodeAt()
+
+​	charCodeAt() 方法返回字符串中指定索引的字符 unicode 编码：
+
+```javascript
+var str = "HELLO WORLD";
+str.charCodeAt(0);         // 返回 72	
+```
+
+##### String.fromCharCode()
+
+​	将 Unicode 编码转为一个字符
+
+```javascript
+var n = String.fromCharCode(65);
+```
+
+##### search()
+
+​	search() 方法搜索特定值的字符串,并返回匹配的位置,它支持正则表达式.如果没找到返回-1
+
+```javascript
+var str = "The full name of China is the People's Republic of China.";
+var pos = str.search("China");
+
+//和indexOf的区别()
+//search() 方法无法设置第二个开始位置参数。
+//indexOf() 方法无法设置更强大的搜索值（正则表达式）。
+```
+
+##### match()
+
+​	match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。该方法类似 indexOf() 和 lastIndexOf()，但是它返回指定的值，而不是字符串的位置。没有找到的话会返回null.
+
+```javascript
+var str="Hello world!"
+str.match("world")  // world
+str.match("World")  //null
+str.match("worlld")  //null
+str.match("world!") //world!
+```
+
+##### indexOf()
+
+​	方法返回字符串中指定文本首次出现的索引（下标）,它可以有两个参数,指定从哪个位置开始查找.如果没找到返回-1
+
+``` javascript
+var str = "The full name of China is the People's Republic of China.";
+var pos = str.indexOf("China");
+var pos = str.indexOf("China",3); //当有两个参数的时候代表从下标3开始查找.有时候如果明确了前面没有我们要找的,可以指定下标提高效率.
+//打印下标17
+```
+
+##### lastIndexOf()
+
+​	lastIndexOf() 方法返回指定文本在字符串中最后一次出现的索引,如果没找到返回-1.
+
+```javascript
+var str = "The full name of China is the People's Republic of China.";
+var pos = str.lastIndexOf("China");
+//打印下标57
+```
+
+##### split()
+
+​	可以通过 split() 将字符串转换为数组
+
+```javascript
+var str = "a,b,c,d,e";   // 字符串
+var arr = str.split(","); //转换为数组
+```
+
+##### replace()
+
+​	replace() 方法用另一个值替换在字符串中指定的值
+
+```javascript
+var str = "Please visit Microsoft!";
+var n = str.replace("Microsoft", "W3School"); //Please visit W3School!
+```
+
+##### slice()
+
+​	slice() 提取字符串的某个部分并在新字符串中返回被提取的部分。该方法设置两个参数：起始索引（开始位置），终止索引（结束位置）。
+
+```javascript
+var str = "Apple, Banana, Mango";
+var res = str.slice(7,13);  //包含start,不包含end.
+// Banana
+```
+
+##### substr()
+
+​	substr() 类似于 slice(),不同之处在于第二个参数规定被提取部分的长度
+
+```javascript
+var str = "Apple, Banana, Mango";
+var res = str.substr(7,6); // 第一个参数是下标,第二个参数是长度
+
+//结果是Banana
+```
+
+##### substring()
+
+​	substring() 类似于 slice()。不同之处在于 substring() 无法接受负的索引。
+
+```javascript
+var str = "Apple, Banana, Mango";
+var res = str.substring(7,13); //包含start,不包含end.
+// Banana
+```
+
+##### concat()
+
+​	concat() 连接两个或多个字符串
+
+```javascript
+var text1 = "Hello";
+var text2 = "World";
+
+var text3 = text1.concat(",",text2); // concat 多个参数用逗号隔开.
+```
+
+##### toUpperCase()
+
+​	通过 toUpperCase() 把字符串转换为大写
+
+```javascript
+var text1 = "Hello World!";       // 字符串
+var text2 = text1.toUpperCase();  // text2 是被转换为大写的 text1
+```
+
+##### toLowerCase()
+
+​	通过 toLowerCase() 把字符串转换为小写
+
+```javascript
+var text1 = "Hello World!";       // 字符串
+var text2 = text1.toUpperCase();  // text2 是被转换为小写的 text1
+```
+
+##### trim()
+
+​	trim() 方法删除字符串两端的空白符：
+
+```javascript
+var str = "       Hello World!        ";
+alert(str.trim());  // Hello World! 
+```
+
+支持正则的有 search  replace match split
+
+#### 碎片知识点
+
+* 这一个章节需要多做练习,数组和字符串的方法很灵活,很重要,实际开发用的好的话可以减少很多不必要的麻烦.
+
+###### 	
+
+
 
 
 

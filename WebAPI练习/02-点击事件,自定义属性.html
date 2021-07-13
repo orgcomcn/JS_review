@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    练习1: 点击第一个li标签, 弹出你好
+    练习2: 给所有li标签, 绑定点击事件都能弹出你好 
+    练习3: 点击某个li, 弹出对应的索引值 
+  -->
+
+  <ul id="myUL">
+    <li>我是1</li>
+    <li>我是2</li>
+    <li>我是3</li>
+    <li>我是4</li>
+    <li>我是5</li>
+    <li>我是6</li>
+    <li>我是7</li>
+    <li>我是8</li>
+    <li>我是9</li>
+    <li>我是10</li>
+  </ul>
+
+  <script>
+    var li = document.querySelector('#myUL>li:first-of-type');
+    li.addEventListener('click', () => { alert('你好呀宝贝') });
+
+
+    var lis = document.querySelectorAll('#myUL>li');
+    for (var i = 0; i < lis.length; i++) {
+      lis[i].onclick = () => { alert('你好呀') };
+    }
+
+
+    //使用闭包解决
+    var olis = document.querySelectorAll('#myUL>li');
+    for (var i = 0; i < olis.length; i++) {
+      (function (j) {
+        lis[i].onclick = () => { alert(j) }
+      }(i));
+    }
+
+    // let解决
+    // var lis = document.querySelectorAll('#myUL>li');
+    // for( let i=0; i<10; i++){
+    //   lis[i].onclick = () =>{ 
+    //     alert(i)
+    //   }
+    // }
+
+
+  </script>
+
+</body>
+
+</html>

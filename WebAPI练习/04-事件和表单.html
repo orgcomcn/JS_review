@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div>
+        <p>练习1: 点击按钮, 切换多选框状态</p> <input type="checkbox" id="box"> <button id="btn">点击改变多选框状态</button>
+    </div>
+
+    <div>
+        <p>点击按钮 , 把名字放到输入框 中</p> <input type="button" value="小黑" class="name_btn"> <input type="button" value="小传" class="name_btn"> <input type="button" value="老马" class="name_btn">
+
+        <input type="text" id="userInput">
+    </div>
+
+    <div>
+        <p>输入框输入名字, 在点击中获取</p> <input type="text" placeholder="请输入你的名字" id="user"> <button id="showBtn">点击弹出你的名字</button>
+    </div>
+
+
+    <script>
+        //练习1: 点击按钮, 切换多选框状态 
+        var btn = document.querySelector('#btn');
+        var check = document.querySelector('#box');
+        btn.onclick = function() {
+            check.checked = !check.checked;
+        }
+
+        //练习2: 有3个按钮, 上面分别有名字, 点击以后, 把名字赋予到一个输入框中显示
+        var btns = document.querySelectorAll('.name_btn');
+        var userIpt = document.querySelector('#userInput');
+        // for (var i = 0; i < btns.length; i++) {
+        //     (function(j) {
+        //         btns[i].onclick = function() {
+        //             userIpt.value = btns[i].value;
+        //         }
+        //     }(i));
+        // }
+        //我自己想多了,还用闭包去做.. 这样也可以实现
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                userIpt.value = this.value;
+            }
+        }
+
+
+        //练习3: 在输入框输入你的名字, 然后点击按钮, 弹出你输入的名字
+        var ipt = document.querySelector('#user');
+        var showBtn = document.querySelector('#showBtn');
+        showBtn.onclick = function() {
+            alert(ipt.value);
+        }
+    </script>
+
+</body>
+
+</html>

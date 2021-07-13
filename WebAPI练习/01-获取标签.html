@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+<!-- 
+    练习1. 通过id获取到a标签 (可以自己给a添加id)
+    练习2. 通过标签名 获取到所有h3标签, 并打印
+    练习3. 通过querySelectAll() 获取所有的li标签
+    练习4. 通过querySelectAll() 获取所有小字开头的名字的li标签 
+-->
+  <div class="the_div">
+    <p>我是p标签</p>
+    <h3>我是h3</h3>
+    <h3>我是h3</h3>
+    <h3>我是h3</h3> <a id="theA" href="#">我是一个a标签</a>
+    <ul>
+      <li>北京</li>
+      <li>天津</li>
+      <li>东京</li>
+    </ul>
+    <ul class="my_li">
+      <li>小明</li>
+      <li>小红</li>
+      <li>小蓝</li>
+    </ul>
+  </div>
+
+  <script>
+    var oA = document.querySelector('#theA');
+    var oH3 = document.querySelector('h3');
+    var oLi = document.querySelectorAll('li');
+    var xLi = document.querySelectorAll('.my_li>li');
+    console.log(oA,oH3,oLi,xLi)
+
+  </script>
+
+</body>
+
+</html>

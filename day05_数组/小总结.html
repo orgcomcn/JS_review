@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //总结今天的知识
+        //1. 冒泡排序
+        //2. 选择排序
+        //3. 快速排序
+
+        //4.数组去重
+        //5.索引思想 (引用,数组存在堆中)
+        //6.数组的高阶函数   普通+回调函数 =高阶函数
+        // forEach 只能做遍历(循环),没有返回值
+        // map    能做遍历,有返回值,是数组
+        // some  只要有一个条件满足,返回true
+        // every  所有元素,满足该条件返回true
+        // filter  条件满足,返回新数组(与原来的数组,不同同一个地址)
+
+        // 下次,再讲
+        // reduce ()  2个参数 第一个参数是回调函数,第2个参数:初始值
+        //             //回调函数的第一个参数:
+        //              1. pre 初始值
+        //              2. cur 每一个元素
+        //              3. index
+        //              4. 原来数组
+
+        // reduce() 1个参数 :回调函数
+        //   回调函数的第一个参数  pre,数组的第一位,第2次就是上一次的返回值
+        //                       cur,数组的第2个元素开始
+        //                       index
+        //                       原来数组
+
+
+        // valueOf()  // 返回对象的原始值
+        // toString() // 返回数组的字符串形式,undefined和null无法使用
+        var arr = [1, 2, 3];
+        console.log("valueOf() && toString()")
+        console.log(arr.valueOf());
+        console.log(arr.toString());
+
+
+        //push(); 在数组末端添加一个或多个元素,返回值是数组长度
+        //pop();  在数组米段删除一个元素,返回值是该元素.
+        var arr = [1, 2, 3, 4];
+        console.log("push() && pop()");
+        arr.push(5, 6, 7, 8);
+        console.log(arr);
+        arr.pop();
+        console.log(arr);
+
+
+        //shift();  删除数组第一个元素,返回值是该元素
+        //unshift();  在数组第一个元素位置添加元素,返回值是数组长度
+        var arr = [1, 2, 3, 4];
+        console.log("shift() && unshift()");
+        arr.shift();
+        console.log(arr)
+        arr.unshift(-1, -2, -3, -4);
+        console.log(arr)
+
+        //join(); 以定制参数作为分隔符,将所有数组成员连接成一个字符串,如果没填默认为"," 该方法会不改变数组
+        var arr = [1, 2, 3, 4];
+        console.log("join()");
+
+        console.log(arr.join("-"));
+        console.log(arr)
+
+
+        //concat()方法用于多个数组的合并,它将组成一个新的数组,将自身数组添加到原数组的后面,然后返回一个新数组,该方法不会改变原数组,
+        console.log("concat()");
+        var arr = [1, 2, 3, 4, 5];
+        var arr1 = [6, 7, 8, 9, 10];
+        var arr2 = [11, 12, 13, 14, 15];
+        console.log(arr.concat(arr1, arr2))
+
+        //reverse()该方法会改变原数组,将原来的数组直接翻转
+        var arr = [1, 2, 3, 4, 5];
+        console.log("reverse()");
+        arr.reverse();
+        console.log(arr);
+
+        //slice()用于提取数组的一部分,返回一个新的数组,如果不写参数可以实现数组的拷贝
+        var arr = [1, 2, 3, 4, 5];
+        console.log("slice()");
+        console.log(arr.slice()); //这里可以实现数组的拷贝
+        console.log(arr.slice(0, 1)); //只包含start 不包含end
+
+        //splice()用于删除数组的一部分成员. 会改变原来的数组
+        // 两个参数是用来删除 包含start 不包含end
+        // 三个参数 是用来插入 但是第二个参数必须是0,插入是在指定位置的前面插入
+        var arr = [1, 2, 3, 4, 5];
+        console.log("splice()");
+        arr.splice(0, 2); //删除1,2
+        console.log(arr); //打印3,4,5
+        arr.splice(0, 0, 1, 2) //在下标0的位置插入1,2
+        console.log(arr); //打印1,2,3,4,5
+
+        //sort()用于对数组成员进行排序,默认是按照字典顺序排序,排序后,原数组会改变.
+        var arr = [-1, 20, 30, 0, 25, -20];
+        console.log("sort")
+        arr.sort((a, b) => {
+            return a - b;
+        }); //从小到大
+        console.log(arr);
+        arr.sort((a, b) => {
+            return b - a;
+        }); //从大到小
+        console.log(arr);
+
+
+        //map()方法将数组所有的成员依次传入参数,然后把每一次的执行结果组成一个新数组返回.
+        var arr = [1, 2, 3, 4, 5];
+        console.log("map()")
+        var arr1 = arr.map((elem, index, obj) => {
+            return elem + 1;
+        });
+        console.log(arr1);
+
+        //forEach() 方法只能用来遍历,没有返回值.
+        console.log("forEach()")
+        var obj = [{
+            age: 123,
+            name: '1'
+        }, {
+            age: 456,
+            name: '2'
+        }, {
+            age: 789,
+            name: '3'
+        }];
+
+        obj.forEach((elem, index, obj) => {
+            console.log(elem.name);
+        })
+
+        // reduce ()  2个参数 第一个参数是回调函数,第2个参数:初始值
+        //             //回调函数的第一个参数:
+        //              1. pre 初始值
+        //              2. cur 每一个元素
+        //              3. index
+        //              4. 原来数组
+
+        // reduce() 1个参数 :回调函数
+        //   回调函数的第一个参数  pre,数组的第一位,第2次就是上一次的返回值
+        //                       cur,数组的第2个元素开始
+        //                       index
+        //                       原来数组
+
+        var arr = [1, 2, 3, 4];
+        var arr1 = arr.reduce((a, b) => {
+            return a + b;
+        });
+        console.log(arr1);
+
+
+        //filter
+        var arr = [1, 2, 3, 4];
+        var arr1 = arr.filter((elem, index, obj) => {
+            return elem > 1;
+        });
+        console.log(arr1);
+
+
+        //every
+        var arr = [1, 2, 3, 4];
+        var ret = arr.every((elem, index, obj) => {
+            return elem > 2;
+        })
+        console.log(ret);
+
+        //some
+
+        var arr = [1, 2, 3, 4];
+        var ret = arr.some((elem, index, obj) => {
+            return elem > 2;
+        })
+        console.log(ret);
+    </script>
+</body>
+
+</html>

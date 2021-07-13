@@ -86,6 +86,57 @@
             if (min > arr[i]) min_index = i;
         }
         console.log(min_index, max_index)
+
+
+        //数组的去重
+        var list = [1, 3, 3, 2, 5, 5, 61, 2, 1];
+        var arrr = [];
+
+        for (var i = 0; i < list.length; i++) {
+            //如果没有该元素,就返回-1,然后提push到新的数组中去
+            if (arrr.indexOf(list[i]) == -1) {
+                arrr.push(list[i]);
+            }
+        }
+
+        console.log(arrr);
+
+
+        //去重
+        var arr1 = [1, 3, 5, 6, 6, 9, 8, 8, 7];
+        var temp = [1, 6, 8];
+
+        //要求结果为:[3,5,9,7]
+        for (var i = 0; i < arr1.length; i++) {
+            for (var j = 0; j < temp.length; j++) {
+                if (arr1[i] == temp[j]) {
+                    arr1.splice(i, 1);
+                    i--; //这里要注意 一定要i--
+                }
+            }
+        }
+
+        console.log(arr1);
+
+        //练习题
+        var n = 1;
+
+        function fn(a) {
+            a = 20;
+        }
+        fn(n);
+        console.log(n); //答案为1
+
+
+        //练习题
+        var n = [1];
+
+        function fn(a) {
+            a[0] = 20;
+        }
+        fn(n);
+        console.log(n); //答案为[20]
+        console.log(n[0]) //答案为20
     </script>
 
 

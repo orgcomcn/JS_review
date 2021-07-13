@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 字母数字组合验证码（四位） (如: 4YT8) (数字,大写字母随机) -->
+    <script>
+        var arr = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        function getCode(n) {
+            var max = arr.length;
+            var min = 0;
+            var str = "";
+            for (var i = 0; i < n; i++) {
+                str += arr[Math.floor(Math.random() * (max - min) + min)];
+            }
+            return str;
+        }
+
+        console.log(getCode(5));
+
+
+        //将字符串按照单词进行逆序，空格作为划分单词的唯一条件
+        // 如传入:”Welome to Beijing”改为 “Beijing to Welcome”
+
+        var str = "Welome to Beijing";
+        var str1 = str.split(" ").reverse().join(" ");
+        console.log(str1);
+
+
+
+
+        //对称数组. 传入一个数组，元素类型与个数皆未知，返回新数组，由原数组的元素正序反序拼接而成;
+        var str = ["one", "Two", "Three"];
+        var str1 = str.join(",").split(",").reverse();
+        var str2 = str.concat(str1)
+        console.log(str2)
+
+        // var ret = str.concat([].concat(arr).reverse());
+
+
+
+
+
+        //实现函数，查找子串出现的次数，返回字符串str中出现子串的次数如传入:”abcabcabc”, “abc”;   返回:3“ababacccababa”  , “aba”  , 返回：2
+        var str = "abcabcabc"
+        var str1 = "abc";
+
+        function searchSub(str, str1) {
+            var count = 0;
+            while (str.indexOf(str1) != -1) {
+                str = str.replace(str1, "");
+                //这样也可以实现
+                //str = str.slice(str.indexOf(str1) + str1.length)
+                count++;
+            }
+            return count;
+        }
+        console.log(searchSub(str, str1))
+
+
+
+        // 已知千锋邮箱的用户名只能由数字字母下划线组成，域名为@1000phone.com
+        // ,判断一个字符串是否是千锋邮箱，是返回true，不是返回false。
+        //   mail@1000phone.com  是 
+        //$mail@1000phone.com  不是
+        //   mail@1000phone.comp  不是
+        //a-zA-Z  0-9 
+        var str = "dsfa_aaasdf@1000phone.com";
+
+        function isEmail(str) {
+            var ret = str.split("@");
+            if (ret[1] !== "1000phone.com") {
+                return false;
+            }
+            var leftStr = ret[0];
+            for (var i = 0; i < leftStr.length; i++) {
+                var exp = (leftStr[i] >= '0' && leftStr[i] <= '9' || leftStr[i] >= 'a' && leftStr[i] <= 'z' || leftStr[i] == '_');
+                if (!exp) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        console.log(isEmail(str));
+
+
+
+        //将字符中单词用空格隔开已知传入的字符串中只有字母,每个单词的首字母大写，请将每个单词用空格隔开，只保留一个单词的首字母大写
+        //传入:”HelloMyWorld”
+        //返回:”Hello my world”
+        var str = "HelloMyWorld";
+        for (var i = 1; i < str.length; i++) {
+            if (str[i] >= "A" && str[i] <= "Z") {
+                str = str.replace(str[i], " " + str[i].toLowerCase())
+            }
+        }
+        console.log(str);
+
+
+        // 已知一个字符串对象中，英语单词用各种非字母字符分割，统计单词的个数 传入: “Yes,she**is%%my@love.”  ->Yes she is my love  5个
+        var str = "Yes,%%%%she*  *is  %%my@  love."
+        for (var i = 0; i < str.length; i++) {
+            if (!(str[i] >= 'A' && str[i] <= 'Z' || str[i] >= 'a' && str[i] <= 'z')) {
+                //不能是"", 否则长度会发生变化,有些的无法检测.
+                str = str.replace(str[i], " ");
+            }
+        }
+        //转换为数组
+        var str = str.split(" ");
+
+        //去掉空数组
+        for (var i = 0; i < str.length; i++) {
+            if (str[i] === '') {
+                str.splice(i, 1);
+                i--;
+            }
+        }
+        //转换成字符串遍历
+        console.log(str.join(" "));
+    </script>
+
+
+</body>
+
+</html>

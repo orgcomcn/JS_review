@@ -9,24 +9,27 @@
 </head>
 
 <body>
-
-
     <script>
         var arr = [-1, 0, 2, 40, -40, 50, 80, 100];
+
         for (var i = 0; i < arr.length - 1; i++) {
-            for (var j = 0; j < arr.length - 1 - i; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    var temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+            var index = i;
+            for (var j = i + 1; j < arr.length; j++) {
+                if (arr[index] < arr[j]) {
+                    index = j;
                 }
+            }
+
+            // 加判断能稍微提高一下效率
+            if (index != i) {
+                var temp = arr[index];
+                arr[index] = arr[i];
+                arr[i] = temp;
             }
         }
 
         console.log(arr);
     </script>
-
-
 </body>
 
 </html>

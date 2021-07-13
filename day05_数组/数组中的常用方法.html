@@ -12,6 +12,52 @@
 
 
 
+    <script>
+        var arr = [1, 2, 3, 4, 5, 6];
+
+
+        //会把7加入到数组最后一位,返回数组长度
+        var len = arr.push(8);
+        console.log("push", len);
+
+        //会把最后一位删除,返回删除的数据
+        var len = arr.pop();
+        console.log("pop", len);
+
+        //删除第一个,返回删除的数据
+        var len = arr.shift();
+        console.log("shift", len);
+
+        //在第一位插入,并且返回数组长度
+        var len = arr.unshift(1, 1.1);
+        console.log("unshift", len);
+        console.log(arr);
+
+
+        //FIFO  队列 First in, First out
+        var arr = [];
+        // 进
+        arr.push(1);
+        arr.push(2);
+        arr.push(3);
+        // 出
+        arr.shift();
+
+        console.log(arr)
+
+
+
+        //LIFO  栈 Last in, First out
+        var arr = [];
+        // 进
+        arr.push(1);
+        arr.push(2);
+        arr.push(3);
+        // 出
+        arr.pop();
+        console.log(arr);
+    </script>
+
 
 
 </body>

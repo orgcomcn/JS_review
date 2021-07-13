@@ -38,6 +38,27 @@
 
 
   <script>
+
+    // 函数创建的三种方式
+
+    // 匿名函数
+    function add(n , m){
+      return n + m;
+    }
+
+    // 字面量函数
+    var fn = function add1(n,m) {
+      return n + m;
+    }
+
+    // 构造函数 条件反射 想到new
+
+    var fn1 = new Function("n","m","return n + m");
+    console.log(fn1(1,2));
+
+
+
+
     //1, 写一个函数计算1到n的和, 并返回结果打印出来;(n为函数参数)
     function fn1(n) {
       var sum = 0;

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            width: 500px;
+            margin: 100px auto;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+            height: 24px;
+        }
+        
+        th a {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        td {
+            border: 1px solid #d0d0d0;
+            color: #404060;
+            padding: 10px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th> <input type="checkbox" name="" id="checkAll" /><a href="#" class="checkout">全不选</a><a href="#" class="inverse">反选</a>
+            </th>
+            <th>菜名</th>
+            <th>商家</th>
+            <th>价格</th>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" name="check" class="ck" /> </td>
+            <td>红烧肉</td>
+            <td>隆江猪脚饭</td>
+            <td>￥200</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" name="check" class="ck" /> </td>
+            <td>香酥排骨</td>
+            <td>隆江猪脚饭</td>
+            <td>￥998</td>
+        </tr>
+        <tr>
+            <td> <input type="checkbox" name="check" class="ck" /> </td>
+            <td>北京烤鸭</td>
+            <td>隆江猪脚饭</td>
+            <td>￥88</td>
+        </tr>
+    </table>
+
+    <script>
+        //全选
+        var checkAll = document.querySelector('#checkAll');
+        //全不选
+        var checkout = document.querySelector('.checkout');
+        //反选
+        var inverse = document.querySelector('.inverse');
+        //子项按钮
+        var check = document.querySelectorAll('.ck');
+
+
+        //全选
+        checkAll.onclick = function() {
+            for (var i = 0; i < check.length; i++) {
+                check[i].checked = checkAll.checked;
+            }
+        }
+
+        //全不选
+        checkout.onclick = function() {
+            for (var i = 0; i < check.length; i++) {
+                check[i].checked = false;
+            }
+            //动态拿到 打钩钩了的 check
+            var checkTrue = document.querySelectorAll('.ck:checked');
+            //比较 赋值 简写
+            checkAll.checked = (check.length == checkTrue.length);
+        }
+
+        //反选
+        inverse.onclick = function() {
+            for (var i = 0; i < check.length; i++) {
+                check[i].checked = !check[i].checked;
+            }
+            //动态拿到 打钩钩了的 check
+            var checkTrue = document.querySelectorAll('.ck:checked');
+            //比较 赋值 简写
+            checkAll.checked = (check.length == checkTrue.length);
+        }
+
+
+        //解决bug 全选
+        for (var i = 0; i < check.length; i++) {
+            check[i].onclick = function() {
+                //动态拿到 打钩钩了的 check
+                var checkTrue = document.querySelectorAll('.ck:checked');
+                //比较 赋值 简写
+                checkAll.checked = (check.length == checkTrue.length);
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

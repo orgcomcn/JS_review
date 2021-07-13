@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        //字符串声明的三种方式
+        //1.基本类型
+        var str = "亲";
+        str = "haa";
+        console.log(str)
+
+
+        //new String()和String()的区别
+        //2.引用类型  当String()和元素符new一起使用, 那么String()是作为构造函数使用的,它返回的是一个新创建的String对象. 
+        var str1 = new String("亲亲");
+
+        //3.引用类型  当不用new运算符调用String()时，它只是转换成原始的字符串，并返回转换后的值.
+        var str2 = String("亲亲");
+
+        console.log(typeof str);
+        console.log(typeof str1);
+        console.log(typeof str2);
+
+
+        //装箱(值类型到引用类型)
+        var str = "123";
+        var str1 = new String(str); //装箱
+
+
+        //拆箱(引用类型到值类型)
+        var str2 = "哈哈哈";
+        var str3 = str2.toString();
+
+        //字符串的恒定性,所有字符串方法都不会修改原来的字符串
+        var str = "你好帅哦";
+        str[2] = "丑"; //修改不了
+
+
+        //字符串的length属性
+        var str = "abc123";
+        console.log(str.length);
+        str.length = 20;
+        console.log(str.length); //无法修改
+
+        //字符串没有forEach,map,filter等方法,要把他转换为数组才能使用
+
+        //字符串遍历 for  for  in
+        for (var key in str) {
+            console.log(str[key]);
+        }
+    </script>
+
+
+</body>
+
+</html>

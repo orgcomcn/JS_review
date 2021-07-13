@@ -99,6 +99,7 @@
             for (var j = i; j < arr.length; j++) {
                 if (arr[i] + arr[j] == num) {
                     console.log(arr[i], arr[j]);
+                    break; //满足条件就终止,之前没想到
                 }
             }
         }
@@ -121,7 +122,8 @@
         for (var i = 0; i < arr1.length; i++) {
             for (var j = 0; j < arr2.length; j++) {
                 if (arr1[i] == arr2[j]) {
-                    console.log(arr1[i])
+                    console.log(arr1[i]);
+                    break; //提高执行效率
                 }
             }
         }
@@ -143,14 +145,20 @@
                     break;
                 }
             }
-
             if (count < i) {
                 arr.push(arr1[i]);
                 count++;
             }
-
         }
         console.log(arr);
+
+        // arr.push(73).sort(function(n, m) {
+        //     return n - m
+        // });
+
+
+
+
 
 
         //取出数组[1,3,1,4,2,3,6,2,6,1,5]中的重复项,存入一个新的数组,并从大到小排序
@@ -162,7 +170,7 @@
             for (var j = i + 1; j < arr.length; j++) {
                 if (arr[i] == arr[j]) {
                     var flag = 1;
-                    for (var k = 0; k < arr1.length; k++) {
+                    for (var k = 0; k < arr1.length; k++) { //这里可以直接用indexOf
                         if (arr[j] == arr[k]) {
                             flag = 0;
                             break;

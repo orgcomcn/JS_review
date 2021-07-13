@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .data {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="text" id="ipt">
+    <button id="btn">模糊查询</button>
+
+    <div class="data"></div>
+
+    <script>
+        const ipt = document.querySelector('#ipt');
+        const btn = document.querySelector('#btn');
+        const data = document.querySelector('.data');
+
+        const obj = [{
+            name: '张三',
+            age: 18,
+            address: '湖南省'
+        }, {
+            name: '李四',
+            age: 18,
+            address: '湖南省'
+        }, {
+            name: '李三',
+            age: 18,
+            address: '湖南省'
+        }, {
+            name: '李五',
+            age: 18,
+            address: '湖南省'
+        }, {
+            name: '张五',
+            age: 18,
+            address: '湖南省'
+        }, {
+            name: '陈五',
+            age: 18,
+            address: '湖南省'
+        }];
+
+
+        //使用indexOf实现模糊查询
+        btn.onclick = () => {
+            const item = obj.filter((item) => {
+                return item.name.indexOf(ipt.value) != -1;
+            })
+            data.innerHTML = item.map((item) => {
+                return item.name + item.age;
+            })
+        }
+    </script>
+
+</body>
+
+</html>

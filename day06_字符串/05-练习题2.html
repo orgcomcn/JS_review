@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p class="text">用户名长度不低于6，不高于20.用户名不可以用数字开头,密码不能为空</p>
+    <input type="text" class="user">
+    <input type="text" class="pwd">
+    <button class="btn">登录</button>
+
+    <!-- 注册页面的简单数据校验 -->
+
+
+    <script>
+        var text = document.querySelector('.text');
+        var user = document.querySelector('.user');
+        var pwd = document.querySelector('.pwd');
+        var btn = document.querySelector('.btn');
+
+        //拿到用户名,进行判断是否长度>=6 <=20 是否数字开头
+
+
+        btn.onclick = function() {
+            //去掉两边空白
+            user.value = user.value.trim();
+            pwd.value = pwd.value.trim();
+
+            var exp1 = user.value.length >= 6 && user.value.length <= 20;
+            var exp2 = !(user.value[0] >= 0 && user.value[0] < 10);
+            var exp3 = pwd.value != "";
+
+            exp1 && exp2 && exp3 ? text.innerHTML = "用户名合法" : text.innerHTML = "用户名或密码非法";
+        }
+    </script>
+
+
+</body>
+
+</html>

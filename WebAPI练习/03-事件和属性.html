@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        img {
+            width: 200px;
+        }
+        
+        .red_div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+        
+        .blue_div {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+    </style>
+
+    </style>
+
+</head>
+
+<body>
+    <!-- // 练习1. 点击按钮, 修改div的内容  -->
+    <!-- // 练习2. 点击p标签, 修改p标签里的内容  -->
+    <!-- // 练习3. 点击按钮, 修改img标签上的图片  -->
+    <!-- // 练习4. 点击按钮, 修改body的背景色  -->
+    <button id="btnOne">练习1的按钮</button>
+    <div id="divOne">DIVONE</div>
+
+    <p id="myP">练习2的p标签</p>
+
+    <button id="btnThree">练习3, 点击修改图片</button> <img src="./images/1.jpg" alt="" id="imgThree">
+
+    <button id="btnFour">练习4: 点击修改下面div背景色</button>
+    <div class="red_div" id="divFour"></div>
+
+    <script>
+        //练习1
+        var btnOne = document.querySelector('#btnOne');
+        var divOne = document.querySelector('#divOne');
+        btnOne.onclick = function() {
+            divOne.innerHTML = "修改内容你开心吗?"
+        };
+
+        //练习2
+        var myP = document.querySelector('#myP');
+        myP.addEventListener('click', () => {
+            myP.innerHTML = "修改P内容";
+        });
+
+        //练习3
+        var btnThree = document.querySelector('#btnThree');
+        var imgThree = document.querySelector('#imgThree');
+        btnThree.onclick = () => {
+            imgThree.src = './images/2.png';
+        }
+
+        //练习4
+        var btnFour = document.querySelector('#btnFour');
+        var redDiv = document.querySelector('#divFour');
+
+        btnFour.onclick = () => {
+            redDiv.style.backgroundColor = 'pink';
+        }
+    </script>
+
+</body>
+
+</html>

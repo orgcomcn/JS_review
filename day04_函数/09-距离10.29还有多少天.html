@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 案例 - 距离高考还有多少天  -->
+  <!-- 你在这个世界活了多少天 -->
+
+  <script>
+    var nowDate = new Date();
+    var targetDate = new Date("2021/10/29 09:00:00");
+
+    var seconds = targetDate.getTime() - nowDate.getTime();
+    console.log(seconds / 1000 / (60 * 60 * 24));
+
+
+
+    var nowDate = new Date();
+    var targetDate = new Date("1999/03/30");
+    var day = (Math.floor((nowDate.getTime() - targetDate.getTime()) / 1000 / (60 * 60 * 24)));
+
+    // 格林威治时间 1970年1月1日0时0分0秒 到目前时间
+    // 秒级时间戳： 10位数字
+    // 毫秒级时间戳：13位数字
+    // 微秒秒级时间戳：16位数字
+
+    // 计算天  首先要拿到 当前的毫秒   nowDate = new Date().getTime(); //拿到的是毫秒级,我们要算成秒级 所以/1000
+    // 一天是 60秒 (1分钟) 60分钟 (1小时) 24小时 = 1天 所以 一天等于  24*60*60秒 
+    // 计算日期相差天数 (当前时间毫秒 - 指定时间毫秒)/1000 / ( 60 * 60 * 24) 向下取整 就是当前的天数
+
+
+    var now = new Date()
+    var target = new Date('2020/1/1') //元旦的时间
+    var d = target.getTime() - now.getTime()
+    var d2 = target - now //两种方法一样的
+    //两个对象直接相减得到的就是相差毫秒数
+    d = Math.floor(d / 1000) //将毫秒转化为秒
+    //获取相差的天数，除以一天的秒数,向下取整
+    var day = Math.floor(d / (24 * 60 * 60))
+    //获取相差的小时，去除相差的天数（和一天的秒数取余），获得相差的秒数，然后转小时
+    var hours = d % (24 * 60 * 60)
+    //转小时
+    hours = Math.floor(hours / 3600)//小时
+    //转分钟
+    var second = d % (60 * 60)
+    second = Math.floor(second / 60) //转分钟
+    //转秒
+    var second2 = d % 60;
+    console.log('现在距离元旦还有' + day + '天' + hours + '小时' + second + '分钟' + second2 + '秒')
+
+
+
+
+  </script>
+
+
+</body>
+
+</html>

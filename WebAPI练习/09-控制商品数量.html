@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>商品数量控制</title>
+    <style>
+        div {
+            width: 80px;
+        }
+        
+        input[type=text] {
+            width: 50px;
+            height: 44px;
+            outline: none;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        
+        input[type=button] {
+            height: 24px;
+            width: 22px;
+        }
+        
+        input {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="total" value="1" readonly>
+        <input type="button" value="+" id="add">
+        <input type="button" value="-" id="reduce" disabled>
+    </div>
+
+
+
+    <script>
+        const total = document.querySelector('#total');
+        const add = document.querySelector('#add');
+        const reduce = document.querySelector('#reduce');
+
+        add.onclick = function() {
+            total.value++;
+            if (total.value > 1) {
+                reduce.disabled = false;
+            }
+        }
+
+        reduce.onclick = function() {
+            total.value--;
+            if (total.value == 1) {
+                reduce.disabled = true;
+            }
+        }
+    </script>
+
+</body>

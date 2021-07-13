@@ -221,7 +221,7 @@ isNaN("123"); //false
 isNaN("NaN");   //true  因为 隐式类型转换 后成为了NaN
 isNaN("abc");   //true  因为 隐式类型转换 后成为了NaN
 isNaN(""); //false   Number("") --> 0 
-isNaN(null);    //false
+isNaN(null);    //false  Number(null) --> 0 
 isNaN(undefined); //true
 
 // 输入一个数判断是否合法 案例

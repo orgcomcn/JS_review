@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 冒泡排序
+        var arr = [1, 80, -1, 20, 40, 30, 70, 100];
+        for (var i = 0; i < arr.length - 1; i++) {
+            for (var j = 0; j < arr.length - 1 - i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    var temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        console.log(arr);
+
+        // 选择排序
+        var arr = [-1, 20, 40, 50, -20, 30, 50, -123];
+        for (var i = 0; i < arr.length; i++) {
+            var index = i;
+            for (var j = i + 1; j < arr.length; j++) {
+                if (arr[index] < arr[j]) {
+                    index = j;
+                }
+            }
+            if (index != i) {
+                var temp = arr[index];
+                arr[index] = arr[i];
+                arr[i] = temp;
+            }
+        }
+        console.log(arr);
+
+        // 快速排序
+        var arr = [-1, 20, 40, 50, -20, 30, 50, -123];
+
+        function quickSort(arr) {
+            if (arr.length <= 1) {
+                return arr;
+            }
+
+            //拿到中间的下标
+            var middleIndex = parseInt(arr.length / 2);
+            //拿到中间下标值
+            var middleValue = arr.splice(middleIndex, 1)[0];
+
+            var left = [];
+            var right = [];
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i] <= middleValue) {
+                    left.push(arr[i]);
+                } else {
+                    right.push(arr[i]);
+                }
+            }
+
+            return quickSort(left).concat(middleValue, quickSort(right));
+        }
+        var ret = quickSort(arr);
+        console.log(ret);
+    </script>
+</body>
+
+</html>

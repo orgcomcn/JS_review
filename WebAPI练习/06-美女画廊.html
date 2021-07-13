@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .bigimg {
+            width: 400px;
+            height: 250px;
+            /* background-color: pink; */
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="smallimg">
+        <img src="./images/b1.png" alt="">
+        <img src="./images/b2.png" alt="">
+        <img src="./images/b3.png" alt="">
+        <img src="./images/b4.png" alt="">
+    </div>
+
+    <div class="bigimg">
+        <img src="" alt="" id="img1">
+    </div>
+
+
+    <script>
+        var smallImg = document.querySelectorAll('.smallimg > img');
+        // var bigImg = document.querySelectorAll('.bigimg > img');
+        var bigImg = document.getElementById('img1');
+        console.log(bigImg)
+
+        for (var i = 0; i < smallImg.length; i++) {
+            (function(j) {
+                smallImg[j].onclick = function() {
+                    bigImg.src = "./images/b" + (j + 1) + ".png";
+                    console.log(bigImg);
+                }
+            }(i));
+        }
+    </script>
+
+</body>
+
+</html>

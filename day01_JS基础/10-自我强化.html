@@ -20,6 +20,21 @@
            做完
   -->
 
+    <script>
+        var num = String(123.234);
+        console.log("num:" + num); //123.234
+        var num = String(undefined);
+        console.log("num:" + num); //undefined
+        var num = String(true);
+        console.log("num:" + num); //true
+        var num = String(Boolean);
+        console.log("num:" + num); //function Boolean() { [native code] }
+        var num = String(Number);
+        console.log("num:" + num); //function Number() { [native code] }
+        var num = String(Array);
+        console.log("num:" + num); //function Array() { [native code] }
+    </script>
+
 </body>
 
 </html>

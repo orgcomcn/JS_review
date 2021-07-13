@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+
+    // 自己定义数组 - 里面有3个对象  (要求每个对象里 有姓名, 年龄, 性别)
+    // 需求1: 遍历数组里每个对象, 判断出哪个人大 - 打印它的名字
+    // 需求2: 遍历数组里每个对象, 为每个人增加5岁的年龄, 后打印整个数组在控制台查看
+
+
+    // 需求: 声明数组, 里面放入3个对象 (姓名, 年龄, 性别) 
+    // (1): 求年龄大的人的 名字
+    // (2): 给每个人年龄+5岁 
+
+    var obj = [
+      { name: '小张', age: 18, sex: '男' },
+      { name: '小丽', age: 21, sex: '女' },
+      { name: '小王', age: 24, sex: '女' }
+    ];
+
+
+
+    var max = obj[0].age;
+    var index = 0;
+
+    for (var i = 0; i < obj.length; i++) {
+      if (max < obj[i].age) index = i;
+    }
+    console.log(obj[index].name, obj[index].age);
+
+
+    obj.map((elem, index, obj) => { return elem.age += 5; });
+
+
+    for (var i = 0; i < obj.length; i++) { 
+      obj[i].age += 5;
+    }
+  
+    console.log(obj);
+
+
+
+
+
+
+
+  </script>
+
+</body>
+
+</html>
