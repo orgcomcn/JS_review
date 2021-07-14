@@ -810,11 +810,275 @@ alert(str.trim());  // Hello World!
 
 * 这一个章节需要多做练习,数组和字符串的方法很灵活,很重要,实际开发用的好的话可以减少很多不必要的麻烦.
 
-###### 	
+### day7日期/对象/定时器
+
+#### 日期
+
+>    格林威治时间 1970年1月1日0时0分0秒 到目前时间
+>
+> ​    秒级时间戳： 10位数字
+>
+> ​    毫秒级时间戳：13位数字
+>
+> ​	微秒秒级时间戳：16位数字
+
+##### 创建date的几种方式
+
+```javascript
+var date = new Date();
+
+var date = new Date("2021/12/18");
+
+//年月日时分秒毫秒 用这种方式月份要-1
+var date = new Date(2020, 11, 18, 13, 20, 50) 
+// 2020年12月18日下午13点20分5秒
+```
+
+##### 获取时间戳
+
+```javascript
+var time1 = Date.parse(new Date()); //精确到秒
+var time2 = new Date().getTime(); //精确到毫秒
+var time3 = new Date().valueOf(); //精确到毫秒
+var time4 = Date.now(); //精确到毫秒，实际上是new Date().getTime()
+```
+
+##### 其他的一些方法
+
+```javasc
+console.log(date.getYear()); //从1900到现在的年数 是一个bug 我们基本不用
+console.log(date.getFullYear()); //获取年
+console.log(date.getMonth() + 1); //月份是0-11,我们日常使用要+1
+console.log(date.getDay()); //获取星期几
+console.log(date.getDate()); 获取 日
+console.log(date.getHours()); //获取时
+console.log(date.getMinutes()); //获取分
+console.log(date.getSeconds()); //获取秒
+console.log(date.getMilliseconds()); //获取毫秒 0-1000
+```
+
+##### 你在这个时间上活了多少天?
+
+```javascript
+var oldDate = new Date("1999 / 03 / 30");  //获取出生年月日的时间戳
+var curDate = new Date();  //获取当前时间戳
+var currentTime = curDate - oldDate; //当前时间戳减去 出生年月日的时间戳
+console.log(parseInt(currentTime / 1000 / 60 / 60 / 24)); //转换成天数
+```
+
+##### 当前时间距离某年还有多少天?
+
+```javascript
+var startDate = new Date().getTime();  //获取当前时间时间戳
+var endDate = new Date("2021-11-11 00:00:00").getTime();//获取指定日期的时间戳
+var ret = endDate - startDate;  //知道他们差值的时间戳 然后进行转换
+
+var ms = parseInt(ret % 1000); // milliseconds
+var ss = parseInt(ret / 1000 % 60); // seconds
+var mm = parseInt(ret / 1000 / 60 % 60); //Minutes
+var hh = parseInt(ret / 1000 / 60 / 60 % 24); //hours
+var dd = parseInt(ret / 1000 / 60 / 60 / 24); //day
+
+var str = `距离2021年11月11日${dd}天${hh}时${mm}分${ss}秒${ms}毫秒`;
+console.log(str);
+```
+
+##### 你是星期几出生?
+
+```javascript
+//这里我们可以利用 Date的set方法
+var date = new Date();  //创建Date对象
+date.setFullYear(1999); //设置指定年月日
+date.setMonth(2); //1月  月份这里要注意 要-1
+date.setDate(30); 
+console.log(date.toLocaleString());
+console.log(date.getDay())  //获取星期几
+//简单粗暴的方法
+var date = new Date("1999-03-30"); 
+date.getDay(); 
+```
+
+##### moment时间插件
+
+对于这个插件了解的还不够多,在以后有需求的时候,再来了解.
+
+首先看如果不需要插件,手动转换日期,很麻烦
+
+```javascript
+        //YYYY-MM-DD HH:mm:ss:ms
+        var date = new Date(); //
+
+        //获取年月日时分秒毫秒
+        var year = date.getFullYear(); //获取当前年
+        var month = date.getMonth() + 1; //月份要+1
+        var day = date.getDate(); //获取日
+
+        var hours = date.getHours(); //Hours
+        var minutes = date.getMinutes(); //Minutes
+        var seconds = date.getSeconds(); //Seconds
+        var milliseconds = date.getMilliseconds(); //Milliseconds
+		//补0操作
+        month = month < 10 ? "0" + month : month;
+        day = day < 10 ? "0" + day : day;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        milliseconds = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds
+
+        var str = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + ":" + milliseconds;
+        console.log(str);
+```
+
+使用moment插件
+
+```javascript
+<script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.js"></script>
+var str = moment().format("YYYY-MM-DD HH:mm:ss:SSS");
+console.log(str); //格式化
+
+//求10天后的日期
+function afferDate(n) {
+    var date = new Date();
+    date.setDate(date.getDate() + n);
+    return moment(date).format("YYYY-MM-DD HH:mm:ss:SSS")
+}
+
+console.log(afferDate(10));
+```
+
+#### 对象
+
+​	在JavaScript一切皆是对象,如果你不了解你的对象,那么你也就无法深刻的理解JavaScript.
+
+##### 对象的五种创建方式(后续补充)
+
+```javascript
+//方式一:字面量创建对象
+var obj = {
+    name:'Tom',
+    age:12,
+    setName:function (name){
+        this.name=name;
+    }
+};
+
+//方式二:Object构造函数模式
+var person1 = new Object();
+person1.name = '张三';
+person1.age = 18;
+person1.say = function(food) {
+    console.log(`我叫${this.name}我今年${this.age}岁,我爱吃${food}`);
+}
+person1.say('面条');
+person1.say('鸡蛋');
+
+//方式三:构造函数创建
+// 构造函数和普通函数有什么区别?
+// 本质上其实没区别,在命名规则上,构造函数首字母要大写,普通函数小驼峰
+//	在函数调用时，
+//		构造函数内部会创建一个实例，调用普通函数时则不会创建新的对象。
+//		构造函数内部的this指向是新创建的person实例，而普通函数内部的this指向调用函数的对象（如果没有对象调用，默认为window）
+// 	返回值方面
+//		对于构造函数而言，如果返回值是基本数据类型，那么返回值就是this指向的实例；如果是复杂数据类型，那么返回值为对象（不知道这句话对不对）
+// 在ES6中,我们添加了class用来分构造函数和普通函数
+// ES6中的class 只能通过new来创建. 而在ES6之前,我们的函数和构造函数基本上没区别.
+function Person(name, age, hobby, salay) {
+            this.name = name;
+            this.age = age;
+            this.hobby = hobby;
+            this.salay = salay;
+            this.say = function() {
+                console.log(` 我叫${this.name}我今年${this.age}岁我喜欢${this.hobby}我的期望薪资是${this.salay}`);
+            }
+        }
+var person = new Person('张三', '18', '吃喝玩乐', '3000');
+person.say();
 
 
 
 
+//方式四:工厂模式：通过工厂函数动态创建对象并返回。（缺点:不能确定对象的具体类型）
+//方式五:构造函数+原型的组合模式
+```
+
+#### 定时器
+
+##### 定时器常用写法
+
+```javascript
+//定时器有两种比较常用的写法
+//第一种方法 这种需求有时候会用到
+function time() {
+    console.log("gogo");
+}
+var timer = setInterval(time, 1000); //这里的函数名不能加()
+
+
+//第二种方法是最常用的
+var timer = setInterval(function() {
+    console.log("123");
+}, 1000);
+
+var timer = setInterval(function(n, m) {
+    console.log(n * m * 5);
+}, 1000, 5) //第三个参数是给 回调函数做初始值用的
+```
+
+##### setInterval()
+
+方法可按照指定的周期（以毫秒计）来调用函数或计算表达式。方法会不停地调用函数，直到 clearInterval() 被调用或窗口被关闭。由 setInterval() 返回的 ID 值可用作 clearInterval() 方法的参数。
+
+```javascript
+//setInterval 重复执行
+//第一个参数 函数体
+//第二个参数 延迟时间(毫秒)
+//第三个参数 给第一个函数体实参
+//该setInterval()会返回序列号,序列号从1开始
+//clearInterval() 清除定时器,需要输入定时器的序列号
+var timer = setInterval(function() {
+    console.log("123")
+}, 1000)
+```
+
+##### setTimeout()
+
+方法用于在指定的毫秒数后调用函数或计算表达式。
+
+```javascript
+//setTimeout 只会执行一次
+//第一个参数 函数体
+//第二个参数 延迟时间(毫秒)
+//第三个参数 给第一个函数体实参
+//该setTimeout()会返回序列号,序列号从1开始
+//clearTimeout() 清除定时器,需要输入定时器的序列号
+var timer = setTimeout(function() {
+    console.log("123")
+}, 1000)
+```
+
+> 值得注意的是clearTimeout也可以清除setInterval定时器,它们之间可以混用,有没有坏处暂时不知道
+
+#### 碎片知识点
+
+* 让定时器不重复
+
+  ```javascript
+  var flag = false;
+  btn1.onclick = function() {
+      if (flag) {
+          clearInterval(timer);
+          timer = null;
+      }       
+      timer = setInterval(function() {flag = true; //防止重复开启定时器}, 10);
+  ```
+
+* 定时器实现进度条
+
+* 定时器/延时器实现广告关闭
+
+* 活动日期倒计时
+
+* 这一章节其实有很多习题要做,刚开始第一次会写,但是隔几天可能会忘记,需要反复做,特别是一些容易忘记的东西.记得反复看.
 
 
 

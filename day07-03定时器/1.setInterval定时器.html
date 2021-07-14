@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <!-- 
+
+      settimeout   延时器  只会执行依次
+      setinterval  定时器  重复执行
+
+     -->
+
+    <button class="btn">点我清除</button>
+
+    <script>
+        var btn = document.querySelector('.btn');
+
+        var timer = setInterval(function() {
+            console.log("123");
+        }, 1000);
+
+        btn.onclick = function() {
+            clearInterval(timer);
+        }
+
+        //定时器有两种比较常用的写法
+        //第一种方法 这种需求有时候会用到
+        function time() {
+            console.log("123");
+        }
+        var timer = setInterval(time, 1000);
+
+
+
+        //第二种方法是最常用的
+        var timer = setInterval(function() {
+            console.log("123");
+        }, 1000);
+
+        var timer = setInterval(function(n, m) {
+                console.log(n * 5);
+            }, 1000, 5) //第三个参数是给 回调函数做初始值用的
+
+
+
+
+        //打死不用的一种
+        var timer = setInterval(`console.log('ok')`, 1000);
+    </script>
+
+</body>
+
+</html>

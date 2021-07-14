@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 对象的第一种创建方式
+        var person = {
+            name: '刘德华',
+            age: 18,
+            run: function() {
+                console.log(`我叫${this.name},今年${this.age}岁,我爱running`);
+            }
+        }
+        person.run();
+
+        // 对象的第二种创建方式
+        var person1 = new Object();
+        person1.name = '张三';
+        person1.age = 18;
+        person1.say = function(food) {
+            console.log(`我叫${this.name}我今年${this.age}岁,我爱吃${food}`);
+        }
+        person1.say('面条');
+        person1.say('鸡蛋');
+
+        var obj = new Object();
+        p.name = 'Tom';
+        p.age = 12;
+        p.setName = function(name) {
+            this.name = name;
+        }
+        p.setName('Jack');
+        console.log(p.name, p.age);
+
+
+
+
+        //判断数组的五种方式
+        var arr = [];
+        console.log(Array.isArray(arr));
+        console.log(arr instanceof Array);
+        console.log(Array.prototype.isPrototypeOf(arr));
+        console.log(Object.prototype.toString.call(arr) === '[object Array]');
+        console.log(arr.__proto__ === Array.prototype);
+    </script>
+
+
+</body>
+
+</html>

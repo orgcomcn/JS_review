@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+     创建一个人的对象, 添加属性: 姓名 年龄 爱好 薪资期望, 并有一个打印自身信息的方法, 可以输出自身信息
+      创建一个锤子对象hammer, 有属性:宽,高,重; 方法:可以锤钉子
+      有一辆50km/h车,跑在一条1000km路上，问多少小时跑完？
+      对象: 
+	    车Car 属性: 速度speed 50km/h
+ 	          功能: 跑在路上runOnRoad(Road)
+	    路Road 属性: 长度length 1000km
+   -->
+
+    <script>
+        // 构造函数创建对象
+        // 构造函数和普通函数有什么区别?
+        // 本质上其实没区别,构造函数首字母要大写,其他的和普通函数一样
+        //  在命名规则上，构造函数一般是首字母大写，普通函数则是遵照小驼峰式命名法。
+        // 在调用时 
+        //构造函数内部会创建一个实例，调用普通函数时则不会创建新的对象。
+        //构造函数内部的this指向是新创建的person实例，而普通函数内部的this指向调用函数的对象（如果没有对象调用，默认为window）
+        // 在ES6中,我们添加了class用来分构造函数和普通函数
+        // ES6中的class 只能通过new来创建. 而在ES6之前,我们的函数基本上没区别.
+        function Person(name, age, hobby, salay) {
+            this.name = name;
+            this.age = age;
+            this.hobby = hobby;
+            this.salay = salay;
+            this.say = function() {
+                console.log(` 我叫${this.name}我今年${this.age}岁我喜欢${this.hobby}我的期望薪资是${this.salay}`);
+            }
+        }
+        var person = new Person('张三', '18', '吃喝玩乐', '3000');
+        person.say();
+
+        function Hammer(width, height, weight) {
+            this.width = width;
+            this.height = height;
+            this.weight = weight;
+            this.fn = function() {
+                console.log(`我可以打打打,可以锤钉子${width},${height},${weight}`);
+            }
+        }
+        var hammer = new Hammer(200, 300, 600);
+        hammer.fn();
+
+        var Car = {
+            speed: 50, //车速50
+            runOnRoad: function(road) {
+                console.log(road.length / this.speed);
+            }
+        }
+        var Road = {
+            length: 1000 //路程1000km
+        }
+
+        Car.runOnRoad(Road);
+    </script>
+</body>
+
+</html>

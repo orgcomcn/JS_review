@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var obj = {};
+        //添加属性
+        obj.name = '张三';
+        obj['age'] = 18;
+        obj['sex'] = '女';
+
+        //修改属性
+        obj.sex = '男';
+
+        //删除属性
+        delete obj.name;
+        delete obj['age'];
+        console.log(obj);
+
+        //遍历
+        for (var key in obj) {
+            console.log(key, obj[key]);
+        }
+
+        // 不能用的变量名name  enum  top
+
+        var obj = new Object();
+        var name1 = 'address';
+        obj[name1] = '中国';
+        console.log(obj);
+
+        for (var key in obj) {
+            console.log(obj[key])
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 练习:
+  1,  显示当前时间 (显示格式: 2016年 11月 11日 11时 11分 11秒)
+  2,  判断两个日期相差的天数(可先求毫秒数差,再转换成天)
+  3,  根据getDate()和setDate()， 封装一个函数afterDate(date,n)，得到日期date的n天后的日期
+  
+   -->
+
+
+    <script>
+        var date = new Date();
+        var year = date.getFullYear(); //年
+        var month = date.getMonth(); //月
+        var day = date.getDate(); //日
+        var hours = date.getHours(); //时
+        var minutes = date.getMinutes(); //分
+        var seconds = date.getSeconds(); //秒
+
+        var str = `现在是${year}年${month+1}月${day}日${hours}时${minutes}分${seconds}秒`;
+
+        console.log(str);
+
+
+        var startDate = new Date().getTime();
+        var endDate = new Date("2021-11-11 00:00:00").getTime();
+
+        var ret = endDate - startDate;
+        var ms = parseInt(ret % 1000); // milliseconds
+        var ss = parseInt(ret / 1000 % 60); // seconds
+        var mm = parseInt(ret / 1000 / 60 % 60); //Minutes
+        var hh = parseInt(ret / 1000 / 60 / 60 % 24); //hours
+        var dd = parseInt(ret / 1000 / 60 / 60 / 24); //day
+
+        var str = `距离2021年11月11日${dd}天${hh}时${mm}分${ss}秒${ms}毫秒`;
+        console.log(str);
+    </script>
+
+
+</body>
+
+</html>

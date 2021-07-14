@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    计算2019年11月11日 11时 11分 11秒 距离当前日期的时间差, 并以指定的格式 (天/时/分/秒)的形式显示.
+
+    <script>
+        //1.拿到2019年11月11日 11时 11分 11秒时间戳
+        //2.拿到当前时间时间戳
+        var currentTime = new Date().getTime();
+        var oldTime = new Date("2019-11-11 11:11:11");
+        //3.他们相差的时间戳
+        var ret = currentTime - oldTime;
+
+        //4.转换为,天,时,分,秒
+        var DD = parseInt(ret / 1000 / 60 / 60 / 24); //天
+        var HH = parseInt(ret / 1000 / 60 / 60) % 24; //小时
+        var MM = parseInt(ret / 1000 / 60) % 60; //分钟
+        var SS = parseInt(ret / 1000) % 60 //秒
+        console.log(DD, HH, MM, SS);
+    </script>
+</body>
+
+</html>

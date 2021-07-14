@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 1px solid red;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <p>下面是广告,请欣赏</p>
+    <div class="box">
+
+    </div>
+
+    <script>
+        var num = 5; //5秒自动关闭广告
+        var timer = null; //定时器
+
+        var box = document.querySelector('.box');
+        //这里我们会发现有一秒钟的延迟,因为setInterval函数第一次执行也会延迟
+        //我们的解决办法是把函数单独抽取出来,然后先调用一次函数在进入定时器
+
+        fn();
+        timer = setInterval(fn, 1000)
+
+        function fn() {
+            if (num == 0) {
+                box.style.display = 'none';
+                clearInterval(timer);
+                timer = null;
+            }
+            box.innerHTML = `距离广告关闭还有${num}秒`
+            num--;
+        }
+    </script>
+</body>
+
+</html>

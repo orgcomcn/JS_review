@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 1px solid red;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <p>下面是广告,请欣赏</p>
+    <div class="box">
+
+    </div>
+
+    <script>
+        //使用延时器来做广告关闭,setTimeou显然是不太方便的,我们考虑用死循环来做
+        var num = 5; //5秒关闭广告
+        var timer = null; //定时器
+        var flag = true; //结束循环的条件
+
+        var box = document.querySelector('.box'); //拿到内容显示区域
+
+
+
+        //回调函数
+        function fn() {
+            if (num == 0) {
+                box.style.display = 'none'; //关闭广告
+                flag = false; //结束循环的条件
+                clearTimeout(timer); //清除定时器
+                timer = null;
+                return;
+            }
+            box.innerHTML = `这是一条广告,广告还有${num}秒关闭`;
+            console.log(num); //控制台打印num
+            num--;
+
+            timer = setTimeout(fn, 1000);
+        }
+    </script>
+</body>
+
+</html>

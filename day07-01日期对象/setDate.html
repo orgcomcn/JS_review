@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var date = new Date();
+        //修改年月日
+        date.setFullYear(2008);
+        date.setMonth(0); //1月
+        date.setDate(12); //12日
+        console.log(date.toLocaleString());
+
+
+        //设置1000天
+        var date = new Date();
+        date.setDate(1000);
+        console.log(date.toLocaleString());
+
+
+        //你是星期几出生?
+        var date = new Date();
+        date.setFullYear(1999);
+        date.setMonth(2); //1月
+        date.setDate(30); //12日
+        console.log(date.toLocaleString());
+        console.log(date.getDay())
+    </script>
+
+
+</body>
+
+</html>

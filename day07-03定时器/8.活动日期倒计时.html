@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 30px;
+            border: 1px solid red;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box"></div>
+
+
+    <script>
+        //拿到活动日期的时间戳
+        var activityTime = new Date("2021-07-14 19:41:00").getTime();
+        var content = document.querySelector('.box');
+
+        var timer = null;
+
+        timer = setInterval(function() {
+            //拿到当前日期的时间戳
+            var currentTime = new Date().getTime();
+            //如果当前时间的时间戳大于 指定日期的时间戳,直接结束程序
+            if (currentTime > activityTime) {
+                content.innerHTML = '活动结束';
+                clearInterval(timer);
+                timer = null;
+                return;
+            }
+            //拿到时间戳的时间差,计算,日 时 分 秒
+            var ret = activityTime - currentTime;
+            var dd = parseInt(ret / 1000 / 60 / 60 / 24);
+            var hh = parseInt(ret / 1000 / 60 / 60) % 24;
+            var mm = parseInt(ret / 1000 / 60) % 60;
+            var ss = parseInt(ret / 1000) % 60;
+            //前面补0
+            dd = dd < 10 ? "0" + dd : dd;
+            hh = hh < 10 ? "0" + hh : hh;
+            mm = mm < 10 ? "0" + mm : mm;
+            ss = ss < 10 ? "0" + ss : ss;
+            //字符串模板
+            var str = `距离活动开始还有${dd}天${hh}时${mm}分${ss}秒`;
+            //写入dom
+            content.innerHTML = str;
+            // 到活动时间了
+            if (dd && hh && mm && ss　 == 0) {
+                content.innerHTML = '活动结束';
+                clearInterval(timer);
+                timer = null;
+                return;
+            }
+        }, 1000)
+    </script>
+
+</body>
+
+</html>

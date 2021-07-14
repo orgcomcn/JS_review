@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.js"></script>
+
+</head>
+<!-- 
+   
+
+     实现秒表功能, 包含时,分,秒,毫秒，点击按钮1开始计时，点击按钮2结束计时
+   -->
+
+<body>
+
+    <div class="text"></div>
+    <button class="btn1">开始计时</button>
+    <button class="btn2">结束计时</button>
+    <script>
+        var text = document.querySelector('.text');
+        var btn1 = document.querySelector('.btn1');
+        var btn2 = document.querySelector('.btn2');
+
+        var timer = null;
+        var flag = false;
+
+        btn1.onclick = function() {
+            if (flag) {
+                clearInterval(timer);
+                timer = null;
+            }
+            //点击按钮时时间戳
+            var oldTime = new Date().getTime();
+            timer = setInterval(function() {
+                flag = true; //防止重复开启定时器
+                var nowTime = new Date().getTime();
+                var ret = nowTime - oldTime;
+
+                var hh = parseInt(ret / 1000 / 60 / 60) % 24;
+                var mm = parseInt(ret / 1000 / 60) % 60;
+                var ss = parseInt(ret / 1000) % 60;
+                var ms = parseInt(ret % 1000);
+
+                hh = hh < 10 ? "0" + hh : hh;
+                mm = mm < 10 ? "0" + mm : mm;
+                ss = ss < 10 ? "0" + ss : ss;
+                ms = ms < 10 ? "00" + ms : ms < 100 ? "0" + ms : ms;
+
+                text.innerHTML = `${hh}时${mm}分${ss}秒${ms}毫秒`;
+
+            }, 10);
+        }
+        btn2.onclick = function() {
+            clearInterval(timer);
+            timer = null;
+        }
+    </script>
+</body>
+
+</html>

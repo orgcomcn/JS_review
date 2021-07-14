@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="add">疯狂增长</button>
+    <button id="stop">暂停</button>
+    <div id="text"></div>
+
+    <script>
+        var add = document.getElementById('add');
+        var stop = document.getElementById('stop');
+        var text = document.getElementById('text');
+        var timer = null;
+        let flag = false; //判断是否已经开启定时器,默认未开启
+
+        add.onclick = function() {
+            //防止定时器重复开启
+            if (flag) {
+                clearTimeout(timer);
+                timer = null;
+            }
+            var num = 0;
+            timer = setInterval(function() {
+                flag = true;
+                num++;
+                text.innerHTML = num;
+                if (num >= 100) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }, 100);
+
+        }
+
+
+        stop.onclick = function() {
+            clearInterval(timer);
+            timer = null;
+        }
+    </script>
+</body>
+
+</html>

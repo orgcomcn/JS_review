@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //创建date的三种方式
+        var date = new Date();
+
+        var date = new Date("2009-12-12");
+        var data = new Date("2009/12/12");
+
+        var date = new Date(2008, 11, 12, 12, 12, 12, 12);
+        //年月日时分秒 毫秒 月要-1
+
+        //获取毫秒 的方法
+        var date = new Date();
+        date.getTime();
+        date.valueOf();
+        Date.now();
+        date.parse("2021-12-12"); //里面写现在的日期 或者是固定的日期
+
+
+        //年月日,时分秒毫秒
+        var date = new Date();
+        console.log(date.getYear()); //从1900到现在的年数 是一个bug
+
+
+        //获取年
+        date.getFullYear();
+        //获取月 要+1
+        date.getMonth();
+        //获取星期几
+        date.getDay(); //0代表周日
+        //获取日 
+        date.getDate();
+
+
+        // 获取时 24小时
+        date.getHours();
+        //获取分 0-59
+        date.getMinutes();
+        //获取秒 0-59
+        date.getSeconds();
+        //获取毫秒 0-999
+        date.getMilliseconds();
+    </script>
+
+
+</body>
+
+</html>

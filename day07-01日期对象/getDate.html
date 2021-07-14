@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <script src="http://cdn.staticfile.org/moment.js/2.24.0/moment.js"></script>
+    <script>
+        //手动
+
+        //YYYY-MM-DD HH:mm:ss:ms
+        var date = new Date(); //
+
+        //获取年月日时分秒毫秒
+        var year = date.getFullYear(); //获取当前年
+        var month = date.getMonth() + 1; //月份要+1
+        var day = date.getDate(); //获取日
+
+        var hours = date.getHours(); //Hours
+        var minutes = date.getMinutes(); //Minutes
+        var seconds = date.getSeconds(); //Seconds
+        var milliseconds = date.getMilliseconds(); //Milliseconds
+
+        month = month < 10 ? "0" + month : month;
+        day = day < 10 ? "0" + day : day;
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        milliseconds = milliseconds < 10 ? "00" + milliseconds : milliseconds < 100 ? "0" + milliseconds : milliseconds
+
+        var str = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds + ":" + milliseconds;
+        console.log(str);
+
+
+        //插件Moment.js
+        var str = moment().format("YYYY-MM-DD HH:mm:ss:SSS");
+        console.log(str);
+
+        function afferDate(n) {
+            var date = new Date();
+            date.setDate(date.getDate() + n);
+            return moment(date).format("YYYY-MM-DD HH:mm:ss:SSS")
+        }
+
+        console.log(afferDate(10))
+    </script>
+
+
+
+</body>
+
+</html>
