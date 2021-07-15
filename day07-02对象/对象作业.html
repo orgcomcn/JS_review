@@ -10,25 +10,100 @@
 
 <body>
     <!-- 
-    有2个学生，每个学生有3门课的成绩，（包括学生号，姓名，3门课成绩,语文,数学,英语），计算出平均成绩.
-     Mountain: 从前有座山,山里有座庙;还有name,height(高度)
-    Temple: 庙里有个老和尚,有个小和尚,还有name,area(面积)
-    Monk: 和尚能挑水,讲故事,化缘;还有name,age,sex
+    
+    
 
    -->
 
     <script>
-        var obj = [{
-            name: '张三',
-            chinese: 99,
-            english: 88,
-            math: 77
-        }, {
-            name: '张三',
-            chinese: 99,
-            english: 88,
-            math: 77
-        }];
+        //有2个学生，每个学生有3门课的成绩，（包括学生号，姓名，3门课成绩,语文,数学,英语），计算出平均成绩.
+        var obj = {
+            sNo: 1,
+            sName: "刘德华",
+            score: [{
+                chinese: 99
+            }, {
+                math: 100
+            }, {
+                english: 20
+            }],
+            avg: function() {
+                var total = 0;
+                this.score.forEach(function(item) {
+                    for (var key in item) {
+                        total += item[key];
+                    }
+                })
+                return `平均分数是${total / this.score.length.toFixed(0)}`;
+            }
+        }
+
+        var res = obj.avg();
+        console.log(res);
+
+
+        // Mountain: 从前有座山,山里有座庙;还有name,height(高度)
+        //Temple: 庙里有个老和尚,有个小和尚,还有name,area(面积)
+        //Monk: 和尚能挑水,讲故事,化缘;还有name,age,sex
+
+
+        var Mountain = {
+            name: '安石山',
+            height: 2000,
+            Temple: {
+                name: '第二个庙',
+                area: 3000,
+                Monk: [{
+                    name: '老和尚',
+                    age: 98,
+                    sex: '男',
+                    tiaoshui() {
+                        console.log('挑水')
+                    },
+                    talkBB() {
+                        console.log('讲故事')
+                    },
+                    giveMoney() {
+                        console.log('给钱,化缘')
+                    }
+                }, {
+                    name: '小和尚',
+                    age: 9,
+                    sex: '男',
+                    tiaoshui() {
+                        console.log('挑水')
+                    },
+                    talkBB() {
+                        console.log('讲故事')
+                    },
+                    giveMoney() {
+                        console.log('小和尚,给钱,化缘')
+                    }
+                }]
+            }
+        }
+        console.log(Mountain.Temple.Monk[1].giveMoney())
+
+
+
+        // 定义一圆Cirlcle对象,包含半径r和圆心,圆心为“点”Point对象,point对象有x和y属性，构造一圆，该圆可以计算周长和面积; 计算该原的周长和面积?
+
+        var cirlcle = {
+            r: 100,
+            point: {
+                x: 200,
+                y: 300
+            },
+            //面积
+            area() {
+                return (this.r * this.r * Math.PI).toFixed(1);
+            },
+            grith() {
+                return (2 * Math.PI * this.r).toFixed(1);
+            }
+        }
+        console.log(cirlcle.area());
+        console.log(cirlcle.grith());
     </script>
 
 

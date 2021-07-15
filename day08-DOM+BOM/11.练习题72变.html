@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 300px;
+            height: 300px;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- 
+      2,  写一个定时器, 每隔0.1秒修改一次div内文字颜色和文字大小.  
+      最开始这个文字是默认大小, 开启定时器后文字大小开始增大, 
+      当增大了6次以后, 文字大小开始缩小, 缩小6次, 文字再开始增大…效果如下图:
+   -->
+
+    <div class="box">
+        <span class="text"> 装箱:基本数据类型自动转换成包装类型 拆箱:包装类型自动转换成基本数据类型</span>
+    </div>
+
+
+
+
+    <script>
+        var box = document.querySelector('.box');
+        var text = document.querySelector('.text');
+
+
+
+        //#fffff; 随机颜色 div  取值范围0-15 
+        function getColor() {
+            var str = "#";
+            for (var i = 0; i < 6; i++) {
+                str += parseInt(Math.random() * 16).toString(16);
+            }
+            return str;
+        }
+
+        //rbg; 随机颜色 字体 取值范围0-255
+        function getRgb() {
+            var str = "rgb(";
+            str += parseInt(Math.random() * 256) + ",";
+            str += parseInt(Math.random() * 256) + ",";
+            str += parseInt(Math.random() * 256) + ")";
+            return str;
+        }
+
+
+        //n 这里不是很理解,
+        var n = 1;
+        setInterval(function() {
+            var num = Math.abs(n);
+            box.style.backgroundColor = getRgb();
+            text.style.color = getColor();
+            text.style.fontSize = 12 + num * 5 + "px";
+
+            if (n == 6) {
+                n *= -1;
+            }
+            n++;
+
+        }, 200)
+    </script>
+
+
+</body>
+
+</html>

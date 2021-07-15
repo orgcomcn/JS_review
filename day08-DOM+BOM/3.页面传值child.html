@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="childText">
+    <button id="childBtn">回数据给父窗口</button>
+
+    <script>
+        var btn = document.getElementById('childBtn');
+        var text = document.getElementById('childText');
+        childBtn.onclick = function() {
+            window.opener.document.getElementById('text').value = text.value;
+            //关闭父窗口
+            window.opener.close();
+        }
+    </script>
+</body>
+
+</html>

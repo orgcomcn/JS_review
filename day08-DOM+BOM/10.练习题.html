@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+     实现一个个人信息页面   姓名  年龄  学历  专业, 可以获取到输入的信息, 点击保存按钮以后, 
+     输出信息(信息显示形式: 姓名:张三,年龄:33,学历:本科,专业:计算机)
+     要求: 分别使用通过id, tagName, name三种获取节点的方式实现
+   -->
+
+    <input type="text" id="uName" class="uName" name="uName">
+    <input type="text" id="uAge" class="uAge" name="uAge">
+    <input type="text" id="uRecord" class="uRecord" name="uRecord">
+    <input type="text" id="major" class="major" name="major">
+    <button class="btn">保存</button></button>
+
+    <script>
+        var btn = document.getElementsByClassName('btn')[0];
+
+
+        var uNameId = document.getElementById("uName")
+        var uAgeId = document.getElementById("uAge")
+        var uRecordId = document.getElementById("uRecord")
+        var uMajorId = document.getElementById("major")
+        console.log(uNameId, uAgeId, uRecordId, uMajorId);
+
+        var uTagNames = document.getElementsByTagName('input');
+
+        var uName = document.getElementsByName("uName")[0];
+        var uAge = document.getElementsByName("uAge")[0];
+        var uNRecord = document.getElementsByName("uRecord")[0];
+        var uMajor = document.getElementsByName("major")[0];
+        console.log(uName, uAge, uNRecord, uMajor);
+
+        btn.onclick = function() {
+            console.log(uName.value, uAge.value, uNRecord.value, uMajor.value);
+        }
+    </script>
+
+</body>
+
+</html>

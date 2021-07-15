@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 100px;
+            border: 1px solid red;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <p>下面是广告,请欣赏</p>
+    <div class="box">
+
+    </div>
+
+    <script>
+        var num = 5; //5秒自动关闭广告
+        var timer = null; //定时器
+
+
+
+        var box = document.querySelector('.box');
+
+        function fn(n) {
+            box.innerHTML = `距离广告关闭还有${num}秒`
+            if (num <= 0) {
+                box.style.display = 'none';
+                clearTimeout(timer);
+                timer = null;
+
+            } else {
+                //第三个参数是给形参添加值的
+                timer = setTimeout(fn, n, n);
+            }
+            num--;
+        }
+        fn(1000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="box1 box">111111111</div>
+    <div class="box">1222222222222</div>
+    <div class="box main">22333333333333333</div>
+    <div class="box">333344444444444444444</div>
+    <div class="box footer">5555555555555</div>
+
+    <!-- 
+        没兼容问题的
+        getElementById
+        getElementsByTagName
+        有兼容问题的
+        getElementsByClassName
+        getElementsByName
+        querySelector
+        querySelectorAll
+     -->
+
+    <script>
+        //封装一个getElementsByClassName 
+        function getElementsByClassName(className) {
+            var ret = [];
+            var oList = document.getElementsByTagName('*');
+            for (var i = 0; i < oList.length; i++) {
+                var str = oList[i].className.split(" ");
+                for (var j = 0; j < str.length; j++) {
+                    if (className == str[j]) {
+                        ret.push(oList[i]);
+                        break;
+                    }
+                }
+            }
+            return ret;
+        }
+        var ret = getElementsByClassName('box');
+        for (var i = 0; i < ret.length; i++) {
+            i % 2 == 0 ? ret[i].style.backgroundColor = 'pink' : ret[i].style.backgroundColor = 'red';
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <span id="user"></span>
+
+    <script>
+        var text = document.getElementById('user');
+
+        function str(path) {
+            //拿到url上的参数
+            var str = path.split('?')[1];
+            var user = str.split("=")[0];
+            var username = str.split("=")[1];
+            //封装成对象
+            var obj = {};
+            obj[user] = username;
+
+
+            //写入页面
+            text.innerHTML = `${obj.user}`;
+        }
+
+        var path = location.href;
+        str(path);
+    </script>
+
+</body>
+
+</html>

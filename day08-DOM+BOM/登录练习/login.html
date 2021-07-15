@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" id="user" placeholder="请您输入用户名">
+    <input type="password" id="pwd">
+    <button id="btn">登录</button>
+
+
+
+    <script>
+        var oText = document.getElementById('user');
+        var oPwd = document.getElementById('pwd');
+        var oBtn = document.getElementById('btn');
+
+        oBtn.onclick = function() {
+
+            if (oText.value == "abc123") {
+                location.href = `./index.html?user=${oText.value}`;
+            } else {
+                alert('请输入用户名abc123');
+            }
+
+        }
+    </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1082,9 +1082,196 @@ var timer = setTimeout(function() {
 
 
 
+### day8BOM+DOM
+
+BOM 是Browser Object Model的缩写，简称浏览器对象模型, 提供了独立于内容而与浏览器窗口进行交互的对象，用于访问浏览器的功能。BOM由一系列相关的对象构成，并且每个对象都提供了一些方法与属性. 我们可以通过这些属性和方法去对浏览器进行操作.
+
+#### BOM
+
+window对象是BOM的核心, window对象表示浏览器窗口的一个对象, 每个浏览器窗口都有一个window对象与之对应. 
+
+	* document
+	* history
+	* location
+	* screen
+	* navigator
+	* frames(了解即可)
+
+##### window对象的方法
+
+​	alert,confirm,prompt,open,close这些都是常用的一些方法,还一个要了解使用open页面之间如何传值,之前我们使用open可以直接打开网页,现在默认浏览器是禁止的,除非我们产生了人机交互,也就是例如在onclick下调用open打开页面是可以的.
+
+parent.html
+
+```html
+<body>
+    <input type="text" id="text">
+    <button id="openPage">打开子窗口</button>
+    <button id="send">传值</button>
+
+    <script>
+        var oText = document.getElementById('text');
+        var oPage = document.getElementById('openPage');
+        var oSend = document.getElementById('send');
+
+        //拿到窗口对象
+        var winHandler; //子窗口的句柄
+        //打开子窗口,打开后才能相互传值
+        oPage.onclick = function() {
+            winHandler = window.open("./3.页面传值child.html", "子窗口", "width=300,height=300,left=300,top=300");
+        }
+        //发送数据
+        oSend.onclick = function() {
+            var str = oText.value;
+            //传值给子窗口
+            winHandler.document.getElementById('childText').value = str;
+        }
+    </script>
+</body>
+```
+
+child.html
+
+```html
+<body>
+    <input type="text" id="childText">
+    <button id="childBtn">回数据给父窗口</button>
+
+    <script>
+        var btn = document.getElementById('childBtn');
+        var text = document.getElementById('childText');
+        childBtn.onclick = function() {
+            window.opener.document.getElementById('text').value = text.value;
+            //关闭父窗口
+            window.opener.close();
+        }
+    </script>
+</body>
+```
+
+##### location对象的方法
+
+location的属性有hash/host/hostname/href/pathname/prot/protocol/search.一定要掌握号这些相关的属性,如下node.js官网截图所示.
+
+![image-20210715190132522](C:\Users\Administrator\Desktop\我在千锋的日子\02第二阶段\01基础部分\day08-DOM+BOM\image-20210715190132522.png)
+
+* location跳转
+
+  ```javascript
+  //location = "https://www.baidu.com";
+  //location.href = "https://www.baidu.com";
+  // location.assign("https://www.baidu.com");
+  //跳转后没有历史记录
+  //location.replace("https://baidu.com");
+  ```
+
+* location刷新
+
+  ```javascript
+  //location.reload();
+  //location.reload(true); //强制刷新
+  
+  
+  //<meta http-equiv="refresh" content="3" /> 这个标签加载head里面也可以刷新,每隔三秒刷新一次
+  ```
+
+##### loaction对象方法
+
+```javascript
+console.log(location.protocol);  //协议
+console.log(location.host);  //域名和端口
+console.log(location.hostname);//域名
+console.log(location.port) //端口
+console.log(location.pathname);
+console.log(location.search)
+console.log(location.search.split("?")[1]);
+console.log(location.hash);
+console.log(location.href);  //整个链接
+//可以看看文档目录下的 登录练习,一个特别小的案例.
+```
+
+##### history对象方法
+
+```javascript
+history.forward()  //前进
+history.back()  //后退
+history.go() //-1后退 0刷新 1前进
+```
+
+##### navigator对象方法
+
+```javascript
+navigator.userAgent;  //一般我们只用这个 用户代理信息, 通过该属性可以获取浏览器及操作系统信息
+```
+
+##### screen对象方法(待补充)
+
+#### DOM
+
+DOM就是Document  Object Model(文档对象模型)的缩写，DOM 是 W3C（万维网联盟）的标准。
+
+一般来说，节点至少拥有nodeType/nodeName/nodeValue这三个基本属性。
+
+ * DOM三种节点
+
+   ​	元素节点 nodeType === 1
+
+   ​	属性节点 nodeType === 2
+
+   ​	文本节点 nodeType === 3
+
+* 兼容问题
+
+```javasc
+ //没兼容问题的
+ document.getElementById
+ document.getElementsByTagName
+ //有兼容问题的
+ document.getElementsByClassName
+ document.getElementsByName
+ document.querySelector
+ document.querySelectorAll
+```
+
+* 封装一个没有兼容性问题的getElementByClassName
+
+```javascript
+<div class="box1 box">111111111</div>
+<div class="box">1222222222222</div>
+<div class="box main">22333333333333333</div>
+<div class="box">333344444444444444444</div>
+<div class="box footer">5555555555555</div>
+
+<script>
+    //封装一个getElementsByClassName 
+    function getElementsByClassName(className) {
+    var ret = [];
+    var oList = document.getElementsByTagName('*');
+    for (var i = 0; i < oList.length; i++) {
+        var str = oList[i].className.split(" ");
+        for (var j = 0; j < str.length; j++) {
+            if (className == str[j]) {
+                ret.push(oList[i]);
+                break;
+            }
+        }
+    }
+    return ret;
+}
+    var ret = getElementsByClassName('box');
+    for (var i = 0; i < ret.length; i++) {
+        i % 2 == 0 ? ret[i].style.backgroundColor = 'pink' : ret[i].style.backgroundColor = 'red';
+    }
+</script>
+```
 
 
 
+
+
+
+
+元素节点1 属性节点2 文本节点3
 
 
 
@@ -1109,3 +1296,4 @@ push和pop就是栈,push和shift就是队列
 数据 instanceof Array
 
 Object.prototype.toString.call( 数据 ) === '[object Array]'
+

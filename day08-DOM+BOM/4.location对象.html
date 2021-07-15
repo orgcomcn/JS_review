@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="jump">刷新</button> // 单页面应用程序 // 多页面应用程序
+    <script>
+        //http://nodejs.cn/api/url.html
+        //记得看url的构成 背下来
+
+
+        //location的属性
+
+        console.log(location.protocol);
+        console.log(location.host);
+        console.log(location.hostname);
+        console.log(location.port)
+        console.log(location.pathname);
+        console.log(location.search)
+        console.log(location.search.split("?")[1]);
+        console.log(location.hash);
+        console.log(location.href);
+
+
+
+        //location 的方法(大部分跳转)
+        jump.onclick = function() {
+            //location = "https://www.baidu.com";
+            //location.href = "https://www.baidu.com";
+            // location.assign("https://www.baidu.com");
+            //跳转后没有历史记录
+            //location.replace("https://baidu.com");
+            //刷新
+            //location.reload();
+            //location.reload(true); //强制刷新
+
+            //meta 3秒刷新一次
+            //<meta http-equiv="refresh" content="3" />
+
+
+        }
+    </script>
+</body>
+
+</html>

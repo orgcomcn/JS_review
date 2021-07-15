@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">open 测试</button>
+
+    <!-- 
+
+  1.浏览器对象模型 BOM, 它是没有规范的.各个浏览器厂商按照自己的想法拓展
+      调用打印功能 window.printf()
+      关闭浏览器   window.close()
+      打开一个新窗口 window.open("https://www.baidu.com/") 产生人机交互,才会打开,否则会被拦截,也就是添加点击事件等
+
+
+  2.BOM对象的顶级对象是window
+  3.window的组成 
+    document  history loaction frames screen navigator
+  
+    
+    3.1document --- > DOM 对象 (重点)
+    3.2location
+    3.3history
+
+ -->
+
+
+    <script>
+        //只有产生了人机交互,才能打开,如果直接调用打开,那么会造成页面的拦截
+        btn.onclick = function() {
+            open("https://www.baidu.com/", "标题", "width=200,height=300,left=200,top=200")
+        }
+    </script>
+
+
+
+</body>
+
+</html>

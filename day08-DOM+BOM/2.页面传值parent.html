@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="text">
+    <button id="openPage">打开子窗口</button>
+    <button id="send">传值</button>
+    <!-- 
+
+        open with live serve，是打开本地服务器，所以路径书写的时候./和/是没有区别的
+        open in default brower 是直接本地打开，路径必须是./，否则即/会从根目录下进行读取 
+  
+    -->
+    <script>
+        var oText = document.getElementById('text');
+        var oPage = document.getElementById('openPage');
+        var oSend = document.getElementById('send');
+
+        //拿到窗口对象
+        var winHandler; //子窗口的句柄
+
+        //打开子窗口
+        oPage.onclick = function() {
+            winHandler = window.open("./3.页面传值child.html", "子窗口", "width=300,height=300,left=300,top=300");
+        }
+
+        //发送数据
+        oSend.onclick = function() {
+            var str = oText.value;
+            //穿值给子窗口
+            winHandler.document.getElementById('childText').value = str;
+        }
+    </script>
+
+</body>
+
+</html>

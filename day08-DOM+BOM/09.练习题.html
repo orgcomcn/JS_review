@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!--
+         有一个装有颜色的数组
+        点击button 启动定时器,每一秒给它换一次色, 按顺序循环换色
+    -->
+
+    <div class="box"></div>
+    <button class="btn">点我变色</button>
+
+    <script>
+        var box = document.getElementsByClassName('box')[0];
+        var btn = document.getElementsByClassName('btn')[0];
+
+        var color = ["red", "blue", "yellow", "green", "black", "orange"];
+
+        btn.onclick = function() {
+            var num = 0;
+            setInterval(function() {
+                if (num >= 6) {
+                    num = 0;
+                }
+                box.style.backgroundColor = color[num];
+                num++;
+            }, 500);
+        }
+    </script>
+
+
+</body>
+
+</html>
