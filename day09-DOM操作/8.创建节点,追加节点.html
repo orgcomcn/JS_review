@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <button id="btn">创建div</button>
+    <!-- 
+        H5标签解决兼容性问题  解决子元素的兼容 2个兼容问题 了
+        解决元素节点插件
+        插件 html5shiv
+        插件网 bootcdn
+    -->
+    <script>
+        var btn = document.querySelector('#btn');
+        document.title = "动态创建div";
+
+        btn.onclick = function() {
+            // 1.创建div
+            var oDiv = document.createElement("div");
+            // 2.给创建div添加文本
+            var oTxt = document.createTextNode("我是文本");
+            // 3.往div里面添加文本
+            oDiv.appendChild(oTxt);
+            // 4.给div添加class
+            oDiv.className = "box";
+            // 5.追加到body标签
+            document.body.appendChild(oDiv);
+        }
+    </script>
+
+
+</body>
+
+</html>

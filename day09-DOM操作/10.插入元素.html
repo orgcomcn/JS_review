@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">插入在li3的前面</button>
+    <button id="btn2">插入在li3的后面</button>
+    <button id="btn3">插入在最后</button>
+
+
+    <ul id="box">
+        <li>我是第一个 </li>
+        <li>我是第二个</li>
+        <li id="li3">我是第三个</li>
+        <li>我是第四个</li>
+        <li>我是第五个</li>
+    </ul>
+
+
+    <script>
+        var btn1 = document.getElementById('btn1');
+        var btn2 = document.getElementById('btn2');
+        var btn3 = document.getElementById('btn3');
+
+
+        var li3 = document.getElementById('li3');
+        var box = document.getElementById('box');
+
+        //插在li3的前面
+        btn1.onclick = function() {
+            var oDiv = document.createElement('div');
+            oDiv.innerHTML = "<h3>我是动态的文本</h3>";
+
+            // 新元素,参照位置
+            li3.parentNode.insertBefore(oDiv, li3);
+        }
+
+        //插在li3的后面 没有after
+        btn2.onclick = function() {
+            var oDiv = document.createElement('div');
+            oDiv.innerHTML = "<h3>我是动态的文本</h3>";
+            //因为没有after 所以我们要在 li的后面元素的前面插入
+            var li4 = li3.nextElementSibling || li3.nextSibling;
+            li4.parentNode.insertBefore(oDiv, li4);
+
+        }
+
+        //插在最后
+        btn3.onclick = function() {
+            var oDiv = document.createElement('div');
+            oDiv.innerHTML = "<h3>我是动态的文本</h3>";
+
+            //第二个参数写null 就是代表插入在最后面
+            //li3.parentNode.insertBefore(oDiv, null);
+
+            //等价于 让父亲在追加一个孩子 等价于上面的写法 一样的
+            // box.appendChild(oDiv);
+            li3.parentNode.appendChild(oDiv);
+        }
+    </script>
+
+</body>
+
+</html>

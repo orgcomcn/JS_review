@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .wrapper {
+            width: 600px;
+            height: 200px;
+            border: 1px solid black;
+        }
+        
+        .wrapper ul li {
+            float: left;
+            width: 200px;
+            cursor: pointer;
+        }
+        
+        .wrapper ul li img {
+            width: 100%;
+        }
+        
+        .show {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="wrapper">
+        <ul>
+            <li><img src="./images/pic2-1.png" alt=""></li>
+            <li><img src="./images/pic2-2.png" alt=""></li>
+            <li><img src="./images/pic2-3.png" alt=""></li>
+        </ul>
+    </div>
+
+    <div class="show">
+
+    </div>
+
+    <script>
+        var oImgs = document.querySelectorAll('.wrapper ul li img');
+        var show = document.querySelector('.show');
+
+        for (var i = 0; i < oImgs.length; i++) {
+            oImgs[i].onclick = function() {
+                var src = this.getAttribute('src');
+                show.style.background = `url(${src}) no-repeat center/100%`;
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>

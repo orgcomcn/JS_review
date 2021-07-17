@@ -44,6 +44,7 @@
             return ret;
         }
         var ret = getElementsByClassName('box');
+        console.log(ret)
         for (var i = 0; i < ret.length; i++) {
             i % 2 == 0 ? ret[i].style.backgroundColor = 'pink' : ret[i].style.backgroundColor = 'red';
         }

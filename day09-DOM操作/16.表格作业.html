@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid black;
+        }
+        
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form">
+        <label for="id">ID</label>
+        <input type="text" id="id">
+        <label for="name">姓名</label>
+        <input type="text" id="name">
+        <label for="tel">电话</label>
+        <input type="text" id="tel">
+        <button id="btn">保存</button>
+    </div>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>TLE</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="father">
+
+        </tbody>
+        <tfoot></tfoot>
+    </table>
+
+
+    <script>
+        var btn = document.getElementById('btn');
+        var id = document.getElementById('id');
+        var oName = document.getElementById('name');
+        var tel = document.getElementById('tel');
+        var father = document.getElementById('father');
+
+
+        btn.onclick = function() {
+            var tr = createTr(id, oName, tel);
+            appendTbody(tr);
+        }
+
+
+        //创建tr和td
+        function createTr(id, oName, tel) {
+            // 当用户点击后,拿到响应的值
+            var idValue = id.value.trim();
+            var nameValue = oName.value.trim();
+            var telValue = tel.value.trim();
+            //tr生成
+            var tr = document.createElement('tr');
+            //分别设置td里面的 id tel name 
+            var tdId = document.createElement('td');
+            tdId.innerHTML = idValue;
+            var tdTel = document.createElement('td');
+            tdTel.innerHTML = telValue;
+            var tdName = document.createElement('td');
+            tdName.innerHTML = nameValue;
+            //最后一个td添加a标签
+            var tdBtn = document.createElement('td');
+            var tA = document.createElement('a');
+            tA.innerHTML = '删除';
+            tA.href = '#';
+            //给a标签增加点击事件,a标签添加到td里面去,当最后一个td的儿子
+            tdBtn.appendChild(tA);
+            tdBtn.children[0].onclick = function() {
+                    this.parentNode.parentNode.remove();
+                }
+                //4个td 给tr 当儿子
+            tr.appendChild(tdId);
+            tr.appendChild(tdTel);
+            tr.appendChild(tdName);
+            tr.appendChild(tdBtn);
+
+            return tr;
+        }
+
+        //添加到tbody
+        function appendTbody(tr) {
+            father.appendChild(tr);
+        }
+    </script>
+</body>
+
+</html>

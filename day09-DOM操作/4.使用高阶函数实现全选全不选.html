@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkAll">全选</th>
+                <th><input type="checkbox" id="inverse">反选</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        //全选按钮
+        var checkAll = document.querySelector('#checkAll');
+        //反选按钮
+        var inverse = document.querySelector('#inverse');
+        //所有子按钮
+        var btns = document.querySelectorAll('tbody input');
+
+        //全选
+        checkAll.onclick = function() {
+            Array.from(btns).map(function(elem, inedx, obj) {
+                elem.checked = checkAll.checked;
+            })
+        }
+
+        //反选
+        inverse.onclick = function() {
+            var flag;
+            Array.from(btns).map(function(elem, inedx, obj) {
+                elem.checked = !elem.checked;
+                flag = Array.from(btns).every((elem, index, obj) => {
+                    return elem.checked == true;
+                })
+                checkAll.checked = flag;
+            })
+        }
+
+        //子项按钮监听点击要转换为数组
+        var btnsCheck = Array.from(btns);
+        btnsCheck.map((elem, index, obj) => {
+            var flag;
+            elem.onclick = () => {
+                flag = btnsCheck.every((elem, index, obj) => {
+                    return elem.checked == true;
+                })
+                checkAll.checked = flag;
+            }
+        })
+    </script>
+
+
+
+
+
+</body>
+
+</html>

@@ -1080,8 +1080,6 @@ var timer = setTimeout(function() {
 
 * 这一章节其实有很多习题要做,刚开始第一次会写,但是隔几天可能会忘记,需要反复做,特别是一些容易忘记的东西.记得反复看.
 
-
-
 ### day8BOM+DOM
 
 BOM 是Browser Object Model的缩写，简称浏览器对象模型, 提供了独立于内容而与浏览器窗口进行交互的对象，用于访问浏览器的功能。BOM由一系列相关的对象构成，并且每个对象都提供了一些方法与属性. 我们可以通过这些属性和方法去对浏览器进行操作.
@@ -1175,20 +1173,20 @@ location的属性有hash/host/hostname/href/pathname/prot/protocol/search.一定
   //<meta http-equiv="refresh" content="3" /> 这个标签加载head里面也可以刷新,每隔三秒刷新一次
   ```
 
-##### loaction对象方法
+* loaction对象方法
 
-```javascript
-console.log(location.protocol);  //协议
-console.log(location.host);  //域名和端口
-console.log(location.hostname);//域名
-console.log(location.port) //端口
-console.log(location.pathname);
-console.log(location.search)
-console.log(location.search.split("?")[1]);
-console.log(location.hash);
-console.log(location.href);  //整个链接
-//可以看看文档目录下的 登录练习,一个特别小的案例.
-```
+  ```javascript
+  console.log(location.protocol);  //协议
+  console.log(location.host);  //域名和端口
+  console.log(location.hostname);//域名
+  console.log(location.port) //端口
+  console.log(location.pathname);
+  console.log(location.search)
+  console.log(location.search.split("?")[1]);
+  console.log(location.hash);
+  console.log(location.href);  //整个链接
+  //可以看看文档目录下的 登录练习,一个特别小的案例.
+  ```
 
 ##### history对象方法
 
@@ -1214,11 +1212,13 @@ DOM就是Document  Object Model(文档对象模型)的缩写，DOM 是 W3C（万
 
  * DOM三种节点
 
-   ​	元素节点 nodeType === 1
+   ​	元素节点 nodeType === 1  
 
    ​	属性节点 nodeType === 2
 
    ​	文本节点 nodeType === 3
+
+   ​	nodeName 获取的节点的名称, 值是字符串,并且大写
 
 * 兼容问题
 
@@ -1265,13 +1265,237 @@ DOM就是Document  Object Model(文档对象模型)的缩写，DOM 是 W3C（万
 </script>
 ```
 
+##### 属性操作Attribule
+
+```javascript
+<img class="img" src="./images/vue.png" alt="">
+
+img.attributes; //查看属性,没有()号 这里要注意
+img.setAttribute("src","./images/vue2.png"); //设置属性
+img.getAttribute("src"); //获取属性值  这里会获取相对路径 img.src才是绝对路径
+img.removeAttribute("class"); //删除class属性
+```
+
+> 这里值得注意的是,一般ed结尾的标签,我们都不使用getAttribule...这些标签,因为那些属性是动态的,我们无法动态的获取修改.
+
+```javascript
+<input type="checkbox" class="text">
+<button class="btn">设置属性</button>
+<button class="btn">获取属性</button>
+
+<script>
+var text = document.querySelector('.text');
+var btns = document.querySelectorAll('.btn');
+
+btns[0].onclick = function() {
+    //设置属性
+    //text.setAttribute("checked", "checked");   //这种方式无法set动态的
+    text.checked = true;  //我们使用标签原生的
+}
+
+//如果我们手动点击,那么获取属性就获取不到,所以动态属性我们最好是用.的方式去设置属性
+btns[1].onclick = function() {
+    //获取属性
+    //console.log(text.getAttribute("checked"));  //这种方式无法get动态的
+    console.log(text.checked); 
+}
+</script>
+```
+
+##### 父节点parentNode/parentElement
+
+我们要获取当前元素的父节点有两种方式但他们都有各自的特点,总的来说我们使用**parentNode**
+
+```javascript
+<button>获取父节点</button>
+<button>获取父节点</button>
+
+<div id="box">
+    box盒子
+<div id="inner">inner盒子</div>
+</div>
+
+<script>
+    var oBtns = document.querySelectorAll('button');
+	var oInner = document.querySelector('#inner');
+
+oBtns[0].onclick = function() {
+    //获取当前元素的父节点
+    //parentNode  w3c标准  顶级对象是#document
+    console.log(oInner.parentNode);
+    console.log(oInner.parentNode.parentNode.parentNode.parentNode);
+}
+
+oBtns[1].onclick = function() {
+    //获取当前元素的父节点
+    //ie用的   顶级对象是null
+    console.log(oInner.parentElement.parentElement.parentElement.parentElement);
+}
+</script>
+```
+
+##### 兄弟节点nextElementSibling/nextSibling;
+
+我们要获取当前元素的兄弟点有两种方式但他们都有各自的特点,nextSibling会获取文本节点,我们一般使用nextElementSibling,也可以采用**兼容写法**.
+
+```javascript
+// 总结 兼容写法 , 如果我们不使用兼容写法,那就使用previousElementSibling
+元素.previousElementSibling || 元素.previousSibling;
+元素.nextElementSibling || 元素.nextSibling;
+```
+
+##### 子节点children/childNodes
+
+虽然childNodes是W3C标准,但是我们一般还是不使用,因为它会获取文本节点,我们在实际开发中还是使用IE标准children,也可以采用**兼容写法**
+
+```javascript
+var box = document.getElementById('box');
+box.childNodes //会包含文本节点
+box.children // 只有元素节点
+
+
+//firstChild: 用于获取当前元素节点的第一个子节点，相当于children[0]；
+//lastChild: 用于获取当前元素节点的最后一个子节点, 相当于children[box.children-1]
+```
+
+> children在IE678会把注释当做元素节点,但是无伤大雅,大不了我们不要注释.
+
+##### 创建节点createElement
+
+```javascript
+ btn.onclick = function() {
+     // 1.创建div
+     var oDiv = document.createElement("div");
+     // 2.给创建div添加文本 , 也可以使用innerHTML , 省去2,3步
+     var oTxt = document.createTextNode("我是文本");
+     // 3.往div里面添加文本
+     oDiv.appendChild(oTxt);
+     // 4.给div添加class
+     oDiv.className = "box";
+ }
+```
+
+##### 追加节点appendChild
+
+appendChild()方法可以将一个新节点添加到某个节点的子节点列表的末尾上。 
+
+```javascript
+var box = document.getElementById(‘box’); 
+var pNode = document.createElement(‘p’);   //创建一个新元素节点<p> 
+box.appendChild(pNode);   //把新元素节点<p>添加box节点的子节点末尾
+```
+
+##### 插入节点insertBefore
+
+插入节点我们要注意,插入 父.insertBefore(新,参照位置),插入节点我们也要拿到当前节点的父亲,然后进行插入,参照位置也就是当前节点.
+
+```javascript
+//通过父节点调用, 在box之前插入一个新节点p;
+//第一个参数为新节点
+//父.insertBefore(新,当前节点)
+oLi3.parentNode.insertBefore(oDiv, oLi3)
+```
+
+##### 替换节点replaceChild
+
+替换节点我们要注意,通过父节点调用
+
+```javascript
+//通过父节点调用, 新节点p替换了旧节点div
+//第一个参数为新节点, 第二个参数为旧节点
+//父.replaceChild(新元素,被替换)
+box.parentNode.replaceChild(p, box);
+```
+
+##### 删除节点removeChild/remove
+
+删除有两种方式 1.删除的时候找父亲拿刀 2.自己撞墙死
+
+```javascript
+//删除的时候找父亲拿刀
+li3.parentNode.removeChild(li3);
+//自己撞墙死
+li3.remove();
+```
+
+##### 克隆节点cloneNode
+
+克隆节点分为浅克隆和深克隆
+
+```javascript
+//浅克隆   false表示只复制标签
+var newBox1 = box.cloneNode(false);
+//深克隆 true表示复制标签和内容 
+var newBox = box.cloneNode(true);
+```
+
+##### 碎片知识点
+
+ * 兄弟节点兼容问题
+
+    * 元素.previousElementSibling || 元素.previousSibling;
+
+ * HTML5新标签IE兼容问题
+
+   ```html
+   <header></header><footer></footer>这些HTML5新标签如果要在IE678兼容,那么我们有两种方案
+   
+   一 自己做的话,在script标签中
+   1.document.createElement("header"); 创建
+   2.header{display:block};
+   3.在IE678就兼容了,但是我们一般不自己去做,如果只有一两个标签可以考虑自己做.
+   
+   
+   二 html5shiv
+   1.解决ie9以下浏览器对 html5新增标签的不识别，并导致CSS不起作用的问题。
+   2.让不支持css3 Media Query的浏览器  包括IE6-IE8等其他浏览器支持查询。
+   3.如果标签过多 我们直接在bootcdn下载 html5shiv插件 很简单 直接script引入插件即可
+   ```
+
+ * 自己封装一个insertAfter
+
+    * 因为插入节点只有在元素节点前面插入,我们可以封装一个在后面插入的方法
+
+```javascript
+ <button id="btn1">插入在li3的后面</button>
+    <ul id="box">
+        <li>我是第一个 </li>
+        <li>我是第二个</li>
+        <li id="li3">我是第三个</li>
+        <li>我是第四个</li>
+        <li>我是第五个</li>
+    </ul>
+
+    <script>
+        var btn1 = document.querySelector('#btn1');
+
+        function insertAfter(newElement, refElement) {
+            var oNext = refElement.nextElementSibling || refElement.nextSibling;
+            console.log(oNext);
+            refElement.parentNode.insertBefore(newElement, oNext);
+        }
+
+        btn1.onclick = function() {
+            var oDiv = document.createElement('div');
+            oDiv.innerHTML = "<h3>我是动态的文本</h3>";
+            //把创建的元素插入在li3的后面
+            var oLi3 = document.querySelector('#li3');
+            insertAfter(oDiv, oLi3);
+        }
+    </script>
+```
 
 
 
 
 
 
-元素节点1 属性节点2 文本节点3
+
+操作
+
+
+
+
 
 
 
@@ -1288,6 +1512,14 @@ push和pop就是栈,push和shift就是队列
 2，能够使用数组遍历方法遍历它们
 
 3，不具有数组的push,pop等方法
+
+
+
+
+
+页面阻塞的解决方案 目前知道三个 看图片
+
+
 
 
 

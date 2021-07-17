@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .wrapper {
+            width: 400px;
+            height: 300px;
+            border: 1px solid red;
+            margin: 20px auto;
+        }
+        
+        .wrapper .title {
+            height: 40px;
+        }
+        
+        .wrapper .title ul {
+            overflow: hidden;
+        }
+        
+        .wrapper .title ul li {
+            float: left;
+            width: 100px;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        
+        .content {
+            width: 400px;
+            height: 260px;
+            display: none;
+        }
+        
+        .currentContent {
+            display: block;
+        }
+        
+        .currentTitle {
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="title">
+            <ul>
+                <li class="currentTitle">科技</li>
+                <li>探索</li>
+                <li>学习</li>
+            </ul>
+        </div>
+        <div class="content currentContent">
+            科技
+        </div>
+        <div class="content">
+            探索
+        </div>
+        <div class="content">
+            学习
+        </div>
+    </div>
+
+
+    <script>
+        var oList = document.querySelectorAll('.wrapper .title ul li');
+        var oDiv = document.querySelectorAll('.wrapper .content');
+
+
+        for (var i = 0; i < oList.length; i++) {
+            oList[i].setAttribute('index', i);
+            oList[i].onclick = function() {
+                for (var j = 0; j < oList.length; j++) {
+                    oList[j].className = '';
+                }
+                this.className = 'currentTitle';
+
+                var index = this.getAttribute('index');
+                for (var k = 0; k < oList.length; k++) {
+                    oDiv[k].className = 'content';
+                }
+                oDiv[index].className += ' currentContent'
+            }
+
+
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <table>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="checkAll">全选</th>
+                <th><input type="checkbox" id="inverse">反选</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td><input type="checkbox"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        //全选按钮
+        var checkAll = document.querySelector('#checkAll');
+        //反选按钮
+        var inverse = document.querySelector('#inverse');
+        //所有子按钮
+        var btns = document.querySelectorAll('tbody input');
+
+
+        checkAll.onclick = function() {
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].checked = this.checked;
+            }
+        }
+
+        inverse.onclick = function() {
+            for (var i = 0; i < btns.length; i++) {
+                btns[i].checked = !btns[i].checked;
+            }
+
+            var checkBtnsCount = document.querySelectorAll('tbody input:checked').length;
+            var btnsCount = btns.length;
+            checkAll.checked = checkBtnsCount == btnsCount;
+
+        }
+
+
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].onclick = function() {
+                var btnsCount = btns.length;
+                var checkBtnsCount = document.querySelectorAll('tbody input:checked').length;
+
+                checkAll.checked = checkBtnsCount == btnsCount;
+            }
+        }
+
+
+        // for (var i = 0; i < btns.length; i++) {
+        //     btns[i].onclick = function() {
+        //         var btnsCount = btns.length;
+        //         var checkBtnsCount = 0;
+        //         for (var j = 0; j < btnsCount; j++) {
+        //             if (btns[j].checked) {
+        //                 checkBtnsCount++;
+        //             }
+        //         }
+        //         if (btnsCount == checkBtnsCount) {
+        //             checkAll.checked = true;
+        //         } else {
+        //             checkAll.checked = false;
+        //         }
+        //     }
+        // }
+    </script>
+
+</body>
+
+</html>

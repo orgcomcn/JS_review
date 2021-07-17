@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="btn">删除</button>
+
+    <ul id="box">
+        <li>我是第一个 </li>
+        <li>我是第二个</li>
+        <li id="li3">我是第三个</li>
+        <li>我是第四个</li>
+        <li>我是第五个</li>
+    </ul>
+
+
+    <script>
+        var btn = document.getElementById('btn');
+        var li3 = document.getElementById('li3');
+        console.log(li3)
+
+        //删除有两种方式 1.删除的时候找父亲拿刀  2.自己撞墙死
+
+        btn.onclick = function() {
+
+            if (!confirm("Are you sure?")) {
+                return;
+            }
+            //1. 删除的时候找父亲拿刀
+            //li3.parentNode.removeChild(li3);
+
+            //2.自己撞墙  不兼容ie678 如果要兼容 用上面的写法
+            li3.remove();
+
+        }
+    </script>
+
+</body>
+
+</html>

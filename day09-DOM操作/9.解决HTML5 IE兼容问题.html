@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 
+      自己做的话,在script标签中
+      1.document.createElement("header"); 创建
+      2.header{display:block};
+      3.在IE678就兼容了,但是我们一般不自己去做,如果只有一两个标签可以考虑自己做.
+      4.如果标签过多 我们直接在bootcdn下载 html5shiv插件 很简单 直接script引入插件即可
+
+      html5shiv
+      1、解决ie9以下浏览器对 html5新增标签的不识别，并导致CSS不起作用的问题。
+      2、让不支持css3 Media Query的浏览器  包括IE6-IE8等其他浏览器支持查询。
+     -->
+
+    <!-- 要总结两个兼容性的解决方案 一个是元素节点的兼容性 一个是 HTML5新标签的兼容性 -->
+
+    <!-- 
+        H5标签解决兼容性问题  解决子元素的兼容 2个兼容问题 了
+        解决元素节点插件
+        插件 html5shiv
+        插件网 bootcdn
+    -->
+
+    <header>头部</header>
+    <footer>尾巴</footer>
+    <!-- 超链接LVHA -->
+    <!-- http://www.ayqy.net/blog/%E8%B6%85%E9%93%BE%E6%8E%A5%E7%9A%84lvha%E5%8E%9F%E5%88%99/ -->
+
+</body>
+
+</html>

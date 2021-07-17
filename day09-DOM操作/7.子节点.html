@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn1">孩子们</button>
+    <button id="btn2">儿子们</button>
+
+
+    <button id="btn3">获取第三个孩子</button>
+    <button id="btn4">拿到第一个孩子</button>
+    <button id="btn5">拿到最后一个孩子</button>
+
+
+    <ul id="box">
+        <li>01我是</li>
+        <li>02我是</li>
+        <li>03我是</li>
+        <li>04我是</li>
+        <li>05我是</li>
+    </ul>
+
+    <script>
+        var oBtn1 = document.getElementById('btn1');
+        var oBtn2 = document.getElementById('btn2');
+        var oBtn3 = document.getElementById('btn3');
+        var oBtn4 = document.getElementById('btn4');
+        var oBtn5 = document.getElementById('btn5');
+
+        var box = document.getElementById('box');
+
+        //缺点:会获取文本节点与元素节点,通常要做类型处理
+        oBtn1.onclick = function() {
+            console.log(box.childNodes) //会获取文本节点,标签节点1,属性节点2,文本节点3
+            var arr = [];
+            for (var i = 0; i < box.childNodes.length; i++) {
+                if (box.childNodes[i].nodeType == 1) {
+                    arr.push(box.childNodes[i]); //W3C推出的规范,它的缺点会获取文本节点与元素节点,通常要做类型处理
+                }
+            }
+            arr.forEach(function(item, index, obj) {
+                item.style.backgroundColor = index % 2 == 0 ? 'pink' : 'blue';
+            })
+            console.log(arr);
+        }
+
+        // htmlcollection 和 nodelist区别
+        // htmlcollection的没有兼容问题
+        // nodelist可能有兼容问题
+
+        //缺点,在IE678下会把注释当做元素节点,依然推荐使用
+        oBtn2.onclick = function() {
+            console.log(box.children); //不会把文本节点当做文本节点
+            var arr = box.children;
+            //转换为数组
+            Array.from(arr).forEach(function(item, index, obj) {
+                item.style.backgroundColor = index % 2 == 0 ? 'pink' : 'blue';
+            });
+        }
+
+        //拿第三个孩子 直接通过下标拿
+        oBtn3.onclick = function() {
+            box.children[2].style.backgroundColor = 'red';
+        }
+
+        //拿第一个孩子
+        oBtn4.onclick = function() {
+            //解决兼容问题
+            var li1 = box.firstElementChild || box.firstChild;
+            li1.style.backgroundColor = 'black';
+        }
+
+        //拿最后一个孩子
+        oBtn5.onclick = function() {
+            var li5 = box.lastElementChild || box.lastChild;
+            li5.style.backgroundColor = 'yellow';
+        }
+
+        //总结:
+        //childNodes W3C标准,我们不用,因为它会把文本节点也当做元素节点,要做循环 nodeType判断 比较麻烦
+        //拿孩子 我们用 children  IE的标准 但是我们要注意IE678会把注释也当做元素节点
+        //拿第一个孩子我们用 firstElementChild || firstChild 兼容写法
+        //拿最后一个孩子我们用 lastElementChild || lastChild 兼容写法
+    </script>
+
+</body>
+
+</html>

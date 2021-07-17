@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button>获取父节点</button>
+    <button>获取父节点</button>
+
+    <div id="box">
+        box盒子
+        <div id="inner">inner盒子</div>
+    </div>
+
+    <script>
+        var oBtns = document.querySelectorAll('button');
+        var oInner = document.querySelector('#inner');
+
+        oBtns[0].onclick = function() {
+            //获取当前元素的父节点
+            //parentNode  w3c标准  顶级对象是#document
+            console.log(oInner.parentNode);
+            console.log(oInner.parentNode.parentNode.parentNode.parentNode);
+        }
+
+        oBtns[1].onclick = function() {
+            //获取当前元素的父节点
+            //ie用的   顶级对象是null
+            console.log(oInner.parentElement.parentElement.parentElement.parentElement);
+        }
+    </script>
+
+
+</body>
+
+</html>

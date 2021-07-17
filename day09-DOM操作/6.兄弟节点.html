@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <button>上一个兄弟</button>
+    <button>后一个兄弟</button>
+
+    <ul5>
+        <li>我是你兄弟01</li>
+        <li>我是你兄弟02</li>
+        <li id="li3">我是你兄弟03</li>
+        <li>我是你兄弟04</li>
+        <li>我是你兄弟05</li>
+    </ul5>
+
+    <script>
+        var oBtns = document.querySelectorAll('button');
+        var li3 = document.querySelector('#li3');
+
+        oBtns[0].onclick = function() {
+            //拿到的是文本节点  Sibling IE678的兼容写法
+            console.log(li3.previousSibling);
+
+            //谷歌下的写法
+            console.log(li3.previousElementSibling);
+
+
+            //兼容写法
+            var oPrev = li3.previousElementSibling || li3.previousSibling;
+            oPrev.style.backgroundColor = 'pink';
+        }
+
+        oBtns[1].onclick = function() {
+            //拿到的是文本节点 Sibling IE678的兼容写法
+            console.log(li3.nextSibling);
+
+            //谷歌下的写法
+            console.log(li3.nextElementSibling);
+
+            //兼容写法
+            //nextSibling 在谷歌 认识, 认错了 不会是undefined
+            //nextElementSibling在ie 678下是undefined.在||面前会跳过,undefined是false
+            var oNext = li3.nextElementSibling || li3.nextSibling;
+            oNext.style.backgroundColor = 'red';
+
+            // 总结 兼容写法 previousSibling 和 li3.nextSibling 是为了兼容IE678;
+            //  previousElementSibling || previousSibling;
+            //  nextElementSibling || li3.nextSibling;
+        }
+    </script>
+
+
+
+</body>
+
+</html>

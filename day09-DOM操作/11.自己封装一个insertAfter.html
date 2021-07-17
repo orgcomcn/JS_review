@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <button id="btn1">插入在li3的后面</button>
+    <ul id="box">
+        <li>我是第一个 </li>
+        <li>我是第二个</li>
+        <li id="li3">我是第三个</li>
+        <li>我是第四个</li>
+        <li>我是第五个</li>
+    </ul>
+
+
+
+    <script>
+        var btn1 = document.querySelector('#btn1');
+
+        function insertAfter(newElement, refElement) {
+            var oNext = refElement.nextElementSibling || refElement.nextSibling;
+            console.log(oNext);
+            refElement.parentNode.insertBefore(newElement, oNext);
+        }
+
+        btn1.onclick = function() {
+            var oDiv = document.createElement('div');
+            oDiv.innerHTML = "<h3>我是动态的文本</h3>";
+
+            //把创建的元素插入在li3的后面
+            var oLi3 = document.querySelector('#li3');
+
+            insertAfter(oDiv, oLi3);
+
+        }
+    </script>
+
+
+</body>
+
+</html>

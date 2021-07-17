@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            width: 280px;
+            height: 380px;
+            /* border: 1px solid red; */
+            margin: 10px auto;
+        }
+        
+        ul li {
+            width: 30%;
+            height: 60px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        
+        .content {
+            width: 280px;
+            height: 60px;
+            border: 1px solid black;
+            margin: 0 auto;
+        }
+        
+        .content p {
+            text-align: center;
+            line-height: 60px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <ul>
+        <li>
+            <span>1</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>2</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>3</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>4</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>5</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>6</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>7</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>8</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>9</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>10</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>11</span>
+            <p>Jan</p>
+        </li>
+        <li>
+            <span>12</span>
+            <p>Jan</p>
+        </li>
+    </ul>
+
+    <div class="content">
+        <p>你好</p>
+    </div>
+
+
+    <script>
+        var lis = document.querySelectorAll('ul li');
+        var p = document.querySelector('.content p');
+        console.log(p)
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].onclick = function() {
+                p.innerHTML = `${ this.children[0].innerHTML} 月你好`;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

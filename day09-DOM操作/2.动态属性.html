@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+    什么是动态属性?
+    //ed结尾
+    //checked selected disabled 就不要使用getAttribute setAttribute removeAttribute 因为不是动态的
+    // 我们用.的方式去设置
+      
+   -->
+    <input type="checkbox" class="text">
+    <button class="btn">设置属性</button>
+    <button class="btn">获取属性</button>
+
+    <script>
+        var text = document.querySelector('.text');
+
+        var btns = document.querySelectorAll('.btn');
+
+
+
+        btns[0].onclick = function() {
+            //设置属性
+            //text.setAttribute("checked", "checked");   //这种方式无法set动态的
+            text.checked = true;
+        }
+
+        //如果我们手动点击,那么获取属性就获取不到,所以动态属性我们最好是用.的方式去设置属性
+        btns[1].onclick = function() {
+            //获取属性
+            //console.log(text.getAttribute("checked"));  //这种方式无法get动态的
+            console.log(text.checked);
+
+        }
+    </script>
+
+
+</body>
+
+</html>

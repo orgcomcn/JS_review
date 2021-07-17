@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/1.css">
+</head>
+
+<body>
+    <div class="box"></div>
+
+
+    <select>
+        <option value="请选择">请选择</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+
+
+    <script>
+        var link = document.getElementsByTagName('link')[0];
+        var select = document.getElementsByTagName('select')[0];
+
+        //监听选项的改变 以前没用过
+        select.onchange = function() {
+            console.log(select.value);
+            if (select.value == "请选择") return;
+            //动态修改css
+            link.href = `./css/${select.value}.css`;
+        }
+    </script>
+
+</body>
+
+</html>
