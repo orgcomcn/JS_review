@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+    <div class="box"></div>
+
+
+
+    <script>
+        var box = document.querySelector('.box');
+
+        function getColor() {
+            var rgb = "rgb(";
+            rgb += parseInt(Math.random() * 256) + ",";
+            rgb += parseInt(Math.random() * 256) + ",";
+            rgb += parseInt(Math.random() * 256) + ")";
+            return rgb;
+        }
+
+
+        function getHexColor() {
+            var color = "#";
+            for (var i = 0; i < 6; i++) {
+                color += parseInt(Math.random() * 16).toString(16);
+            }
+            return color;
+        }
+
+        box.onmouseenter = function() {
+            box.innerHTML = '我爱你';
+        }
+
+        box.onmouseleave = function() {
+            box.innerHTML = '开玩笑';
+        }
+
+        box.onmousemove = function() {
+            box.style.backgroundColor = getHexColor();
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        
+        html,
+        body {
+            height: 3000px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+
+
+    <script>
+        var box = document.querySelector('.box');
+        box.onclick = function(e) {
+            console.log(e.clientX, e.clientY);
+            console.log(e.pageX, e.pageY);
+            console.log(e.offsetX, e.offsetY);
+            console.log(e.screenX, e.screenY);
+        }
+    </script>
+
+</body>
+
+</html>

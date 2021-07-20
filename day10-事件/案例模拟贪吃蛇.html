@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 30px;
+            height: 30px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="box">1</div>
+    <div class="box">2</div>
+    <div class="box">3</div>
+    <div class="box">4</div>
+    <div class="box">5</div>
+    <div class="box">6</div>
+    <div class="box">7</div>
+    <div class="box">8</div>
+    <div class="box">9</div>
+    <div class="box">10</div>
+
+
+
+
+    <script>
+        var box = document.querySelectorAll('.box');
+        console.log(box)
+
+        //xxx.style.xxx 值建议做社会
+        //xxx.offsetLeft 只能做获取,并获取的值不带单位
+
+        document.onmousemove = function(event) {
+            var e = event || window.event;
+            for (var i = 0; i < box.length - 1; i++) {
+                box[i].style.left = box[i + 1].offsetLeft + 'px';
+                box[i].style.top = box[i + 1].offsetTop + 'px';
+            }
+            box[i].style.left = e.pageX + 'px';
+            box[i].style.top = e.pageY + 'px';
+        }
+
+        function throttle(func, delay) {
+            var _this;
+            var args;
+            var old = 0;
+            return function() {
+                _this = this;
+                args = arguments;
+                var now = new Date().valueOf();
+                if (now - old > delay) {
+                    func.apply(this, args);
+                    old = now;
+                }
+            }
+        }
+
+        // throttle(document.onmousemove = function(event) {
+        //     var e = event || window.event;
+        //     for (var i = 0; i < box.length - 1; i++) {
+        //         box[i].style.left = box[i + 1].offsetLeft + 'px';
+        //         box[i].style.top = box[i + 1].offsetTop + 'px';
+        //     }
+        //     box[i].style.left = e.pageX + 'px';
+        //     box[i].style.top = e.pageY + 'px';
+        // }, 300)
+    </script>
+
+
+
+
+</body>
+
+</html>

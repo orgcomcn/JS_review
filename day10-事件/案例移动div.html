@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <button>左</button>
+    <button>上</button>
+    <button>右</button>
+    <button>下</button>
+    <div class="box">
+
+    </div>
+
+
+    <script>
+        var btns = document.querySelectorAll('button');
+        var box = document.querySelector('.box');
+
+        btns.forEach(function(item) {
+            item.onclick = function() {
+                move(this.innerText, box);
+            }
+        });
+
+        //拿到button里面的text,拿到要移动的box
+        function move(text, box) {
+            var exp = text;
+            switch (exp) {
+                case '左':
+                    box.style.left = box.offsetLeft - 10 + 'px';
+                    break;
+                case '上':
+                    box.style.top = box.offsetTop - 10 + 'px';
+                    break;
+                case '右':
+                    box.style.left = box.offsetLeft + 10 + 'px';
+                    break;
+                case '下':
+                    box.style.top = box.offsetTop + 10 + 'px';
+                    break;
+            }
+        }
+
+        // btns[0].onclick = function() {
+        //     box.style.left = box.offsetLeft - 10 + 'px';
+        // }
+        // btns[1].onclick = function() {
+        //     box.style.top = box.offsetTop - 10 + 'px';
+        // }
+        // btns[2].onclick = function() {
+        //     box.style.left = box.offsetLeft + 10 + 'px';
+        // }
+        // btns[3].onclick = function() {
+        //     box.style.top = box.offsetTop + 10 + 'px';
+        // }
+    </script>
+
+</body>
+
+</html>

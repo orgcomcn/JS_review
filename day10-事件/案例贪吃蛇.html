@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .wrapper {
+            position: relative;
+            width: 800px;
+            height: 600px;
+            border: 1px solid red;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        
+        .box {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: pink;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+        <div class="box">6</div>
+        <div class="box">7</div>
+        <div class="box">8</div>
+        <div class="box">9</div>
+        <div class="box">10</div>
+    </div>
+
+    <script>
+        var wrapper = document.querySelector('.wrapper');
+        var box = document.querySelectorAll('.box');
+
+        //键盘按下事件
+        window.onkeydown = function(e) {
+            var eve = e || window.event
+            if (e.keyCode == 37) {
+                console.log("左")
+            }
+            if (e.keyCode == 38) {
+                console.log("上")
+            }
+            if (e.keyCode == 39) {
+                console.log("右")
+            }
+            if (e.keyCode == 40) {
+                console.log("下")
+            }
+
+        }
+
+        function move(event) {
+            var e = event || window.event;
+            for (var i = 0; i < box.length - 1; i++) {
+                box[i].style.left = box[i + 1].offsetLeft + 'px';
+                box[i].style.top = box[i + 1].offsetTop + 'px';
+            }
+            box[i].style.left = e.pageX + 'px';
+            box[i].style.top = e.pageY + 'px';
+        }
+    </script>
+
+</body>
+
+</html>

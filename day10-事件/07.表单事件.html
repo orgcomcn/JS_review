@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <form>
+        <input type="text" placeholder="plase input ...">
+        <!-- button 在表单里面 默认是提交 submit-->
+        <button>提交</button>
+        <button type="reset">重置</button>
+    </form>
+
+    <script>
+        // 只有submit才会触发 form表单的默认提交行为
+        //提交的时候,必须要先经过js的控制,如果js同意提交,才触发默认行为
+        // submit是重点,onreset了解即可.
+
+        document.forms[0].onsubmit = function() {
+            //阻止表单提交按钮 submit的提交行为  
+            return false;
+        }
+
+
+        //了解, 重置输入的内容
+        document.forms[0].onreset = function() {
+            // 阻止表单重置按钮 reset的行为
+            return false;
+        }
+
+        //与人为善,做个好人,得道多助,失道寡助,多个朋友多条路.
+    </script>
+
+
+
+</body>
+
+</html>

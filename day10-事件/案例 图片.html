@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #pic {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .item img {
+            width: 100px;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <img id="pic" src="./images/1.jpg" alt="">
+    <div class="item">
+        <img src="./images/1.jpg" alt="">
+        <img src="./images/2.jpg" alt="">
+        <img src="./images/3.jpg" alt="">
+        <img src="./images/4.jpg" alt="">
+    </div>
+
+
+    <script>
+        var oPic = document.querySelector('#pic');
+        var item = document.querySelector('.item');
+
+
+        //练练事件委托,好牛逼,文本节点似乎都会被委托..我点击中间的空白,也触发了onclick
+        item.onclick = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+
+            //我们使用这个解决问题 如果不要这个 会出问题 这里要总结下
+            if (target.nodeName != 'IMG') {
+                return;
+            }
+
+            //有中文路径用不了
+            //oPic.src = this.src;
+            var src = target.getAttribute("src");
+            oPic.setAttribute("src", src);
+
+        }
+    </script>
+
+
+</body>
+
+</html>

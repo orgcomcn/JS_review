@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+
+    </div>
+
+    <button class="btn">走你</button>
+
+
+    <script>
+        var bx = document.querySelector('.box');
+        var btn = document.querySelector('.btn');
+
+        function run() {
+            requestAnimationFrame(function() {
+                bx.style.left = bx.offsetLeft + 10 + 'px';
+                if (bx.offsetLeft < 500) {
+                    run();
+                }
+            })
+        }
+
+        btn.onclick = function() {
+            run();
+        }
+    </script>
+
+</body>
+
+</html>

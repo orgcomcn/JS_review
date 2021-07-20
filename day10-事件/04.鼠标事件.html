@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box"></div>
+
+    <script>
+        var box = document.querySelector('.box');
+
+        // box.onclick = function() {
+        //     console.log('单击事件触发 ---- onclick')
+        // }
+
+        // box.ondblclick = function() {
+        //     console.log('双击事件触发 ---- ondblclick')
+        // }
+
+        //鼠标按下 > 鼠标抬起 > 鼠标单击
+        // box.onmousedown = function() {
+        //     console.log('鼠标按下事件 ---- onmousedown');
+        // }
+
+        // box.onmouseup = function() {
+        //     console.log('鼠标抬起事件 ---- onmouseup');
+        // }
+
+
+        //1、onmouseover、onmouseout：鼠标经过时自身触发事件，经过其子元素时也触发该事件；（父亲有的东西，儿子也有）
+        //2、onmouseenter、onmouseleave：鼠标经过时自身触发事件，经过其子元素时不触发该事件。（父亲的东西就是父亲的，不归儿子所有）
+
+        // box.onmouseover = function() {
+        //     console.log('鼠标进入 ---- onmouseover');
+        // }
+        // box.onmouseout = function() {
+        //     console.log('鼠标离开 ---- onmouseout');
+        // }
+
+        // box.onmouseenter = function() {
+        //     console.log('鼠标进入 ---- onmouseenter')
+        // }
+        // box.onmouseleave = function() {
+        //     console.log('鼠标离开 ---- onmouseleave')
+        // }
+
+        // box.onmousemove = function() {
+        //     console.log('鼠标移动 ---- onmousemove ')
+        // }
+
+        // box.onmousewheel = function() {
+        //     console.log('鼠标滚轮 ---- onmousewheel');
+        // }
+    </script>
+
+</body>
+
+</html>

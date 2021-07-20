@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box"></div>
+
+    <!-- 
+      练习: 
+  有一个红色的div块
+  1, 如果我按下ctrl+c变换颜色
+  2, 如果我按下ctrl + shift + r 重置颜色,恢复初始颜色
+  3, 如果我按下向上箭头,向上移动, 同理还可以向下,左,右移动
+  4, 如果我按下ctrl + 上下左右,走的步数变大 
+
+-->
+
+
+    <script>
+        var box = document.querySelector('.box');
+
+
+        function randomColor() {
+            var rgb = "rgb(";
+            rgb += parseInt(Math.random() * 256) + ",";
+            rgb += parseInt(Math.random() * 256) + ",";
+            rgb += parseInt(Math.random() * 256) + ")";
+
+            return rgb;
+        }
+
+
+        window.onkeydown = function(event) {
+            //如果我按下ctrl+c变换颜色
+            var eve = event || window.event;
+            if (eve.ctrlKey && eve.keyCode == 67) {
+                box.style.backgroundColor = randomColor();
+            }
+            //如果我按下ctrl + shift + r 重置颜色,恢复初始颜色 注意 ctrl+shift+r是刷新,我们要阻止默认行为
+            if (eve.ctrlKey && eve.shiftKey && eve.keyCode == 82) {
+                box.style.backgroundColor = 'red';
+                return false; //阻止刷新
+            }
+
+            //如果我按下向上箭头,向上移动, 同理还可以向下,左,右移动
+            //左边
+            if (eve.keyCode == 37) {
+                box.style.left = box.offsetLeft - 10 + 'px';
+            }
+            //右边
+            if (eve.keyCode == 39) {
+                box.style.left = box.offsetLeft + 10 + 'px';
+            }
+            //上边
+            if (eve.keyCode == 38) {
+                box.style.top = box.offsetTop - 10 + 'px';
+            }
+            //下边
+            if (eve.keyCode == 40) {
+                box.style.top = box.offsetTop + 10 + 'px';
+            }
+
+
+            //如果我按下ctrl + 上下左右,走的步数变大 
+            if (eve.ctrlKey && eve.keyCode == 37) {
+                box.style.left = box.offsetLeft - 30 + 'px';
+            }
+            //右边
+            if (eve.ctrlKey && eve.keyCode == 39) {
+                box.style.left = box.offsetLeft + 30 + 'px';
+            }
+            //上边
+            if (eve.ctrlKey && eve.keyCode == 38) {
+                box.style.top = box.offsetTop - 30 + 'px';
+            }
+            //下边
+            if (eve.ctrlKey && eve.keyCode == 40) {
+                box.style.top = box.offsetTop + 30 + 'px';
+            }
+
+
+        }
+    </script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="../页面阻塞解决方案 三种.png" alt="">
+    <script>
+        // onload 和  DOMContentLoaded的区别要掌握
+
+        //html,css 以及外部资源加载完后才执行
+        window.onload = function() {
+            console.log("onload");
+        }
+
+        //页面结构在加载完成就触发
+        window.addEventListener("DOMContentLoaded", function() {
+            console.log("DOMContentLoaded");
+        })
+
+        //疯狂刷新的时候,当页面都被卸载 被干掉 的时候就会被触发
+        window.onunload = function() {
+            console.log("触发...卸载")
+        }
+
+        //窗口发生变化就触发
+        window.onresize = function() {
+                console.log("触发...resize")
+                var width = document.documentElement.clientWidth;
+
+                if (width >= 0 && width <= 300) {
+                    document.body.style.backgroundColor = 'pink';
+                } else if (width > 300 && width <= 500) {
+                    document.body.style.backgroundColor = 'red';
+                } else {
+                    document.body.style.backgroundColor = 'black';
+                }
+            }
+            //让事件立即触发
+        window.onresize();
+    </script>
+
+
+
+</body>
+
+</html>

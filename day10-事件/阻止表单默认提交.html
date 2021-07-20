@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form>
+
+        <button>123</button>
+    </form>
+
+    <script>
+        // 表单里面的button 默认是submit 我们要阻止它的提交
+
+        document.forms[0].onsubmit = function() {
+            return false;
+        }
+    </script>
+
+</body>
+
+</html>

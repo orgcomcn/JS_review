@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+
+    <script>
+        // 在事件触发时的一条记录信息就是事件对象
+        // 该对象例有哪些信息?
+        // 1. 位置,事件的类型,目标元素,到元素,屏幕等等一些的距离
+        var box = document.getElementById('box');
+
+        box.onmousedown = function() {
+            //在IE下, window.event  
+            // 在google下 使用形参true
+            //兼容写法
+            //      google   ie
+            var e = evt || window.event;
+
+            //button 左键0 滚轮1 右键2
+            console.log(e.button);
+
+            //target 不等于 this 
+            // this 万年不变的box
+            //target 鼠标点了谁就是谁(事件委托就要借助它)
+            var ele = e.target || e.srcElement;
+            console.log(ele);
+            console.log(this)
+
+        }
+    </script>
+
+</body>
+
+</html>

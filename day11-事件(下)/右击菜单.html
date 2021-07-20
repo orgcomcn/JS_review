@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        .list {
+            position: absolute;
+            height: 80px;
+            width: 100px;
+            display: none;
+        }
+        
+        .list li {
+            text-align: center;
+            border: 1px solid black;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <ul class="list">
+        <li>复制</li>
+        <li>拷贝</li>
+        <li>剪切</li>
+        <li>哈哈</li>
+    </ul>
+
+    <script>
+        //拿到ul盒子
+
+        var list = document.querySelector('.list');
+
+        // 首先我们要阻止系统默认的右键
+        document.oncontextmenu = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            //采用兼容写法
+            if (e.preventDefault) {
+                e.preventDefault();
+            } else {
+                e.returnValue = false;
+            }
+
+            list.style.left = e.pageX + 'px';
+            list.style.top = e.pageY + 'px';
+
+            list.style.display = 'block';
+
+        }
+
+        //利用事件委托,解决移入变色
+        list.onmouseover = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            //排他思想,先把其他孩子的颜色去掉,给当前target添加颜色
+            var oList = target.parentNode.children;
+            for (var i = 0; i < oList.length; i++) {
+                oList[i].style.backgroundColor = '';
+            }
+            target.style.backgroundColor = '#ccc';
+        }
+
+        //利用事件委托,解决选中消失
+        list.onclick = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (target.nodeName != 'LI') {
+                return;
+            }
+            list.style.display = 'none';
+        }
+
+        //移出 消除颜色 , 这里其实用hover就可以做
+        list.onmouseout = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            var oList = target.parentNode.children;
+            for (var i = 0; i < oList.length; i++) {
+                oList[i].style.backgroundColor = '';
+            }
+        }
+
+        // 点击外面, ul隐藏
+        document.body.onclick = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            // if (target.nodeName == 'UL' && target.className == 'list') {
+            //     return;
+            // }
+            list.style.display = 'none'
+
+        }
+    </script>
+
+
+</body>
+
+</html>

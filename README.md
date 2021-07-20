@@ -1356,6 +1356,10 @@ box.children // 只有元素节点
 
 //firstChild: 用于获取当前元素节点的第一个子节点，相当于children[0]；
 //lastChild: 用于获取当前元素节点的最后一个子节点, 相当于children[box.children-1]
+//实际开发中我们都会使用下面这种写法
+var child3 = ul.children;
+child3.children[0]; //取第一个元素节点
+child3.children[ul.children.length - 1]; //取最后一个元素节点
 ```
 
 > children在IE678会把注释当做元素节点,但是无伤大雅,大不了我们不要注释.
@@ -1429,7 +1433,9 @@ var newBox1 = box.cloneNode(false);
 var newBox = box.cloneNode(true);
 ```
 
-##### 碎片知识点
+#### 碎片知识点
+
+* 想一想获取第一个节点和最后一个节点使用什么方式children[0]；children[xx.length-1]；
 
  * 兄弟节点兼容问题
 
@@ -1485,11 +1491,345 @@ var newBox = box.cloneNode(true);
     </script>
 ```
 
+## day09事件
+
+#### 鼠标事件
+
+```javascript
+//1.onclick鼠标单击事件
+box.onclick = function() {
+    console.log('单击事件触发 ---- onclick');
+}
+//2.ondblclick鼠标双击事件(不常用)
+box.ondblclick = function() {
+	console.log('双击事件触发 ---- ondblclick');
+}
+//3.鼠标按下
+box.onmousedown = function() {
+    console.log('鼠标按下事件触发 ---- onmousedown');
+}
+//4.鼠标抬起
+box.onmouseup = function() {
+    console.log('鼠标抬起事件触发 ---- onmouseup');
+}
+//onmouseover、onmouseout：
+//	鼠标经过时自身触发事件，经过其子元素时也触发该事件；（父亲有的东西，儿子也有）
+//onmouseenter、onmouseleave：
+//	鼠标经过时自身触发事件，经过其子元素时不触发该事件。（父亲的东西就是父亲的，不归儿子所有）
+//  他们不能混合使用,只能一对一对的使用
+//https://www.jianshu.com/p/7750907f5a79
+//5.鼠标进入
+box.onmouseover = function() {
+    console.log('鼠标进入事件触发 ---- onmousemove');
+}
+//6.鼠标离开
+box.onmouseout = function() {
+    console.log('鼠标离开事件触发 ---- onmouseover');
+}
+//7.鼠标进入
+box.onmouseenter = function() {
+    console.log('鼠标进入事件触发 ---- onmouseenter');
+}
+//8.鼠标离开
+box.onmouseleave = function() {
+    console.log('鼠标离开事件触发 ---- onmouseleave')
+}
+//9.鼠标移动
+box.onmousemove = function() {
+    console.log('鼠标移动事件触发 ---- onmousemove');
+}
+//10.鼠标滚轮
+box.onmousewheel = function() {
+    console.log('鼠标滚轮事件触发 ---- onmousewheel');
+}
+```
+
+#### 键盘事件
+
+```javascript
+//键盘按下事件 onkeydown
+window.onkeydown = function() {
+    console.log('键盘被按下了');
+}
+//键盘抬起事件 onkeyup
+window.onkeyup = function() {
+    console.log('键盘抬起了')
+}
+//键盘按下 onkeypress 不识别功能键 例如 ctrl + shift + 箭头等一些功能键(可区分字母大小写)
+window.onkeypress = function() {
+    console.log('键盘按下了')
+}
+总结:
+	KeyPress主要用来接收字母、数字等ANSI字符,KeyDown 和 KeyUP 事件过程通常可以捕获键盘除了PrScrn所有按键(这里不讨论特殊键盘的特殊键)
+	KeyPress 只能捕获单个字符,KeyDown 和KeyUp 可以捕获组合键。
+```
+
+#### html事件
+
+```javascript
+//1.onload html,css 以及外部资源加载完后才执行
+window.onload = function() {
+    console.log("onload");
+}
+
+//2.DOMContentLoaded 页面结构在加载完成就触发
+window.addEventListener("DOMContentLoaded", function() {
+    console.log("DOMContentLoaded");
+})
+
+//3.onunload 疯狂刷新的时候,当页面都被卸载 被干掉 的时候就会被触发
+window.onunload = function() {
+    console.log("触发...卸载")
+}
+
+//4.onresize 窗口发生变化就触发
+window.onresize = function() {
+    console.log("触发...resize")
+    var width = document.documentElement.clientWidth;
+
+    if (width >= 0 && width <= 300) {
+        document.body.style.backgroundColor = 'pink';
+    } else if (width > 300 && width <= 500) {
+        document.body.style.backgroundColor = 'red';
+    } else {
+        document.body.style.backgroundColor = 'black';
+    }
+}
+//让事件立即触发
+window.onresize();
+```
+
+#### 表单事件
+
+```javascript
+button在表里,默认的type是submit.
+
+// 1.onsubmit
+document.forms[0].onsubmit = function() {
+	//阻止表单提交按钮 submit的提交行为  
+	return false;
+}
+
+// 2.onreset
+document.forms[0]onreset = function() {
+    // 阻止表单重置按钮 reset的行为
+     return false;
+}
+```
+
+#### 事件对象
+
+```javascript
+//event是谷歌 window.event是IE
+//event.button 0代表鼠标左键 1代表鼠标右键 2代表鼠标滚轮wheel
+var btns = document.querySelectorAll('.box');
+
+btns[0].onclick = function(event) {
+    //解决兼容性问题
+    event = event || window.event;
+    console.log(event);
+}
+
+btns[1].addEventListener('click', function(event) {
+    event = event || window.event;
+    //tar = event.target || event.srcElement; target的兼容写法
+    console.log(event);
+});
+
+```
+
+```txt
+ // var e=evt||window.event;  事件对象的兼容写法
+ // 2.1  button  0:左键 1:滚轮键 2:右键
+ // 2.2  altKey  是否按下了alt键
+ // 2.3  ctrlKey  是否按下了ctrl键
+ // 2.4  shiftKey  是否按下了shift键
+ // 2.5  metaKey  是否按下了meta键
+ // 2.6  charCode 在 onkeypress下才能使用 有大小写区分
+ // 2.7  keyCode  只有大写
+ // 2.8  坐标
+ //      clientX,clientY 鼠标点击的点,到可视区域的距离
+ //      pageX,pageY     鼠标点击的点,到页面的距离
+ //      offsetX,offsetY 鼠标点击的点,到当前元素的距离
+ //      screenX,screenY 鼠标点击的点,到屏幕的距离
+ // 2.9 目标元素
+ //      e.target||e.srcElement
+ //      e.type  事件的类型
+```
+
+```txt
+
+- event就是一个事件对象，写到我们的侦听函数 小括号里面
+- 事件对象只有有了事件才会存在 它是系统给我们创建的 不需要传递参数
+- 事件对象 是我们事件一系列相关数据的集合
+- 事件对象可以自己命名 比如 e evt event 
+- 事件对象也有兼容性的问题 ie 678通过 window.event来访问
+
+总结：必须有了事件 才有事件对象，跟事件相关的一系列信息数据的集合都放在这个对象里面
+```
 
 
 
+#### 碎片知识点
 
+* innerText和innerHTML的区别?
 
+  ```txt
+  1.innerText不识别HTML标签,非标准.
+  2.innerHTML识别HTML标签,是W3C标准
+  这两个元素都是可读写的
+  ```
+
+* 事件注册的两种方式以及区别
+
+  ```
+  var btns = document.querySelectorAll('button');
+  //1.传统的方式注册事件 -- 同一个事件只能执行一个事件 后面的会覆盖前面的
+  btns[0].onclick = function() {
+  	alert('button 1');
+  }
+  btns[0].onclick = function() {
+  	alert('button 2');
+  }
+  
+  
+  //2.事件侦听注册事件addEventListeren  -- 同一个事件可以注册多个监听器 不会覆盖
+  btns[1].addEventListener('click', function() {
+  	alert('addEventListener 1');
+  })
+  
+  btns[1].addEventListener('click', function() {
+  	alert('addEventListener 2');
+  })
+  ```
+
+* 元素创建的三种方式以及效率上的区别
+
+  ```javascript
+  		//方式1 -- 这种我们经常不会使用 ， 当文档执行完毕后 它会把页面全部重新绘制(之前的页面没有了)
+  		//document.write('<div>123</div>');
+  
+          //方式2 -- innerHTML
+          // -- 字符串拼接法 效率不高
+          /*
+              var inner = document.querySelector('.inner');
+              var d1 = new Date();
+              for (var i = 0; i < 1000; i++) {
+                  inner.innerHTML += "<div>123</div>"
+              }
+              var d2 = new Date();
+              console.log(d2 - d1);
+          */
+  
+  
+          // -- 数组法 效率很快
+          /*
+              var inner = document.querySelector('.inner');
+              var d1 = new Date();
+              var arr = [];
+              for (var i = 0; i < 1000; i++) {
+                  arr.push('<div>123</div>');
+              }
+              inner.innerHTML = arr.join("");
+              var d2 = new Date();
+              console.log(d2 - d1);
+          */
+  
+          //方式3 -- document.createElement() -- 效率第二
+          var create = document.querySelector('.create');
+  
+          for (var i = 0; i < 1000; i++) {
+              var child = document.createElement('div');
+              child.innerHTML = "<div>123</div>";
+              create.appendChild(child);
+          }
+  
+  总结
+      document.write(); 不使用,当文档执行完毕后他会重新绘制页面
+      innerHTML()
+          - 如果使用字符串拼接, 效率会很慢
+          - 如果使用数组push 然后 join 分割 效率最快, 但是可读性不强
+      document.create()
+          - 效率第第二,可读性很强,结构清晰
+  
+      不同浏览器下,只要采用innerHTML数组的方式,那么它就比document.createElement()要快
+  ```
+
+* onload 和 DOMContentLoaded的区别
+
+  ```txt
+  当 onload 事件触发时，页面上所有的DOM，样式表，脚本，图片，flash都已经加载完成了。
+  当 DOMContentLoaded 事件触发时，仅当DOM加载完成，不包括样式表，图片，flash。
+  ```
+
+* 事件对象常见方法
+
+  ```javascript
+  	event.target //返回触发事件的对象
+      event.type // 返回事件的类型
+      event.preventDefault() //阻止默认事件 比如不让链接跳转
+      event.stopPropagation() //阻止冒泡事件
+  ```
+
+* target和this的区别?
+
+  target返回触发该事件的对象鼠标点了谁就是谁,this返回绑定事件的对象.  
+  
+* 事件三要素 事件源 事件类型 事件处理程序
+
+* 内联模式调用的函数不能放到window.onload里面, 否则会找不到该函数.
+
+* 事件委托
+
+  ```txt
+  事件委托
+  原理 : 利用事件冒泡的机制
+  优点 :
+  	提高Javascript性能,减少内存消耗
+  缺点 :
+  	事件委托基于冒泡 , 对于不冒泡的事件不支持
+  	层级过多,冒泡过程中,可能会被某层阻止掉
+  	把所有事件都用代理就可能会出现事件误判,好比把不应该触发事件的,绑上了事件.
+  ```
+
+* 阻止默认行为
+
+  ```txt
+  var oA = document.querySelector("a");
+  //点击的时候,先触发js的点击事件,在触发它自身跳转的默认行为
+  oA.onclick = function (evt) {
+  var e = evt || window.event;
+  	// e.preventDefault();  写法一 常用
+  	// e.returnValue = false;  写法二 IE
+  	// return false; //
+      
+      // 兼容写法
+      if (e.preventDefault) {
+      	e.preventDefault(); //非ie
+      } else {
+      	e.returnValue = false;//ie
+  	}
+  }
+  ```
+
+* 右击菜单oncontextmenu
+
+* offset三大家族
+
+  ```
+   //坐标点 事件对象 event
+   // offsetX,offsetY
+   // clientX,clientY
+   // pageX,pageY
+   // screenX,screenY
+  
+  //跟dom元素 三大家族
+  // offsetParent  找带有定位的父元素,如果父级们,都没有,那就是body
+  // offsetLeft,offsetTop  到带有定位父元素的 距离
+  // offsetWidth,offsetHeight  获取自己盒子大小 padding+border =offsetWidth
+  ```
+
+  
 
 操作
 

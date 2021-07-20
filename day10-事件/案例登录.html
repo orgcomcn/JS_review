@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 如下图, 在输入框中输入用户名和密码, 
+当鼠标失去焦点时: 检测用户名长度至少6位, 且只能为数字和字母;
+检测密码长度至少8位 
+给登录按钮添加点击事件: 点击后弹出用户名和密码 -->
+
+
+
+    <form>
+        <p>
+            <input name="uname" type="text">
+        </p>
+        <p>
+            <input name="upwd" type="text">
+        </p>
+        <p>
+            <button>登录</button>
+        </p>
+    </form>
+
+
+    <script>
+        //可以直接通过name 拿
+        var oForm = document.forms[0];
+
+        //用户名校验
+        var useFlag = false; //用户名不合法
+        oForm.uname.onblur = function() {
+            var strName = this.value.trim();
+            useFlag = false;
+            //小于6直接false
+            if (strName.length < 6) {
+                return false;
+            }
+
+            for (var i = 0; i < strName.length; i++) {
+                if (!(strName[i] >= 0 && strName[i] <= 9 || strName[i] >= 'a' && strName[i] <= 'z' || strName[i] >= 'A' && strName[i] <= 'Z')) {
+                    return;
+                }
+            }
+            useFlag = true;
+        }
+
+        //密码校验
+        var pwdFlag = false;
+        oForm.upwd.onblur = function() {
+            pwdFlag = false;
+            var strPwd = this.value.trim();
+            if (strPwd.length < 8) {
+                return false;
+            }
+            pwdFlag = true;
+        }
+
+        oForm.onsubmit = function() {
+
+            if (useFlag && pwdFlag) {
+                alert(`用户名${this.uname.value} 密码 ${this.upwd.value}`);
+            } else {
+                alert(`用户名密码不合法`);
+            }
+
+            return false; //阻止表单默认提交行为
+        }
+    </script>
+
+</body>
+
+</html>

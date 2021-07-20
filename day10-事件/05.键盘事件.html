@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 1、KeyPress主要用来接收字母、数字等ANSI字符
+        //KeyDown 和 KeyUP 事件过程通常可以捕获键盘除了PrScrn所有按键(这里不讨论特殊键盘的特殊键)
+
+        //  2、KeyPress 只能捕获单个字符
+        //KeyDown 和KeyUp 可以捕获组合键。
+
+        //2、KeyPress功能键不会触发
+
+        window.onkeydown = function() {
+            console.log("按下")
+        }
+        window.onkeyup = function() {
+            console.log("抬起")
+        }
+
+        //按下不包括功能键
+        window.onkeypress = function() {
+            console.log("阿萨德")
+        }
+    </script>
+
+</body>
+
+</html>

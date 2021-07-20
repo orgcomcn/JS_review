@@ -1,3 +1,9 @@
+leave 离开
+enter 进入
+over
+out
+
+
 关键字：
 break     delete    function    return    typeof
 case      do        if          switch    var

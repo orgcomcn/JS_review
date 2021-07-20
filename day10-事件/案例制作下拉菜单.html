@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        ul li {
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #000;
+        }
+        
+        .dropDownList {
+            display: inline-block;
+        }
+        
+        .list {
+            display: none;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="dropDownList">
+        <input type="text" class="text">
+        <ul class="list">
+            <li>LOL</li>
+            <li>csgo</li>
+            <li>data</li>
+            <li>cf</li>
+            <li>dnf</li>
+        </ul>
+    </div>
+
+
+
+    <script>
+        //事件委托的好处:减少事件的绑定次数带来的开销问题.利用冒泡原理影响设置每个子节点
+        var oTxt = document.querySelector('.text');
+        var oList = document.querySelector('.list')
+
+        //1.聚焦input框的时候,我们要让下拉列表显示出来
+        oTxt.onfocus = function() {
+            oList.style.display = "block";
+
+            //4.我们发现,每次选中完了后,都会有之前选中颜色的遗留,所以我们要清除以前遗留的颜色
+            for (var i = 0; i < oList.children.length; i++) {
+                oList.children[i].style.backgroundColor = '';
+            }
+
+        }
+
+        //2.利用事件委托,我们让进入li的时候,改变颜色,这里我们不能使用onmouseenter
+        oList.onmouseover = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (target.nodeName != 'LI') {
+                return;
+            }
+            for (var i = 0; i < oList.children.length; i++) {
+                oList.children[i].style.backgroundColor = '';
+            }
+            target.style.backgroundColor = '#ccc';
+        }
+
+        //3.利用事件委托,当我们点击li的时候,把内容赋值到input框中,并且让oList为display:none
+        oList.onclick = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (target.nodeName != 'LI') {
+                return;
+            }
+            oTxt.value = target.innerText;
+            oList.style.display = "none";
+
+        }
+
+        // 5.最后我们发现当我们点击页面其他位置的时候,下拉框不会消失
+        document.body.onclick = function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+            //如果等于input 那么我们就不进行操作, 如果不等于,那我们就进行隐藏
+            // if (target.nodeName == "INPUT" && target.className == 'text') {
+            //     // alert("1")
+            // } else {
+            //     oList.style.display = "none";
+            // }
+            if (!(target.nodeName == "INPUT" && target.className == 'text')) {
+                oList.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
