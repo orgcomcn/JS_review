@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="cookie.js"></script>
+</head>
+
+<body>
+
+    <button>增加</button>
+    <button>修改</button>
+    <button>查看</button>
+    <button>删除</button>
+
+
+
+    <script>
+        var oBtns = document.querySelectorAll('button');
+
+
+        //如果cookie要传数组
+        oBtns[0].onclick = function() {
+            // setCookie('name', 'yangjiang', 20);
+            var arr = ["刘德华", "周杰伦", "吴亦凡", "罗志祥"]
+                //  把数组转换成字符串格式模样数组,实际性是字符串 " ['刘德华'] "
+            var str = JSON.stringify(arr);
+            setCookie('name', str, 20)
+
+        }
+        oBtns[1].onclick = function() {
+            var str = getCookieName("name");
+
+            var arr = JSON.parse(str);
+
+            arr[3] = '刘志祥';
+            var str1 = JSON.stringify(arr);
+            setCookie('name', str1, 20)
+
+
+
+        }
+        oBtns[2].onclick = function() {
+            console.log(getCookieAll())
+        }
+        oBtns[3].onclick = function() {
+            removeCookie("name")
+        }
+    </script>
+
+
+</body>
+
+</html>

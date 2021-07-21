@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            left: 100px;
+        }
+        
+        .box1 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            left: 20px;
+        }
+        
+        .box2 {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: green;
+            left: 30px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="box1">
+            <div class="box2">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var wra = document.querySelector('.wrapper');
+        var box1 = document.querySelector('.box1');
+        var box2 = document.querySelector('.box2');
+
+        function offset(elem) {
+            var obj = {
+                left: elem.offsetLeft,
+                top: elem.offsetTop
+            }
+
+            while (elem.offsetParent) {
+                elem = elem.offsetParent;
+
+                obj.left += elem.offsetLeft;
+                obj.top += elem.offsetTop;
+            }
+            return obj;
+        }
+
+        console.log(offset(wra));
+    </script>
+
+</body>
+
+</html>

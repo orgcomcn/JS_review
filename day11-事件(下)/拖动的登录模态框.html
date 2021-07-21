@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .login-header {
+            width: 100%;
+            text-align: center;
+            height: 30px;
+            font-size: 24px;
+            line-height: 30px;
+        }
+        
+        body {
+            background-color: #ccc;
+        }
+        
+        ul,
+        li,
+        ol,
+        dl,
+        dt,
+        dd,
+        div,
+        p,
+        span,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        a {
+            padding: 0px;
+            margin: 0px;
+        }
+        
+        .login-header {
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            font-size: 36px;
+            text-align: center;
+        }
+        
+        .login-header a {
+            text-decoration: none;
+            color: #000;
+        }
+        
+        .login-content {
+            position: fixed;
+            display: none;
+            width: 500px;
+            height: 300px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid #ccc;
+            background-color: #fff;
+            z-index: 9999;
+        }
+        
+        .login-content .login-title {
+            position: relative;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            cursor: move;
+            /* border: 1px solid pink; */
+        }
+        
+        .login-content .login-ipt {
+            height: 150px;
+            margin-top: 30px;
+        }
+        
+        .login-content .login-ipt {
+            text-align: center;
+        }
+        
+        .login-content .login-ipt p {
+            margin-top: 20px;
+        }
+        
+        .login-content .login-ipt label {
+            display: inline-block;
+            width: 90px;
+            height: 35px;
+        }
+        
+        .login-content .login-ipt input {
+            width: 240px;
+            height: 35px;
+            border: 0;
+            border: #ebebeb 1px solid;
+        }
+        
+        .login-content .btn-close {
+            position: absolute;
+            display: block;
+            right: -20px;
+            top: -20px;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            color: #000;
+            font-size: 14px;
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 50px;
+            background-color: #fff;
+        }
+        
+        .login-btn {
+            display: block;
+            width: 200px;
+            height: 50px;
+            line-height: 50px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #ccc;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .login-btn a {
+            text-decoration: none;
+            color: #000;
+        }
+        /* 遮罩层 */
+        
+        .login-bg {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            background: rgba(0, 0, 0, .3);
+            z-index: 1000;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="login-header"><a href="#" id="link">点我弹出模态框</a></div>
+    <div class="login-content">
+        <div class="login-title">
+            <h4 class="login">会员登陆</h4>
+        </div>
+        <a href="#" class="btn-close">关闭</a>
+        <div class="login-ipt">
+            <p>
+                <label for="username">用户名</label>
+                <input type="text" id="username">
+            </p>
+            <p>
+                <label for="password">密 码</label>
+                <input type="password" id="password">
+            </p>
+        </div>
+        <div class="login-btn">
+            <a href="javascript:;"> 会员登陆 </a>
+        </div>
+    </div>
+    <div class="login-bg"></div>
+
+
+    <script>
+        window.addEventListener('load', function() {
+            //拿到要用到的所有DOM节点
+            var link = document.querySelector('#link');
+            var close = document.querySelector('.btn-close')
+            var move = document.querySelector('.login');
+            var mtk = document.querySelector('.login-content');
+            var zzc = document.querySelector('.login-bg');
+            var left;
+            var top;
+
+            console.log(left, top);
+
+            //如果点击弹出,我们把隐藏的登录框和遮罩层弹出来
+            link.addEventListener('click', function(e) {
+                mtk.style.display = 'block';
+                zzc.style.display = 'block';
+
+                left = mtk.offsetLeft;
+                top = mtk.offsetTop;
+
+            });
+
+
+            //如果点击关闭,我们把显示出来的登录框和遮罩层隐藏
+            close.addEventListener('click', function(e) {
+                mtk.style.display = 'none';
+                zzc.style.display = 'none';
+                //这里的逻辑要清晰
+                mtk.style.left = left + 'px';
+                mtk.style.top = top + 'px';
+            })
+
+            //如果点击拖动,我们要做的事情就比较多
+            //首先我们要获取到盒子距离屏幕的位置,而且要是动态获取
+            //我们先拿到鼠标距离页面的距离e.pageX  鼠标距离盒子的距离 offsetLeft
+            //用 pageX - offsetLeft  那么就得到了盒子距离屏幕的距离,我们赋值给盒子就可以了
+
+            move.addEventListener('mousedown', function(e) {
+                var leftX = e.pageX - mtk.offsetLeft;
+                var topY = e.pageY - mtk.offsetTop;
+
+
+                document.addEventListener('mousemove', move)
+
+                function move(e) {
+                    mtk.style.left = e.pageX - leftX + 'px';
+                    mtk.style.top = e.pageY - topY + 'px';
+                }
+
+
+                document.addEventListener('mouseup', function(e) {
+                    document.removeEventListener('mousemove', move);
+                })
+
+            });
+
+
+        })
+    </script>
+
+</body>
+
+</html>

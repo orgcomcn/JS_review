@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button>添加</button>
+    <button>移出</button>
+    <div class="box"></div>
+
+    <!-- 
+      addEventListener 可以监听 捕获阶段和冒泡阶段
+      onclick 只能监听 冒泡阶段
+
+      addEventListener(事件类型,事件,参数3)
+      参数3   如果是一个 true 为 捕获 false 为冒泡
+              如果是一个对象{
+                  capture:true 捕获阶段
+                  once:true只监听一次
+                }
+
+    -->
+
+
+    <script>
+        var btns = document.querySelectorAll('button');
+        var box = document.querySelector('.box');
+
+
+        function fn() {
+            console.log("111");
+        }
+
+        btns[0].onclick = function() {
+            box.addEventListener('click', fn, true)
+        }
+
+        btns[1].onclick = function() {
+            box.removeEventListener('click', fn, true)
+        }
+    </script>
+
+</body>
+
+</html>

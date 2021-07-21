@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="cookie1.js"></script>
+</head>
+
+<body>
+
+    <button>设置</button>
+    <button>修改</button>
+    <button>删除</button>
+    <button>查看</button>
+
+
+    <script>
+        var oBtns = document.querySelectorAll('button');
+        oBtns[0].onclick = function() {
+            var name = 'username';
+            // var key = 'test';
+            var key = ['张三', '李四', '王五', '李六'];
+            //如果是一个数组,我们需要进行一个转换
+            var strIfy = JSON.stringify(key);
+            setCookie(name, strIfy, 1);
+
+        }
+        oBtns[1].onclick = function() {
+            var str = getCookie('username');
+            var arr = JSON.parse(str);
+            arr[3] = '李七';
+            var strIfy = JSON.stringify(arr);
+            setCookie('username', strIfy, 1);
+
+        }
+        oBtns[2].onclick = function() {
+            removeCookie('username')
+        }
+        oBtns[3].onclick = function() {
+            console.log(getCookie('username'));
+        }
+    </script>
+
+</body>
+
+</html>

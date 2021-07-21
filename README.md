@@ -1491,7 +1491,7 @@ var newBox = box.cloneNode(true);
     </script>
 ```
 
-## day09事件
+### day09事件
 
 #### 鼠标事件
 
@@ -1668,7 +1668,7 @@ btns[1].addEventListener('click', function(event) {
 总结：必须有了事件 才有事件对象，跟事件相关的一系列信息数据的集合都放在这个对象里面
 ```
 
-
+![image-20210720210040375](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20210720210040375.png)
 
 #### 碎片知识点
 
@@ -1817,23 +1817,82 @@ btns[1].addEventListener('click', function(event) {
 * offset三大家族
 
   ```
-   //坐标点 事件对象 event
-   // offsetX,offsetY
-   // clientX,clientY
-   // pageX,pageY
-   // screenX,screenY
+  //坐标点 事件对象 event
+  // offsetX,offsetY
+  // clientX,clientY
+  // pageX,pageY
+  // screenX,screenY
   
   //跟dom元素 三大家族
-  // offsetParent  找带有定位的父元素,如果父级们,都没有,那就是body
-  // offsetLeft,offsetTop  到带有定位父元素的 距离
-  // offsetWidth,offsetHeight  获取自己盒子大小 padding+border =offsetWidth
+  // offsetParent  返回元素---找带有定位的父元素,爷爷元素,如果父级爷爷们,都没有,那就是body
+  // offsetLeft,offsetTop  返回距离---找带有定位的父元素,爷爷元素,如果父级爷爷们,都没有,那就是body
+  // offsetWidth,offsetHeight  返回大小---获取自己盒子大小 包含padding + border 
+  
+  offsetParent 和 parentNode的区别
+  parentNode返回的是最近一级的父亲,不管爸爸有没有定位
+  offsetParent 哪个爸爸有定位就返回哪个爸爸 全部没有就是body
   ```
 
+* offset 和 style的区别
+
+  ```txt
+  offset 
+  offset可以得到任意样式表的样式值
+  offset系列获得的值是没有单位的
+  offsetWidth包含padding+border+width
+  offsetWdith是只读属性,只能获取不能赋值
+  我们想要获取元素大小位置,用offset更加合适
   
+  style
+  只能得到行间样式的样式值
+  style.width获得的值是带有单位的字符串
+  style.width不包含padding和border
+  style.width是可读属性,可以获取也可以赋值
+  我们想要给元素更改值,则需要用style改变
+  ```
+
+
+### day10Cookie
+
+cookie 也叫 HTTPCookie，是客户端与服务器端进行会话(session)使用的一个能够在浏览器本地化存储的技术。
+
+```txt
+cookie基于http协议或https
+它只能存储字符串格式
+存储的大小4k左右
+它会随着请求携带到服务器端
+不能直接跨域,需要设置domain,才可以
+不安全,容易伪造 造成xss攻击 (xss 站点伪造攻击)
+并不是真正永久存储,只是把存储有效时间设置很长而已
+```
+
+为什么要使用cookie?
+
+```txt
+因为 http协议,属于断开式,短链接,无状态
+```
+
+格式
+
+```txt
+name=value;[expires=date];[path=路径];[domain=域名];[secure]
+name=value: 为你要保存的键值对(必选)  进行编码
+var str = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+document.cookie = decodeURIComponent(str); 进行转码,写入cookie
+ 
+expires=date: 表示cookie的失效时间, 默认是浏览器关闭时失效(可选)
+path=路径: 访问路径, 默认为当前文件所在目录(可选)
+domain=域名: 访问域名, 限制在该域名下访问(可选)
+secure: 安全设置, 如果设置了则必须使用https协议才可获取cookie(可选)
+```
+
+cookies的封装 ,具体的参考代码
+
+
+
+
 
 操作
-
-
 
 
 

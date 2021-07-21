@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        
+        .inner {
+            width: 100px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="inner"></div>
+    </div>
+
+
+    <script>
+        var box = document.querySelector('.box');
+        var inner = document.querySelector('.inner');
+        inner.onclick = function(event) {
+            console.log("inner")
+            var e = event || window.event;
+            e.stopPropagation();
+        }
+
+        box.onclick = function(event) {
+            var e = event || window.event;
+            //阻止冒泡兼容写法
+            if (e.stopPropagation) {
+                e.stopPropagation()
+            } else {
+                e.canceBubble.true;
+            }
+
+        }
+
+
+
+        document.body.onclick = function(event) {
+            console.log("body");
+        }
+    </script>
+
+</body>
+
+</html>

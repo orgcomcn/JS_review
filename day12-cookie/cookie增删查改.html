@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button>增</button>
+    <button>改</button>
+    <button>查</button>
+    <button>删</button>
+
+
+    <script>
+        var btns = document.querySelectorAll('button');
+
+        //增
+        btns[0].onclick = function() {
+            var date = new Date();
+            date.setDate(date.getDate() + 7);
+            document.cookie = "age=18;expires=" + date;
+            //又设置一条cookie
+            document.cookie = "myname=yangjiang"; //一次性的
+        }
+
+        //改
+        btns[1].onclick = function() {
+            document.cookie = "age=19";
+        }
+
+        //查 如果有多条cookie,用; 空格 隔开
+        btns[2].onclick = function() {
+            var str = document.cookie;
+            console.log(str);
+        }
+
+        //删
+        btns[3].onclick = function() {
+            var date = new Date();
+            date.setDate(date.getDate() - 1);
+            document.cookie = "age= ;expires=" + date;
+        }
+    </script>
+
+
+</body>
+
+</html>

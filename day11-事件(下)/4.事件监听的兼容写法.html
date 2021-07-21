@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+    <button>添加</button>
+    <button>移出</button>
+    <div class="box"></div>
+    <!--   IE下不支持事件监听,我们用兼容写法   -->
+
+    <script>
+        var oBox = document.querySelector('.box');
+        var oBtns = document.querySelectorAll('button');
+
+        //事件监听的兼容写法
+        //element  元素
+        //eventType  事件类型
+        //callback  回调函数
+        //isCapture  是否捕获
+        function addEvent(element, eventType, callback, isCapture) {
+            if (element.addEventListener) {
+                element.addEventListener(eventType, callback, isCapture)
+            } else { //ie
+                element.attachEvent("on" + eventType, callback)
+            }
+        }
+
+
+        //事件移出兼容写法
+        //element  元素
+        //eventType  事件类型
+        //callback  回调函数
+        //isCapture  是否捕获
+        function removeEvent(element, eventType, callback, isCapture) {
+            if (element.removeEventListener) {
+                element.removeEventListener(eventType, callback, isCapture)
+            } else { //ie
+                element.detachEvent("on" + eventType, callback)
+            }
+        }
+
+        //全局函数
+        var fn = function() {
+            console.log("111");
+        }
+
+        oBtns[0].onclick = function() {
+            addEvent(oBox, "click", fn);
+        }
+        oBtns[1].onclick = function() {
+            removeEvent(oBox, "click", fn);
+        }
+    </script>
+
+
+</body>
+
+</html>

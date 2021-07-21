@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        
+        .inner {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="inner"></div>
+    </div>
+
+
+    <script>
+        var oBox = document.querySelector('.box');
+        var oInner = document.querySelector('.inner');
+
+        oBox.addEventListener('click', function() {
+            console.log('1111')
+        }, {
+            once: true, //只能点击一次
+            capture: true // 捕获从外往内 IE没有捕获
+        });
+
+
+        oInner.addEventListener('click', function() {
+            console.log('2222');
+        }, {
+            once: true, //只能点击一次
+            capture: true // 捕获从外往内 IE没有捕获
+        })
+    </script>
+
+</body>
+
+</html>
