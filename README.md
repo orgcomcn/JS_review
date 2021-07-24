@@ -1854,14 +1854,14 @@ btns[1].addEventListener('click', function(event) {
 
 ### day10Cookie
 
-cookie 也叫 HTTPCookie，是客户端与服务器端进行会话(session)使用的一个能够在浏览器本地化存储的技术。
+cookie 也叫 HTTPCookie，是客户端与服务器端进行会话使用的一个能够在浏览器本地化存储的技术。
 
 ```txt
 cookie基于http协议或https
 它只能存储字符串格式
 存储的大小4k左右
-它会随着请求携带到服务器端
-不能直接跨域,需要设置domain,才可以
+它会随着请求携带到服务器端(特点,特色)
+不能直接跨域,需要设置domain
 不安全,容易伪造 造成xss攻击 (xss 站点伪造攻击)
 并不是真正永久存储,只是把存储有效时间设置很长而已
 ```
@@ -1886,7 +1886,490 @@ domain=域名: 访问域名, 限制在该域名下访问(可选)
 secure: 安全设置, 如果设置了则必须使用https协议才可获取cookie(可选)
 ```
 
-cookies的封装 ,具体的参考代码
+#### 碎片知识点
+
+* cookies,模拟了一个jquery的封装,具体的代码day13正则表达式Jquery封装cookie.js文件
+* cookies我们往后不需要自己封装,已经熟练,自己封装了一个,但是应用还不是很熟练.
+
+### day11正则表达式
+
+笔记暂时没整理,在做小例子
+
+* 点菜购物车案例(day13正则表达式点菜购物车,要用http协议启动localStorage)
+
+  ```txt
+  大概思路:
+  1.我们首先要模拟一组数据,也就是假装有一组后端给我们的数据
+  var data = [
+      {id: 1,name: "青椒炒肉",price: 18,image: "./images/1.jpg"},
+      {id: 1,name: "青椒炒肉",price: 18,image: "./images/1.jpg"},
+      ....
+  ];
+  2.我们要想办法把数据动态渲染到页面,这里直接使用的字符串的拼接模式,字符串的拼接其实有点慢,有可以优化的地方,这例我们暂时不优化,为了方便(参考day9 碎片知识点 元素创建的三种方式以及效率上的区别)
+  
+  3.因为我们的模拟的数据,所以不担心第一次页面没有数据加载,当用户点击购物车的时候,我们要拿到菜品的id
+  然后拿到localStorage里面的数据. 这里采用事件委托,
+          var e = event || window.event;
+          var target = e.target || e.srcElement;
+           //如果你不是class名字为add的a标签,就终止, 这是为了不让点击其他的位置也被委托了.
+          if (!(target.nodeName === 'A' && target.className === 'add')) {
+              return;
+          }
+  4.如果你是A标签,并且class名字为add,我就拿到你的id,然后顺着id拿到整条数据
+  5.我们拿到数据后,要和本地的localstorage数据进行对比,看看购物车有没有这条数据
+  	如果有
+  		如果有这条数据,我们就在原有的数据上++, 最后重新写入到localstorage
+  	如果没有
+  		 添加一个属性,num,代表的是数量有了一个,然后写入到localstorage
+  剩下的看代码理解.... 要注意的点就是
+  我们拿出来的数据一定要进行
+  //这里如果第一次拿数据,没有的话,也会给我们返回一个空数组 ,不会报错 
+  //读取数据一定要JSON.parse()
+  var locaData = JSON.parse(localStorage.getItem('cart') || '[]');
+  //写入数据一定要JSON.stringify()
+  localStorage.setItem('cart', JSON.stringify(locaData));
+  
+  没事在脑子里面多理理思路,其实很简单....但是有点容易忘记细节,总的而言写了三遍.
+  ```
+
+* 用户登录案例(day13用户登录,要用http协议启动,数据存储在localStorage)
+
+  ```txt
+  看代码,注释写的很全.
+  ```
+
+### day12ES6
+
+#### 严格模式
+
+ES6 的模块自动采用严格模式，不管你有没有在模块头部加上`"use strict";`。
+
+严格模式分类
+
+​	全局严格,局部严格
+
+严格模式的好处背5条
+
+​	1.不允许省略var关键字
+
+​	2.不允许在非函数代码块内声明函数,
+
+​	3.禁止函数使用this关键字指向全局变量
+
+​	4.arguments变量不会同步
+
+​	5.不能使用八进制
+
+​	6.eval作用域,加了严格模式,会有eval作用域
+
+​	7.无法使用delete删除变量
+
+​	8.无法使用with
+
+#### 改变this指向
+
+* bind
+
+  ```javascript
+  var obj = { name:'zhangsan'};
+  var name = 'lisi';
+  function fn(){console.log(this.name)}; //打印lisi
+  //函数下的this 默认指向window 我们要改变this的指向
+  
+  //bind方法返回的仍然是一个函数，因此后面还需要()来进行调用
+  fn.bind(obj)();
+  
+  //假如函数带有参数,bind的参数优先
+  function fn(num){console.log(num)};
+  //bind参数优先还是函数参数优先? 答案--> bind
+  fn.bind(obj,123)(456); //这里会打印123 , 
+  ```
+
+#### let/const
+
+##### 	let
+
+  * 只有块级作用域 
+
+    ```javascript
+    {
+        var a = 10;
+        let b = 10;
+    }
+    console.log(a); // 10;
+    console.log(b); //ReferenceError: a is not defined.
+    ```
+
+* 不存在变量提升
+
+  ```javascript
+  console.log(a); //undefined
+  var a;
+  
+  console.log(b); //ReferenceError: a is not defined.
+  let b;
+  ```
+
+* 存在暂时性死区(TDZ)
+
+  ```javascript
+  var temp = 123;
+  if( true ){
+      temp = 'abc'; //ReferenceError: a is not defined.
+      let temp;
+  }
+  
+  if (true) {
+      // TDZ开始
+      tmp = 'abc'; 
+      console.log(tmp); //ReferenceError: a is not defined.
+  
+      let tmp; // TDZ结束
+      console.log(tmp); // undefined
+  
+      tmp = 123;
+      console.log(tmp); // 123
+  }
+  //let在声明之前使用,就会报错,因为存在暂时性死区,导致上面的代码会没用.
+  ```
+
+  > “暂时性死区”也意味着**typeof**不再是一个百分之百安全的操作。在没有**let**之前,**typeof**是百分百安全的,现在这一点不成立了.
+  >
+  > ```javascript
+  > typeof x; //ReferenceError: a is not defined.
+  > let x; 
+  > ```
+
+* 不允许重复声明
+
+  > **let**不允许在相同作用域内，重复声明同一个变量。
+
+  ```javascript
+  // 报错
+  function func() {
+    let a = 10;
+    var a = 1;
+  }
+  
+  // 报错
+  function func() {
+    let a = 10;
+    let a = 1;
+  }
+  
+  function func(arg) {
+    let arg;
+  }
+  // 报错
+  func() 
+  
+  function func(arg) {
+    {
+      let arg;
+    }
+  }
+  // 不报错
+  func() 
+  ```
+
+  
+
+##### const
+
+> **const**声明一个只读的常量。一旦声明，常量的值就不能改变。这意味着const声明必须要立即初始化.
+
+* 只有块级作用域
+* 不能允许重复声明
+
+ * const也存在暂时性死区
+ * const声明的常量也不会提升
+
+> **const**本质保证的是变量指向的那个地址不会变动,至于它的结构是不是可变的,就不能完全控制的了,因此将一个对象声明成常量必须非常小心.
+>
+> ``` javascript
+> 例1:
+> const foo = {};
+> foo.age = 123; //不会报错;
+> foo.name = "test"; //不会报错
+> foo = {}; //报错,这里是在修改指向.
+> 例2:
+> const arr = [];
+> arr.length = 0; //不报错
+> arr.push('1'); //不报错
+> arr = ['1']; //报错,这是在修改指向.
+> 
+> ```
+
+##### var/let/const之间的区别,实际开发优先使用哪一个?
+
+* var
+
+  * 没有块级作用域，是弱类型，支持变量提升。
+  * 可以重复声明，没有报错和警告
+  * ES5中只有全局作用域和函数作用域,大部分人会采用闭包来解决ES5的问题
+
+* let
+
+  * 只有块级作用域 window无法访问
+  * 不存在变量提升
+  * 存在暂时性死区(TDZ)
+  * 不允许重复声明
+
+* const
+
+  * 只有块级作用域 window无法访问
+  * 不存在变量提升
+  * 存在暂时性死区(TDZ)
+  * 不允许重复声明
+  * 声明时必须赋值,且后续不允许修改
+
+* 实际开发中如何选择
+
+  > 首先排除**var**在**let**和**const**之间做选择，建议优先使用**const**，尤其是在全局环境，不应该设置变量，只应设置常量。
+  >
+  > 一个是**const**可以提醒阅读程序的人，这个变量不应该改变；另一个是**const**比较符合函数式编程思想，运算不改变值，只是新建值，而且这样也有利于将来的分布式运算；最后一个原因是 JavaScript 编译器会对**const**进行优化，所以多使用**const**，有利于提高程序的运行效率，也就是说**let**和**const**的本质区别，其实是编译器内部的处理不同.
+
+#### 新增的String方法
+
+* includes
+
+  和indexOf很类似,只不过includes返回的值是boolean.
+
+  ```javascript
+  let str1 = "yangjiang";
+  console.log(str1.includes("yan")); //找到返回true 类似于indexOf,但是indexOf返回的是下标
+  console.log(str1.includes("y", 1)); //看下标1 是不是y 如果是就返回true 否则false
+  console.log(str1.includes("yang", 0)); //从下标0 开始匹配, 看看是不是有yang 如果有就是true 否则 false
+  ```
+
+* startsWith
+
+  string.startsWith(s,i)方法参数1为需要查询字符(串),参数2为查询的起始位置,返回布尔值,表示是否字符(串)位于string的头部位置。
+
+  ```javascript
+  let str2 = "yangjiang";
+  console.log(str2.startsWith('yang')); //true
+  console.log(str2.startsWith('yang', 1)); //false,起始位置为1
+  ```
+
+* endsWith
+
+  方法用于测 试字符串是否以指定的后缀结束,返回布尔值,表示是否字符串位于string的尾部位置。
+
+  ```javascript
+   //返回布尔值,表示是否字符(串)位于string的尾部位置。
+  let str3 = "yangjiang";
+  console.log(str3.endsWith("jiang")); //true
+  ```
+
+* repeat
+
+  重复字符串 返回一个新的字符串
+
+  ```javascript
+  //重复10次
+  let str4 = "yangjiang";
+  console.log(str4.repeat(10));
+  ```
+
+#### 新增的Array方法
+
+* Array.from转数组
+
+  ```javascript
+  // 在转换之前,可能该元素是个对象,转换为数组之后就可以使用forEach
+  Array.from(btns1).forEach(function(item) {
+      item.onclick = function() {
+          console.log(item);
+      }
+  });
+  
+  //Array.from 它有回调函数,可以对数组里面的内容进行改变
+  //先把对象转换为数组
+  var obj = {
+              0: 1,
+              1: 2,
+              2: 3,
+              length: 3
+          };
+  //可以对数组里面的内容进行改变
+  var obj1 = Array.from(obj, function(item) {
+      return item + 1;
+  });
+  console.log(obj, obj1);//obj1会把obj里面的值全部都+1
+  ```
+
+* Array.of创建数组
+
+  ```javascript
+  //解决了 Array()的一些问题
+  var arr = Array.of(1, 3, 4, 5, 6);
+  console.log(arr);
+  ```
+
+* Array.find找数组中的对象
+
+  ```javascript
+  var arr = [
+      {name: '刘德华',age: 17}, 
+      {name: '张学友',age: 18}, 
+      {name: '周杰伦',age: 19}
+  ];
+  var name = '周杰伦';
+  var obj = arr.find(function(item, index) {
+      return item.name == name;
+  })
+  console.log(obj); //会返回周杰伦这个对象
+  ```
+
+* Array.findIndex找数组中对象的下标
+
+  ```javascript
+  var arr = [
+      {name: '刘德华',age: 17}, 
+      {name: '张学友',age: 18}, 
+      {name: '周杰伦',age: 19}
+  ];
+  var name = '张学友';
+  var index = arr.findIndex(function(item, index) {
+  return item.name == name;
+  })
+  arr.splice(index, 1); //找到张学友这个下标 然后删除
+  console.log(arr); 
+  ```
+
+#### 箭头函数
+
+ES6允许使用箭头（=>）定义函数，箭头函数提供了一种更加简洁的函数书写方式，箭头函数多用于匿 名函数的定义；
+
+* 函数创建的三种方式
+
+  ```javascript
+  //构造函数 
+  var sum3 = new Function('n1', 'n2', 'return n1+n2'); //参数必须带引号
+  //函数声明 
+  function Fn(x, y) {
+      return x + y;
+  }
+  //函数表达式
+  var m = function(x, y) {
+      return x + y;
+  }
+  ```
+
+ *  传统模式和ES6写法区分
+
+```javascript
+// 传统写法1:无参数
+let fn1 = function(){console.log("test")};
+// 简化写法1:无参数
+let fn2 = () => console.log("test");
+
+// 传统写法2:一个参数
+let fn3 = function(a){return a};
+// 简化写法2:一个参数
+let fn4 = (a) => a;
+
+// 传统写法3:多个参数
+let fn5 = function(a,b,c) {return a + b + c;}
+// 简化写法3:多个参数
+let fn5 = (a,b,c) => return a + b + c;
+```
+
+箭头函数的注意点： 
+
+1. 如果形参只有一个，则小括号可以省略； 
+2. 函数体如果只有一条语句，则花括号可以省略，函数的返回值为该条语句的执行结果；
+3. 箭头函数 this 指向声明时所在作用域下 this 的值； 
+4. 箭头函数不能作为构造函数实例化；
+5. 不能使用 arguments；
+
+特性： 
+
+1. 箭头函数的this是静态的，始终指向函数声明时所在作用域下的this的值； 
+2. 不能作为构造实例化对象；
+3. 不能使用 arguments 变量；
+
+箭头函数的使用场景:
+
+​	1.箭头函数适合与this无关的回调,例如定时器,数组的方法回调.
+
+​	2.箭头函数不适合与this有关的回调,例如事件的回调,对象的方法.
+
+```javascript
+//this始终指向函数声明时所在作用域下的this的值.
+        var obj = {
+            fn1: function() {
+                //如果是一个普通函数,this指向obj
+                console.log(this);
+                //箭头函数在声明时的作用域下,当前this是obj
+                //所以箭头函数的this是obj
+                let ff = () => {
+                    console.log(this);
+                }
+                ff();
+
+            },
+            fn2: () => {
+                //如果是箭头函数,this指向window
+                console.log(this);
+                //箭头函数在声明时的作用域下,当前this是window
+                //所以箭头函数的this是window
+                let ff = () => {
+                    console.log(this);
+                }
+                ff();
+            }
+        }
+        obj.fn1();
+        obj.fn2();
+```
+
+```javascript
+ 		//反推
+        let fn = n => m => n * m;
+
+        function fn1(n) {
+            return function(m) {
+                return n * m
+            };
+        }
+        //反推
+        let fn = a => b => c => 5;
+
+        function fn2(a) {
+            return function(b) {
+                return function(c) {
+                    return 5;
+                }
+            }
+        }
+```
+
+* 思路拓展 箭头函数如何拿到当前btn
+
+  ```javascript
+   var btn = document.querySelector('button');
+  
+  btn.onclick = function() {
+      this.style.backgroundColor = 'red';
+      console.log(this); //这里我们可以拿到btn
+  }
+  
+  //思路扩展, 假设我们用箭头函数,就只能使用事件对象,之前没想到
+  btn.onclick = (event) => {
+      var e = event || window.event;
+      var target = e.target || e.srcElement;
+  
+      console.log(target)
+  }
+  ```
+
+  
+
+​	
+
+
 
 
 

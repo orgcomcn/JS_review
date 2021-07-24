@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //函数创建的三种方式
+        //构造函数 
+        var sum3 = new Function('n1', 'n2', 'return n1+n2'); //参数必须带引号
+        //函数声明 
+        function Fn(x, y) {
+            return x + y;
+        }
+        //函数表达式
+        var m = function(x, y) {
+            return x + y;
+        }
+
+
+
+        //函数的默认参数
+        function fn1(n = 10) {
+            console.log(n)
+        }
+
+        //箭头函数  -->拉姆达表达式
+        //场景1
+        function n(n) {
+            return n * 10;
+        }
+        //简写1
+        var n = (n) => {
+            return n * 10;
+        };
+        //简写2
+        var n = n => n * 10;
+
+        //场景2
+        function n(n, m) {
+            return n + m;
+        }
+        // 简写1
+        var n = (n, m) => n + m;
+
+        // 场景3
+        function n(name) {
+            return {
+                name: name
+            }
+        }
+        //这样写不行
+        var n = name => {
+            name: name
+        };
+        //要这样写,甚至后面的name也可以省略
+        var n = name => ({
+            name: name
+        })
+        console.log(n("123"));
+    </script>
+
+
+
+</body>
+
+</html>

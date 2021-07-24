@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <div id="box">
+
+    </div>
+    <a href="05.查看购物车.html">查看购物车</a>
+
+    <script>
+        //模拟数据
+        var data = [{
+            id: 1,
+            name: '飞机',
+            price: 998
+        }, {
+            id: 2,
+            name: '坦克',
+            price: 998
+        }, {
+            id: 3,
+            name: '火箭',
+            price: 918
+        }, {
+            id: 4,
+            name: '核弹',
+            price: 991
+        }, {
+            id: 5,
+            name: '手枪',
+            price: 918
+        }, {
+            id: 6,
+            name: 'AK47',
+            price: 9198
+        }];
+
+        var oBox = document.querySelector('#box');
+        var strHtml = ``;
+        data.forEach(function(item) {
+            strHtml += `<li>
+                编号:${item.id}
+                产品名称:${item.name}
+                价格: ${item.price}
+                <a href="javascript:void(0)" data-id=${item.id}>加入购物车</a>
+              </li>`
+        });
+        oBox.innerHTML = strHtml;
+
+
+        //事件委托
+        oBox.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || srcElement;
+            //这里要注意,如果我们点击 box的任意位置都会触发 onclick 事件,我们需要过滤, 只有a标签才触发
+            //其实还可以通过className来操作,这里我们没有设置className 所以我们暂时只判断节点的名称
+            if (target.nodeName !== 'A') {
+                return;
+            }
+            //拿到当前点击的数据
+            var currentId = target.getAttribute('data-id');
+            var current = null;
+            data.forEach(function(item) {
+                if (item.id === Number(currentId)) {
+                    current = item;
+                }
+            });
+
+            //去localstorage里面找,看有没有,这里要注意进行一个转换,在没有的情况下,它拿到的是一个数组,在有的情况下它拿到的是JSON数据
+            var localData = JSON.parse(localStorage.getItem('cart') || '[]');
+
+            //判断有没有购买过
+            var isCart = false; // 假设没有购买过
+            localData.forEach(function(item) {
+                if (item.id === current.id) {
+                    item.num++;
+                    isCart = true;
+                }
+            })
+
+            if (!isCart) {
+                current.num = 1;
+                localData.push(current);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(localData));
+
+        })
+    </script>
+
+
+</body>
+
+</html>

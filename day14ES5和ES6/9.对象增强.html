@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var age = 29;
+        // 属性简写
+        // var o = {
+        //     age: age,
+        // };
+        //简化后 , 要和外面的age相同才行
+        var o = {
+            age,
+        };
+
+        //方法简写
+        var m = "run";
+        var c = {
+            show() {
+                console.log('这里的this是c');
+            },
+            show: () => {
+                console.log('这里的this是window')
+            },
+            //这里暂时没理解
+            [m]() {
+                console.log("run运行");
+            }
+        }
+        c[m]();
+
+
+        function fn1(n) {
+            console.log(n);
+        }
+        var b = {
+            age,
+            fn1,
+        };
+        console.log(b.fn1(1));
+    </script>
+
+</body>
+
+</html>

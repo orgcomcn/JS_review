@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <form>
+        <input type="text" id="username">
+        <button name="searchAll" id="searchAll">查询全部数据</button>
+        <button name="search" id="search">根据用户名模糊查询数据</button>
+        <div id="box">
+
+        </div>
+    </form>
+
+
+    <script>
+        var box = document.querySelector('#box');
+        var username = document.querySelector('#username');
+        var strHTML = ``;
+
+        searchAll.addEventListener("click", function() {
+            var obj = JSON.parse(localStorage.getItem('user') || '[]');
+            box.innerHTM = "";
+            strHTML = "";
+            obj.forEach(function(item) {
+                strHTML += `
+                    <p>用户名${item.username}密码${item.password} 手机号${item.phone}</p>
+                  `
+            })
+            box.innerHTML = strHTML;
+
+        })
+        search.addEventListener("click", function() {
+            var user = username.value;
+            var obj = JSON.parse(localStorage.getItem('user') || '[]');
+            box.innerHTM = "";
+            strHTML = "";
+            obj.forEach(function(item) {
+                if (item.username.indexOf(user) != -1) {
+                    strHTML += `
+                    <p>用户名${item.username}密码${item.password} 手机号${item.phone}</p>
+                  `
+                }
+            })
+            box.innerHTML = strHTML;
+        })
+
+        document.forms[0].onsubmit = function() {
+            return false;
+        }
+    </script>
+
+
+</body>
+
+</html>

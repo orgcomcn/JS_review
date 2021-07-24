@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+    <script>
+        var btns = document.querySelectorAll('button');
+
+        //解决按钮点击问题  给每个标签设置属性
+        // for (var i = 0; i < btns.length; i++) {
+        //     btns[i].setAttribute('index', i);
+        //     btns[i].onclick = function() {
+        //         var index = this.getAttribute('index');
+        //         console.log(btns[index])
+        //     }
+        // }
+
+        //解决按钮问题2   let
+        // for (let i = 0; i < btns.length; i++) {
+        //     btns[i].onclick = function() {
+        //         console.log(btns[i])
+        //     }
+        // }
+
+        //解决按钮问题3 forEach
+        // btns.forEach(function(item) {
+        //     item.onclick = function() {
+        //         console.log(item);
+        //     }
+        // })
+
+        // 解决按钮问题4 闭包
+        for (var i = 0; i < btns.length; i++) {
+            (function(j) {
+                btns[j].onclick = function() {
+                    console.log(btns[j]);
+                }
+            }(i))
+        }
+    </script>
+
+
+</body>
+
+</html>

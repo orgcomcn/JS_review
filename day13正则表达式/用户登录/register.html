@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <form id="register">
+        <h1>注册</h1>
+        <p>
+            <input type="text" name="uname" placeholder="用户名">
+            <span class="uNameMsg"></span>
+        </p>
+        <p>
+            <input type="text" name="upwd" placeholder="密码">
+            <span class="uPwdMsg"></span>
+        </p>
+        <p>
+            <input type="text" name="utel" placeholder="手机号">
+            <span class="uTelMsg"></span>
+        </p>
+        <p><button class="btn">注册</button></p>
+    </form>
+    <a href="./login.html">立即去登录</a>
+
+    <script>
+        //form表单元素
+        var uForm = document.getElementById('register');
+        //表单注册数据
+        var uName = uForm.uname;
+        var uPwd = uForm.upwd;
+        var uTel = uForm.utel;
+        //表单提示数据
+        var uNameMsg = document.querySelector('.uNameMsg');
+        var uPwdMsg = document.querySelector('.uPwdMsg');
+        var uTelMsg = document.querySelector('.uTelMsg');
+        //拿到提交按钮
+        var btn = document.querySelector('.btn');
+
+        //假设用户名,密码 校验全部为失败
+        var isUser = false;
+        var isPwd = false;
+        var isTel = false;
+        //监听输入,实时把信息打印到页面上
+        uName.oninput = function() {
+            var msg = "用户名只包含数字,字母,下划线, 且长度不小于6位";
+            var reg = /^\w{6,}$/;
+            var val = uName.value.trim();
+            //1.1用户名是否已经存在
+            locaDate = JSON.parse(localStorage.getItem('users') || '[]');
+            var isReg = locaDate.some(function(item) {
+                return item.username === val;
+            });
+
+            //1.2用户名是否合法
+            isOk = validata(reg, val, msg, uNameMsg);
+            if (isReg) {
+                uNameMsg.innerHTML = '用户名已经存在,请换一个';
+            }
+
+            //1.3用户名合法 以及 用户不存在  才算ok
+            isUser = !isReg && isOk;
+            if (isUser) uNameMsg.innerHTML = "恭喜您用户未被注册,并且该用户名合法";
+        }
+        uPwd.oninput = function() {
+            var msg = "密码长度在8到16位";
+            var reg = /^.{8,16}$/i;
+            var val = uPwd.value.trim();
+            isPwd = validata(reg, val, msg, uPwdMsg);
+        }
+        uTel.oninput = function() {
+            var msg = "手机号不合法,11位手机号";
+            var reg = /^[1][3-9]\d{9}$/;
+            var val = uTel.value.trim();
+            isTel = validata(reg, val, msg, uTelMsg);
+        }
+
+        //reg正则表达式,val值,msg提示信息
+        function validata(reg, val, msg, tag) {
+            if (reg.test(val)) {
+                tag.innerHTML = "输入符合要求";
+                return true;
+            }
+            tag.innerHTML = msg;
+            return false;
+        }
+        //禁止表单的默认事件
+        uForm.onsubmit = function() {
+            //如果校验失败, 直接不允许进行任何操作
+            if (!(isUser && isTel && isPwd)) {
+                alert('仔细看看页面哪里填错了');
+                return false;
+            }
+            //如果校验成功,封装一个用户,多添加两个属性,time,注册时 时间戳, status 用户状态 , 0代表禁用1代表启用
+            var user = {
+                username: uName.value.trim(),
+                password: uPwd.value.trim(),
+                tel: uTel.value.trim(),
+                time: Date.now(),
+                status: 1
+            }
+
+            locaDate = JSON.parse(localStorage.getItem('users') || '[]');
+            //把数据存储到内存中
+            locaDate.push(user);
+            //把数据存储到webstorage
+            localStorage.setItem('users', JSON.stringify(locaDate));
+            alert('注册成功!');
+            location.replace("register.html");
+
+            return false;
+        }
+    </script>
+
+</body>
+
+</html>

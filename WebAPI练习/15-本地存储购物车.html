@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+
+
+
+
+    <div class="box">
+
+    </div>
+
+    <a href="#">查看购物车</a>
+
+
+    <script>
+        var box = document.querySelector('.box');
+
+
+        //模拟后端给我们的数据
+        var data = [{
+            id: 1,
+            name: '飞机',
+            price: 198.99,
+        }, {
+            id: 2,
+            name: '坦克',
+            price: 298.99,
+        }, {
+            id: 3,
+            name: '炮弹',
+            price: 398.99,
+        }, {
+            id: 4,
+            name: '原子弹',
+            price: 498.99,
+        }, {
+            id: 5,
+            name: '手枪',
+            price: 196.29,
+        }];
+
+        //把数据拼接到页面上展示出来
+        var strHmtl = "";
+        data.forEach(function(item) {
+            strHmtl += `
+              <li>
+                id:${item.id}
+                name:${item.name}
+                price:${item.price}
+                <a href="javascript:void(0)" data-id="${item.id}">加入购物车</a>
+              </li>
+            `
+        });
+        box.innerHTML = strHmtl;
+
+        //判断你点击了哪个数据,并且把数据拿出来,然后和本地存储的数据进行比较,
+        //如果有就num++,如果没有就设置num,并且写入到本地存储;
+
+        box.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+            //你只能给我点击A,你点击其他的,程序直接终止掉.
+            if (target.nodeName !== 'A') {
+                return;
+            }
+
+            //拿到我们点击的数据,然后去和本地存储进行一个比较
+            var id = target.getAttribute('data-id');
+            var currentIdData = null;
+            data.forEach(function(item) {
+                if (item.id === Number(id)) {
+                    currentIdData = item;
+                }
+            });
+
+            //这是我们在本地拿到的data,如果没有,那就是一个空对象
+            var localData = JSON.parse(localStorage.getItem('cart') || '[]');
+            var isCart = false; //我们这里假设它是没有的
+
+            localData.forEach(function(item) {
+                if (item.id === Number(currentIdData.id)) {
+                    item.num++;
+                    isCart = true;
+                }
+            })
+
+            if (!isCart) {
+                currentIdData.num = 1;
+                localData.push(currentIdData);
+            }
+            //存储进数据
+            localStorage.setItem('cart', JSON.stringify(localData));
+
+
+
+
+        })
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

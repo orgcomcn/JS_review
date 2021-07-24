@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    1.严格模式
+      全局严格
+      局部严格
+    2.严格模式的好处
+      1.消除怪异行为 (程序更加严谨)
+      2.保证代码更加安全 (运行更加安全)
+      3.运行速度更快  (运行速度更快)
+    3.严格模式增加了哪些?
+      1.不可以省略var关键字
+      2.禁止函数使用this关键字指向全局变量
+        "use strict";  //严格模式前面不能有代码
+        function fn (){
+          console.log(this); //函数内部的this,在严格模式下指向undefined, 本来函数内默认的this指向window
+        }
+      3.禁止函数使用八进制方法
+        "use strict"
+        var x = 021;
+        console.log(x);
+      4.不允许在非函数的代码块内声明函数 if(true) function fn(){}
+      5.严格模式下,arguments变量,形参不同步
+        形参和arguments不会同步
+        function fn(num){
+          num = 40;
+          arguments[0]; //也会变成40  ,如果加了严格模式,arguments不会变,还是20
+        }
+        fn(20);
+      6.eval作用域,
+        如果eval不加严格模式,是全局作用域,如果加了严格模式是eval会有自己的作用域
+        
+        var x = 20;
+        eval("var x = 30; console.log(x) "); //30
+        console.log(x); // 30
+
+
+        var x = 20;
+        eval(" 'ues strict'; var x = 30; console.log(x) ");  //30
+        console.log(x); //30
+
+      7.delete 变量报错,严格模式必须写在第一行
+        var o = {name:'刘德华'};
+        delete o.name;  //可以删除
+
+        如果加了严格模式 会报错 delete变量会报错
+        var x = 123;
+        delete x; //这个时候 x在window下, 无法删除
+      
+        
+
+
+
+
+
+      函数内的this,默认指向window,严格模式前面不能有代码
+   -->
+
+    <script>
+    </script>
+
+
+</body>
+
+</html>

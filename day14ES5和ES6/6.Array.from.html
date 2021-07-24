@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>按钮1</button>
+    <button>按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+
+
+    <script>
+        var btns = document.querySelectorAll('button'); //有forEach
+        var btns1 = document.getElementsByTagName('button'); //没有forEach
+
+        //Array.from转数组
+        Array.from(btns1).forEach(function(item) {
+            item.onclick = function() {
+                console.log(item);
+            }
+        });
+        //Array.from 它有回调函数,可以对数组里面的内容进行改变
+        var obj = {
+            0: 1,
+            1: 2,
+            2: 3,
+            length: 3
+        };
+        //可以对数组里面的内容进行改变
+        var obj1 = Array.from(obj, function(item) {
+            return item + 1;
+        });
+        console.log(obj, obj1);
+
+        //Array.of 创建 解决了 Array()的问题
+        var arr = Array.of(1, 3, 4, 5, 6);
+        console.log(arr);
+
+        //Array.find 找到对象
+        var arr = [{
+            name: '刘德华',
+            age: 17
+        }, {
+            name: '张学友',
+            age: 18
+        }, {
+            name: '周杰伦',
+            age: 19
+        }];
+        var name = '周杰伦';
+        var obj = arr.find(function(item, index) {
+            return item.name == name;
+        })
+        console.log(obj);
+
+        //Array.findIndex(); 找到下标
+        var name = '张学友';
+        var index = arr.findIndex(function(item, index) {
+            return item.name == name;
+        })
+        arr.splice(index, 1);
+        console.log(arr);
+    </script>
+
+</body>
+
+</html>

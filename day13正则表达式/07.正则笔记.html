@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1.选择符的使用 |  
+        var str = 'youMeiyou';
+        console.log(/a|b/.test(str)); //str中有没有a或者b  false
+        console.log(/y/.test(str)); // str中有没有y  true
+
+        //检测号码是不是北京 或者上海 的
+        var tel = '010-9999999';
+        console.log(/010\-\d{7,8}|020\-\d{7,8}/.test(tel)); // true
+        console.log(/(010|020)\-\d{7,8}/.test(tel)); // true
+
+
+        //2.原子表与原子组中的选择符
+        //2.1[]原子表 原子表不需要加|
+        var str = '123';
+        var reg = /[123456]/; //这里就代表有或的意思 (1|2|3|4|5|6)
+        console.log(reg.test(str))
+
+        //2.2()原子组
+        var str = '132415';
+        var reg = /(12|23)/; //代表12 或者 23是一个整体
+        console.log(reg.test(str));
+
+
+        //3.转义
+    </script>
+</body>
+
+</html>

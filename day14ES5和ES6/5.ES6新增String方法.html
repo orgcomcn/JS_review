@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //  for…of：
+        let str = "yangjiang";
+        for (let item of str) {
+            console.log(item)
+        }
+
+        // includes：
+        let str1 = "yangjiang";
+        console.log(str1.includes("yan")); //找到返回true 类似于indexOf,但是indexOf返回的是下标
+        console.log(str1.includes("y", 1)); //看下标1 是不是y 如果是就返回true 否则false
+        console.log(str1.includes("yang", 0)); //从下标0 开始匹配, 看看是不是yang 如果是就是true 否则 false
+
+        //startsWith：
+        //string.startsWith(s,i)方法参数1为需要查询字符(串),参数2为查询的起始位置，
+        //返回布尔值,表示是否字符(串)位于string的头部位置。
+        let str2 = "yangjiang";
+        console.log(str2.startsWith('yang')); //true
+        console.log(str2.startsWith('yang', 1)); //false
+
+        //endsWith：
+        //string.endsWith()方法参数1为需要查询字符(串),参数2为查询的起始位置，
+        //返回布尔值,表示是否字符(串)位于string的尾部位置。
+        let str3 = "yangjiang";
+        console.log(str3.endsWith("jiang")); //true
+
+        //repeat
+        //重复10次
+        let str4 = "yangjiang";
+        console.log(str4.repeat(10));
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //正则的创建方式
+        //1.字面量表达式
+        // i ignore 忽略大小写
+        // g global 全局
+        // m 换行
+        var reg1 = /box/gi;
+        var str1 = "this is a box Box BOX";
+        reg1.test(str1); // 匹配上了返回true ,否则返回发false
+
+        //2.构造函数创建正则
+        var reg2 = new RegExp("box", "gi");
+        console.log(reg2.test("box"))
+
+        //正则的常用函数
+        // test()满足返回 true
+        // exec() 满足返回数组,不满足返回null
+
+
+
+
+        //元字符
+        var reg = /g..gle/;
+        var str = "g*gle";
+        console.log(reg.test(str));
+
+        //任意次数
+        var reg = /g.*gil/ //.*任意字符可以出现任意出生
+        var str = "ggle";
+        console.log(reg.test(str));
+
+        //[]一个中扩展 表示一个字符串的取值范围
+        var reg = /g[a-z0-9]*gle/;
+        var str = "gsdfdsfasdsagle";
+        console.log(reg.test(str))
+
+        var reg = /g[az]*gle/;
+        var str = "gzagle";
+        console.log(reg.test(str));
+
+        //在[]里面表示,取反
+        var reg = /g[^a-z]gle/i;
+        var str = "gbgle";
+        console.log(reg.test(str));
+
+        //+至少一次
+        var reg = /g[a-z]+gle/i;
+        var str = "gagle";
+        console.log(reg.test(str));
+
+
+        // \w 代表[a-zA-Z0-9_]; 可以自己添加限制
+        var reg = /g\w+gle/i;
+        var str = "g__gle";
+        console.log(reg.test(str));
+
+        //\W [^a-zA-Z0-9_];
+        var reg = /g\w+gle/i;
+        var str = "g*$gle";
+        console.log(reg.test(str));
+
+        // \d [0-9]包含数字
+        var reg = /\d+/;
+        var str = "abc123";
+        console.log(reg.test(str));
+
+        // \D [^0-9]  非数字
+        var reg = /\D+/;
+        var str = "1a23";
+        console.log(reg.test(str));
+
+        //范围 贪婪模式, 模糊匹配
+        //{n} 固定次数 可多不可少 
+        var reg = /abc\d{4}/;
+        var str = "abc12345";
+        console.log(reg.test(str));
+        //{n,m} 最少n次 最多m次  可以是4,可以是6没有设边界 可多不可少 
+        var reg = /abc\d{4,6}/;
+        var str = "abc12345678";
+        //{n,} 最少n次 最多无限
+        var reg = /abc\d{4,}/;
+        var str = "abc12345678";
+        // ^开始位置
+    </script>
+</body>
+
+</html>

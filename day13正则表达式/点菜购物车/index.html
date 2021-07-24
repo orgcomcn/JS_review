@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box .item {
+            float: left;
+            margin-right: 30px;
+        }
+        
+        .box .item img {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .clear_fix::after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>巴拉巴拉饭店</h1>
+    <div class="box clear_fix">
+
+
+    </div>
+    <div><a href="cart.html">查看购物车</a></div>
+
+</body>
+
+
+<script>
+    var data = [{
+        id: 1,
+        name: "青椒炒肉",
+        price: 18,
+        image: "./images/1.jpg"
+    }, {
+        id: 2,
+        name: "爆炒肥肠",
+        price: 28,
+        image: "./images/2.jpg"
+    }, {
+        id: 3,
+        name: "蒜苔炒肉",
+        price: 20,
+        image: "./images/3.jpg"
+    }, {
+        id: 4,
+        name: "小炒肉",
+        price: 16,
+        image: "./images/4.jpg"
+    }, {
+        id: 5,
+        name: "香干炒肉",
+        price: 12,
+        image: "./images/5.jpg"
+    }, {
+        id: 6,
+        name: "鳝鱼",
+        price: 38,
+        image: "./images/6.jpg"
+    }]
+
+
+    //1.拿到要渲染的购物车的盒子
+    var box = document.querySelector('.box');
+    var strHTML = ``;
+    //2.把数据拼接到字符串中
+    data.forEach(function(item) {
+        strHTML += `
+        <div class="item">
+            <img src="${item.image}" alt="">
+            <p>
+                名称:${item.name}
+            </p>
+            <p>
+                价格:${item.price}
+            </p>
+            <p>
+                <a class="add" data-meun-id="${item.id}" href="javascript:void(0)">加入购物车</a>
+            </p>
+        </div>
+        `
+    });
+    //3.数据展示到页面
+    box.innerHTML = strHTML;
+
+    //4.当我点击加入购物车, 你要告诉我,id,然后拿到整条数据,这里我们使用事件委托
+    box.addEventListener('click', function(event) {
+        //拿到点击的对象
+        var e = event || window.event;
+        var target = e.target || e.srcElement;
+        //这里我们要做判断,看是不是点击的a标签,并且class名为 add,如果不做判断,任何事件都会被冒泡
+        //如果你不是class名字为add的a标签,就终止
+        if (!(target.nodeName === 'A' && target.className === 'add')) {
+            return;
+        }
+        //如果你是A标签,并且class名字为add,我就拿到你的id,然后顺着id拿到整条数据
+        var id = target.getAttribute('data-meun-id');
+        var currentData = null;
+        //这里我们要根据id,拿到id 所对应的对象
+        data.forEach(function(item) {
+            if (item.id === Number(id)) {
+                currentData = item;
+            }
+        })
+
+        //我们拿到数据后,要和本地的localstorage数据进行对比,看看有没有这条数据
+        //假设没有,我们就要返回一个空数组,然后要设置一个num,=1
+        //假设有,我们就要重新覆盖数据,num++
+
+        //这里我们要JSON.parse 转换成数组,方便我们遍历, 总而言之,我们存入要JSON.parse , 取出就要JSON.Stringify
+        var isOk = false; //假设默认没有这条数据
+        var locaData = JSON.parse(localStorage.getItem('cart') || '[]');
+        locaData.forEach(function(item) {
+            if (item.id === Number(id)) {
+                item.num++; //如果有这条数据,我们就在原有的数据上++, 最后重新写入到localstorage
+                isOk = true; //如果到了这里,那么代表是有这条数据的.
+            }
+        })
+
+        if (!isOk) {
+            //添加一个属性,num,代表的是数量有了一个
+            currentData.num = 1;
+            //保存到locaData.
+            locaData.push(currentData);
+        }
+
+        //值得注意的是,只要点击了加入购物车,肯定会产生数据的改变,如果产生了数据的改变,我们就要进行相应的操作.
+        //这里暂时没有考虑到商品数量为0的情况.
+        //最后写入到localStorage
+        localStorage.setItem('cart', JSON.stringify(locaData));
+        alert('加入购物车成功!')
+    })
+</script>
+
+</html>

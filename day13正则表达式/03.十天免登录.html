@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jQuery封装cookie.js"></script>
+</head>
+
+<body>
+
+    <form>
+        <input type="text" name="username"> <br>
+        <input type="password" name="password"> <br>
+        <input type="checkbox" name="cbk">十天免登录 <br>
+        <button>登录</button>
+    </form>
+
+
+    <script>
+        // var uName = document.getElementById('user');
+        // var uPwd = document.getElementById('pwd');
+        // var btn = document.getElementById('login');
+        // var check = document.getElementById('check');
+
+        // btn.addEventListener('click', function() {
+        //     if (check.checked) {
+        //         $.cookie('username', encodeURIComponent(uName.value.trim()), {
+        //             expires: 10
+        //         });
+        //         $.cookie('password', encodeURIComponent(uPwd.value.trim()), {
+        //             expires: 10
+        //         });
+        //     }
+        // })
+
+        // var oName = encodeURIComponent($.cookie('username'));
+        // var pwd = encodeURIComponent($.cookie('password'));
+
+        // if (oName || pwd) {
+        //     uName.value = oName;
+        //     uPwd.value = pwd;
+        // }
+        document.forms[0].onsubmit = function() {
+            // 获取到表单里面input框中的内容,做成一个对象
+            var obj = {
+                //这里刚刚我写的 forms[0],应该写 document.forms[0],为了简洁,我直接使用this
+                name: this.username.value.trim(),
+                password: this.password.value.trim()
+            };
+
+            //判断是否打了钩
+            if (this.cbk.checked) {
+                $.cookie('userInfo', JSON.stringify(obj), {
+                    expires: 10
+                });
+            }
+
+            return false;
+        }
+
+
+        //当页面加载的时候判断数据有没有
+        window.onload = function() {
+            //这里是为了不报错,因为我们存进去的是一个对象,哪怕到时候没有对象,也要返回一个空对象
+            var obj = JSON.parse($.cookie('userInfo') || '{}');
+
+            if (obj.name === undefined || obj.password === undefined) {
+                return;
+            }
+            document.forms[0].username.value = obj.name;
+            document.forms[0].password.value = obj.password;
+        }
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrapper {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="wrapper">
+        <p>哈哈</p>
+        <p>---------哈哈</p>
+    </div>
+
+
+    <script src="jQuery封装cookie.js"></script>
+    <script>
+        var wra = document.querySelector('.wrapper');
+
+        //随机颜色
+        function randomColor() {
+            var str = "rgb(";
+            str += parseInt(Math.random() * 256) + ",";
+            str += parseInt(Math.random() * 256) + ",";
+            str += parseInt(Math.random() * 256) + ")";
+            return str;
+        }
+
+        wra.style.backgroundColor = randomColor();
+
+        wra.addEventListener('mousedown', function(event) {
+            var e = event || window.event;
+            var disX = e.pageX - wra.offsetLeft;
+            var disY = e.pageY - wra.offsetTop;
+
+            document.addEventListener('mousemove', move)
+
+            document.addEventListener('mouseup', function(event) {
+                document.removeEventListener('mousemove', move);
+                var obj = {
+                    left: wra.offsetLeft,
+                    top: wra.offsetTop
+                }
+
+                //设置cookie
+                $.cookie('location', JSON.stringify(obj), {
+                    expires: 7
+                });
+            });
+
+            function move(event) {
+                var e = event || window.event;
+                wra.style.left = e.pageX - disX + 'px';
+                wra.style.top = e.pageY - disY + 'px';
+            }
+        })
+
+        //页面加载的时候就需要读取cookie
+        var obj = JSON.parse($.cookie('location') || '{}');
+        console.log(obj)
+        if (obj.left || obj.top) {
+            console.log(obj.left)
+            wra.style.left = obj.left + 'px';
+            wra.style.top = obj.top + 'px';
+        }
+    </script>
+
+
+
+
+
+</body>
+
+</html>

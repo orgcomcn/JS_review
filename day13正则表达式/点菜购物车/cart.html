@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            width: 800px;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #000;
+            text-align: center;
+        }
+        
+        tr th td {
+            border: 1px solid #000;
+        }
+        
+        table img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>查看点菜记录</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>编号</th>
+                <th>图片</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>数量</th>
+                <th>金额</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="box">
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" style="text-align: right;">小计<span class="total"></span>元</td>
+            </tr>
+        </tfoot>
+    </table>
+    <a href="index.html">返回点菜</a>
+    <script>
+        var box = document.getElementById('box');
+        var total = document.querySelector('.total');
+        var strHTML = ``;
+
+        //展示数据,这里要注意,如果数据为空,我们给它一个数组.
+        var locaData = JSON.parse(localStorage.getItem('cart') || '[]');
+        locaData.forEach(function(item) {
+            strHTML += `
+            <tr>
+            <td>${item.id}</td>
+            <td><img src="${item.image}"></td>
+            <td>${item.name}</td>
+            <td>${item.price}</td>
+            <td>
+                <button class="sub"> + </button>
+                <input value="${item.num}" style="width:30px;text-align:center;"/> 
+                <button class="sup"> - </button>
+            </td>
+            <td>${item.price * item.num} </td>
+            <td><a href="javascript:void(0)" class="del" data-id="${item.id}" >删除</a></td>
+        </tr>
+            `;
+        });
+        box.innerHTML = strHTML;
+        sumTotal()
+
+
+
+        //监听sub + 的点击事件, 这里我们还是用事件委托
+        box.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (!(target.nodeName === 'BUTTON' && target.className === 'sub')) {
+                return;
+            }
+
+            //拿到价格
+            var price = parseInt(target.parentNode.parentNode.children[3].innerText);
+            //拿到数量
+            var numSibling = (target.nextElementSibling || target.nextSibling)
+            var num = parseInt(numSibling.value);
+            //自增
+            num++;
+            numSibling.value = num;
+            //拿到金额 修改
+            target.parentNode.nextElementSibling.innerText = Number(price) * Number(num);
+
+            //如果数量>1 -按钮的 的 disabled为false
+            //先拿到-的按钮
+            var sup = target.nextElementSibling.nextElementSibling;
+
+            if (num > 1) {
+                sup.disabled = false;
+            }
+
+            //写入localStorage,写入localStorage,肯定需要拿到ID
+            var id = parseInt(target.parentNode.parentNode.children[0].innerText);
+            var data = JSON.parse(localStorage.getItem('cart') || '[]');
+            data.forEach(function(item) {
+                if (parseInt(item.id) === id) {
+                    //改变localStorage的数量
+                    item.num = num;
+                }
+            })
+            localStorage.setItem('cart', JSON.stringify(data));
+            sumTotal()
+        })
+
+
+        //监听sup - 的点击事件, 这里我们还是用事件委托
+        box.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (!(target.nodeName === 'BUTTON' && target.className === 'sup')) {
+                return;
+            }
+
+            //拿到input
+            var price = parseInt(target.parentNode.parentNode.children[3].innerText);
+            //拿到数量
+            var numSibling = target.previousElementSibling || target.previousSibling;
+            var num = numSibling.value;
+            num--;
+            if (num <= 1) {
+                target.disabled = true;
+            }
+            numSibling.value = num;
+            //拿到金额修改
+            target.parentNode.nextElementSibling.innerText = Number(price) * Number(num);
+
+            //写入本地存储 , 这块其实可以封装
+            var id = parseInt(target.parentNode.parentNode.children[0].innerText);
+            var data = JSON.parse(localStorage.getItem('cart') || '[]');
+            data.forEach(function(item) {
+                if (parseInt(item.id) === id) {
+                    //改变localStorage的数量
+                    item.num = num;
+                }
+            })
+            localStorage.setItem('cart', JSON.stringify(data));
+            sumTotal()
+        })
+
+
+        //监听删除
+        box.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+
+            if (!(target.tagName === 'A' && target.className === 'del')) {
+                return;
+            }
+            if (!confirm('Are you sure?')) {
+                return;
+            }
+            //通过target 拿到ID
+            var id = target.getAttribute('data-id');
+            //删除视觉效果
+            target.parentNode.parentNode.remove();
+            //遍历本地存储,如果有数据,那么直接删除
+            var pos = -1; //假设没有
+            var locaData = JSON.parse(localStorage.getItem('cart') || []);
+            locaData.forEach(function(item, index) {
+                if (item.id === Number(id)) {
+                    pos = index;
+                }
+            })
+            locaData.splice(pos, 1);
+            //重新写入到本地存储
+            localStorage.setItem('cart', JSON.stringify(locaData));
+            sumTotal()
+        })
+
+        //计算总价
+        function sumTotal() {
+            var money = 0;
+            for (var i = 0; i < box.children.length; i++) {
+                money += Number(box.children[i].children[5].innerText);
+            }
+            total.innerText = money;
+        }
+    </script>
+
+
+</body>
+
+</html>

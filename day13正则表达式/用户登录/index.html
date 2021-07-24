@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <style>
+        tr,
+        td,
+        th {
+            border: 1px solid #000;
+        }
+        
+        table {
+            width: 800px;
+            border: 1px solid #000;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="msg">
+        欢迎尊敬: <span id="user"></span> VIP中会员..回到休闲娱乐会所! ^_^;
+        <a href="javascript:void(0)" id="out">下次再来消费</a>
+    </div>
+
+    <form>
+        <input name="uname" id="ipt"> <button type="button" id="search">搜索</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>手机号</th>
+                <th>注册日期</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tab">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+        //1. 这里很重要,我们要拿sessionStorage里面的用户名,看看有没有数据
+        //如果没有数据,则直接不让用户停留在这个页面
+        var u = document.getElementById('user');
+        var o = document.getElementById('out');
+        if (sessionStorage.getItem('username') == null) {
+            alert('请先登录');
+            location.replace('login.html');
+        } else {
+            u.innerHTML = sessionStorage.getItem('username');
+        }
+        //当用户点击退出,我们一定要清除sessionStorage
+        out.onclick = function() {
+            sessionStorage.removeItem('username');
+            alert('欢迎下次光临')
+            location.replace('login.html');
+        }
+
+
+        // 2.数据渲染出来
+        var content = document.querySelector('#tab');
+        var lodaData = JSON.parse(localStorage.getItem('users') || '[]');
+        var strHTML = ``;
+
+        lodaData.forEach(function(item) {
+            strHTML += `
+            <tr>
+              <td>${item.username}</td>
+              <td>${item.password}</td>
+              <td>${item.tel}</td>
+              <td>${moment(item.time).format("YYYY-MM-DD HH:mm:ss")}</td>
+              <td>${item.status == 1 ? '启用' : '禁用'}</td>
+              <td>
+                <a data-name="${item.username}" class='on' href="javascript:void(0)">启用</a>|
+                <a  data-name="${item.username}"  class='off' href="javascript:void(0)">禁用</a>|
+                <a  data-name="${item.username}"  class="del" href="javascript:void(0)">删除</a>
+                </td>
+            </tr>
+          `
+        })
+        content.innerHTML = strHTML;
+
+        // 3.搜索
+        //拿到搜索按钮和输入框DOM
+        var search = document.querySelector('#search');
+        var ipt = document.querySelector('#ipt');
+        search.addEventListener('click', function() {
+            //拿到输入框中要搜索的数据
+            var userName = ipt.value.trim();
+            //拿到localStorage里面的数据
+            var lodaData = JSON.parse(localStorage.getItem('users') || '[]');
+            var strHTML = ``;
+            //我们用indexOf,如果!= --1 代表模糊匹配到了
+            lodaData.forEach(function(item) {
+                if (item.username.indexOf(userName) != -1) {
+                    strHTML += `
+                      <tr>
+                        <td>${item.username}</td>
+                        <td>${item.password}</td>
+                        <td>${item.tel}</td>
+                        <td>${moment(item.time).format("YYYY-MM-DD HH:mm:ss")}</td>
+                        <td>${item.status == 1 ? '启用' : '禁用'}</td>
+                        <td>
+                       
+                            <a data-name="${item.username}" class="on" href="javascript:void(0)">启用</a>|
+                            <a  data-name="${item.username}"  class="off" href="javascript:void(0)">禁用</a>|
+                            <a  data-name="${item.username}"  class="del" href="javascript:void(0)">删除</a>
+                           
+                        </td>
+                      </tr>
+                    `
+                }
+            })
+            content.innerHTML = strHTML;
+        });
+
+        //4.启用/禁用 我们直接利用事件委托来做
+        content.addEventListener('click', function(event) {
+            var e = event || window.event;
+            var target = e.target || e.srcElement;
+            //这是开启,开启,我们要替换webstorage里面的数据,也要动态修改网页里面的数据
+            if (target.nodeName === 'A' && target.className === 'on') {
+                target.parentNode.parentNode.children[4].innerHTML = '开启';
+                var name = target.getAttribute('data-name')
+
+                var locaData = JSON.parse(localStorage.getItem('users') || '[]');
+                locaData.forEach(function(item) {
+                    if (item.username === name) item.status = 1;
+                });
+                //别忘了在webstorage里面更新数据
+
+                localStorage.setItem('users', JSON.stringify(locaData));
+
+            }
+
+            //这是关闭
+            if (target.nodeName === 'A' && target.className === 'off') {
+                target.parentNode.parentNode.children[4].innerHTML = '禁用';
+                var name = target.getAttribute('data-name')
+                var locaData = JSON.parse(localStorage.getItem('users') || '[]');
+                locaData.forEach(function(item) {
+                    if (item.username === name) item.status = 0;
+                });
+                //别忘了在webstorage里面更新数据
+                localStorage.setItem('users', JSON.stringify(locaData));
+            }
+
+            //这是删除 逻辑一样 很简单 代码很冗余
+            if (target.nodeName === 'A' && target.className === 'del') {
+                if (!confirm('您确定要删除吗?删除后无法恢复数据!')) {
+                    return false;
+                }
+                var name = target.getAttribute('data-name')
+                var locaData = JSON.parse(localStorage.getItem('users') || '[]');
+                locaData.some(function(item, index) {
+                    if (item.username === name) {
+                        locaData.splice(index, 1);
+                    }
+                })
+                localStorage.setItem('users', JSON.stringify(locaData));
+                target.parentNode.parentNode.remove();
+            }
+        })
+
+
+        //阻止表单默认事件
+        document.forms[0].onsubmit = function() {
+            return false;
+        }
+    </script>
+
+</body>
+
+</html>

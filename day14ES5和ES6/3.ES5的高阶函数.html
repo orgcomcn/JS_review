@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        var arr = [11, 22, 33, 44, 55];
+        //forEach是无法终止的,但是我们可以用try catch来终止
+        //try catch  网络请求,一定要使用try catch , 在不可控的情况下使用.一般情况下因为性能影响太大,不使用.
+
+        try {
+            arr.forEach(function(item, index) {
+                console.log(item);
+                throw new Error('为了报错而报错,但是我不会终止程序运行')
+            })
+        } catch (error) {
+            console.log(error)
+        } finally {
+            console.log('这里一定会被执行')
+        }
+
+        // reduce接收四个两个参数， 第二个参数可选（ 为pre的初始值）
+        // 第一个参数是回调函数， 该回调函数中又包含四个参数， 分别为：
+        // pre： 上一次调用回调函数时的返回值， 或者初始值
+        // cur： 当前正在处理的数组元素
+        // index: 当前正在处理的数组元素下标
+        // array: 调用reduce() 方法的数组
+        // result: 遍历完数组后的最终结果
+
+        //pre是返回值,如果没有返回值就是undefined,
+        var arr = [1, 2, 3, 4, 5];
+        var ret = arr.reduce(function(pre, cur) {
+            return pre + cur;
+        })
+        console.log(ret);
+    </script>
+
+
+
+
+</body>
+
+</html>

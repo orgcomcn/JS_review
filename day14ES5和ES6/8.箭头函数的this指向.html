@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //this始终指向函数声明时所在作用域下的this的值.
+        var obj = {
+            fn1: function() {
+                //如果是一个普通函数,this指向obj
+                console.log(this);
+                //箭头函数在声明时的作用域下,当前this是obj
+                //所以箭头函数的this是obj
+                let ff = () => {
+                    console.log(this);
+                }
+                ff();
+
+            },
+            fn2: () => {
+                //如果是箭头函数,this指向window
+                console.log(this);
+                //箭头函数在声明时的作用域下,当前this是window
+                //所以箭头函数的this是window
+                let ff = () => {
+                    console.log(this);
+                }
+                ff();
+            }
+        }
+        obj.fn1();
+        obj.fn2();
+    </script>
+
+</body>
+
+</html>

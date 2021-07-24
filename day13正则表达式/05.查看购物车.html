@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+
+    </div>
+
+    <div id="total"></div>
+</body>
+
+<script>
+    var box = document.querySelector('#box');
+    var total = document.querySelector('#total');
+    console.log(total)
+
+    var strHTML = "";
+    var locaData = JSON.parse(localStorage.getItem('cart') || '[]');
+    locaData.forEach(function(item) {
+        strHTML += `
+          <li>
+              id:${item.id}
+              name:${item.name}
+              price:${item.price}
+              num:${Number(item.num)}
+          </li>
+        `
+    })
+    box.innerHTML = strHTML;
+    var totalPrice = 0;
+    //计算总金额
+    locaData.forEach(function(item) {
+        totalPrice += (item.num * item.price);
+    })
+    total.innerHTML = `本次消费${totalPrice}元`;
+</script>
+
+
+</html>

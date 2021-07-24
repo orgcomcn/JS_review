@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>登录</h1>
+    <form id="login">
+        <p>
+            <input name="uname" placeholder="用户名">
+        </p>
+        <p>
+            <input name="upwd" placeholder="密码">
+        </p>
+        <p>
+            <button>登录</button>
+        </p>
+    </form>
+
+    <script>
+        var login = document.querySelector('#login');
+
+        login.onsubmit = function() {
+            //当点击的时候,拿到输入框中的数据
+            var uName = this.uname.value.trim();
+            var uPwd = this.upwd.value.trim();
+
+            //拿到数据,看看有没有用户名 密码 状态 都为true的.
+            var locaData = JSON.parse(localStorage.getItem('users') || '[]');
+            var isLogin = locaData.some(function(item) {
+                return item.username === uName && item.password === uPwd && item.status === 1;
+            })
+
+            //如果有,那么我们创建一个sessionStorage,然后把数据存放到里面去.
+            if (isLogin) {
+                sessionStorage.setItem('username', uName)
+                alert('登录成功!')
+                location.replace('index.html');
+            } else {
+                alert('用户名密码错误或账号已禁用.请联系管理员');
+            }
+
+
+            return false;
+        }
+    </script>
+
+</body>
+
+
+</html>
