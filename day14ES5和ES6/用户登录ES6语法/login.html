@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>登录</h1>
+    <form id="login">
+        <p>
+            <input name="uname" placeholder="用户名" id="uname">
+        </p>
+        <p>
+            <input name="upwd" placeholder="密码" id="upwd">
+        </p>
+        <p>
+            <button>登录</button>
+        </p>
+    </form>
+
+    <script>
+        // 拿到DOM节点
+        const uForm = document.querySelector('#login');
+        const uName = document.querySelector('#uname');
+        const uPwd = document.querySelector('#upwd');
+
+        //当用户点击登录,我们要拿到本地存储数据,比对用户名密码,以及登录用户状态是否为启用
+        uForm.onsubmit = () => {
+            const user = uName.value.trim();
+            const pwd = uPwd.value.trim();
+
+            const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+            const flag = locaData.some((item) => {
+                //用户名,密码,以及状态都OK,那么就为true,否则为false
+                return item.username === user && item.password === pwd && item.status === 1;
+            })
+
+            if (flag) {
+                sessionStorage.setItem('user', user);
+                alert('登录成功!');
+                location.replace('index.html');
+            } else {
+                alert('用户名密码错误或账号已被禁用,请检查或联系管理员');
+            }
+
+            return false;
+        }
+    </script>
+
+</body>
+
+
+</html>

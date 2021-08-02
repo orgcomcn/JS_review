@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        class Student {
+            //静态方法中new实例
+            static getInstance() {
+                if (Student.instance === "undefined") {
+                    return Student.instance = new Student();
+                }
+                return Student.instance;
+            }
+        }
+
+        var Student1 = Student.getInstance();
+        var Student2 = Student.getInstance();
+        console.log(Student1 === Student2); //是一个
+    </script>
+
+
+
+</body>
+
+</html>

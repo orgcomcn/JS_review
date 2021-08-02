@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var arr = [22, 33, 44, 55];
+        console.log(...arr);
+
+
+        function fn1(a, b, c) {
+            return a + b + c;
+        }
+        //方式1
+        console.log(fn1(arr[0], arr[1], arr[2]));
+        //方式2
+        console.log(fn1(...arr));
+
+        console.log(Math.max(4, 2, 3, 9));
+        console.log(Math.min(1, 3, 5, 6));
+        console.log(Math.max(...arr));
+        console.log(Math.min(...arr));
+
+        //找最大数下标
+        //方式1
+        var maxIndex = arr.indexOf(Math.max(...arr));
+        console.log(maxIndex);
+        //方式2
+        var maxIndex = arr.findIndex(elem => elem == Math.max(...arr));
+        console.log(maxIndex);
+        //方式3
+        var maxIndex = 0;
+        var maxValue = arr[0];
+        for (var i = 0; i < arr.length; i++) {
+            if (maxValue < arr[i]) {
+                maxIndex = i;
+                maxValue = arr[i];
+            }
+        }
+        console.log(maxIndex);
+        console.log(maxValue);
+        var arr1 = [11, 22];
+        var arr2 = ["你好", "他好"];
+        var arr3 = [...arr1, ...arr2];
+
+        var obj = {
+            name: '刘德华',
+            age: 20,
+            address: '中国'
+        };
+        var obj1 = Object.assign({}, obj);
+        console.log(obj1);
+        var obj1 = [...obj];
+
+
+
+
+        //合并和浅拷贝
+    </script>
+
+
+</body>
+
+</html>

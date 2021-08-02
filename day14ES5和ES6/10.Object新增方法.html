@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //假设我们要合并当前对象为另外一个对象,在没有Object.assign之前
+        // var o1 = {
+        //     name: '刘德华',
+        //     sex: "男"
+        // };
+        // var o2 = {
+        //     age: 60,
+        //     name: "蔡依林"
+        // };
+        // var o3 = {}
+        // for (var key in o1) {
+        //     o3[key] = o1[key];
+        // }
+        // for (var key in o2) {
+        //     o3[key] = o2[key];
+        // }
+        // console.log(o3)
+        var o1 = {
+            name: '刘德华',
+            sex: "男"
+        };
+        var o2 = {
+            age: 60,
+            name: "蔡依林"
+        };
+        var o3 = {}
+        Object.assign(o3, o1, o2);
+        console.log(o3);
+    </script>
+
+</body>
+
+</html>

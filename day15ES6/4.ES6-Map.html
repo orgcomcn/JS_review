@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Map 是一个超对象
+        var map = new Map([
+            ['a', '走'],
+            ['sex', '男']
+        ]);
+
+        console.log(map);
+        //什么都可以设置
+        map.set(true, '哈哈');
+        map.set("json", {
+            "name": "蔡依林"
+        });
+
+        //修改
+        map.set('a', '走你');
+        console.log(map);
+        //删除
+        map.delete(true);
+        console.log(map);
+        //清除
+        map.clear();
+        console.log(map);
+
+        console.log(map.size); //等价于length属性
+        console.log(map.has("name"));
+        //size 等价于length
+        //set(key,value) 添加 修改
+        //get(key) 获取
+        //delete(key) 删除
+        //has(key) 判断是否存在 布尔类型
+        //clear()全部清除
+    </script>
+</body>
+
+</html>

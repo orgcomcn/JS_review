@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+
+    ES6中的Set它的成员是没有重复的,我们可以用来做去重
+    方法有 size add has delete foreEach(暂时不会用) clear
+    typeof set 是object
+
+   -->
+
+    <script>
+        var set = new Set();
+        console.log(set.size);
+
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add('1');
+        set.add(1); //重复了 添加不进去的
+
+        set.has(1); //判断有没有1 有就是true 没有就是false
+
+        set.delete(1); //删除1
+        set.clear(); //清除所有的
+
+        console.log(set)
+
+        //set去重?
+
+        var arr = [1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4];
+        console.log([...new Set(arr)]);
+    </script>
+
+</body>
+
+</html>

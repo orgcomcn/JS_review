@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <button>水平</button>
+    <button>垂直</button>
+    <button>斜着</button>
+
+    <div class="box"></div>
+    <script src="Tools_animate_0.0.1.js"></script>
+    <script>
+        var oBtns = document.querySelectorAll('button');
+        var oBox = document.querySelector('.box');
+
+        oBtns[0].onclick = function() {
+            Tools.animate(oBox, "left", 600);
+        }
+        oBtns[1].onclick = function() {
+            Tools.animate(oBox, "top", 600);
+        }
+        oBtns[2].onclick = function() {
+            Tools.animate(oBox, {
+                left: 100,
+                top: 600
+            });
+        }
+    </script>
+
+</body>
+
+</html>

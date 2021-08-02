@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <style>
+        tr,
+        td,
+        th {
+            border: 1px solid #000;
+        }
+        
+        table {
+            width: 800px;
+            border: 1px solid #000;
+            border-spacing: 0px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="msg">
+        欢迎尊敬: <span id="user"></span> VIP中会员..回到休闲娱乐会所! ^_^;
+        <a href="javascript:void(0)" id="out">下次再来消费</a>
+    </div>
+
+    <form id="search">
+        <input name="uname" id="ipt">
+        <button id="btnSearch">搜索</button>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>手机号</th>
+                <th>注册日期</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="tab">
+
+        </tbody>
+
+    </table>
+
+
+    <script>
+        const user = document.querySelector('#user');
+        const tab = document.querySelector('#tab');
+        //1.判断当前是否有用户登录,我们是存储在session中,如果没有用户登录,则不让访问这个页面
+        if (sessionStorage.getItem('user') == null) {
+            alert('亲,请先登录');
+            location.replace('login.html');
+        } else {
+            user.innerText = sessionStorage.getItem('user');
+        }
+
+        //2.如果登录了,我们渲染出locaStorage中的的数据
+        let strHTML = ``;
+        const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+        locaData.forEach((item) => {
+            strHTML += `
+            <tr>
+                <td>${item.username}</td>
+                <td>${item.password}</td>
+                <td>${item.tel}</td>
+                <td>${moment(item.time).format("YYYY-MM-DD hh:mm:ss")}</td>
+                <td>${item.status===1?'启用':'禁用'} </td>
+                <td>
+                    <a data-name="${item.username}" href="javascript:void(0)" class='on'>${item.status===1?'禁用':'启用'}</a>|
+                    <a data-name="${item.username}" href="javascript:void(0)" class='del'>删除</a>
+                </td>
+            </tr>
+            `
+        })
+        tab.innerHTML = strHTML;
+
+        //用户点击启用,禁用,删除,这里用事件冒泡来做
+        tab.addEventListener('click', (event) => {
+            const e = event || window.event;
+            const target = e.target || e.srcElement;
+            //指定能委托点击的事件
+            if (!(target.nodeName === 'A' &&
+                    (target.className === 'on' || target.className === 'del'))) {
+                return false;
+            }
+            if (target.className === 'on') {
+                const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+                //拿到标签上的用户名
+                const user = target.getAttribute('data-name');
+                const index = locaData.findIndex((item) => {
+                    //找到用户名和用户名相同的下标
+                    return item.username == user;
+                });
+                //改为启用
+                locaData[index].status = -locaData[index].status;
+                // 代表启用,-1代表禁用
+                locaData[index].status === 1 ? target.parentNode.parentNode.children[4].innerText = '启用' : target.parentNode.parentNode.children[4].innerText = '禁用';
+                locaData[index].status === 1 ? target.innerHTML = '禁用' : target.innerHTML = '启用';
+                //存放进localStorage
+                localStorage.setItem('users', JSON.stringify(locaData));
+            }
+
+            //这是删除
+            if (target.className === 'del') {
+                if (!confirm('您确定要删除吗,删除后无法恢复!')) return false;
+                //1.移除标签上的元素
+                target.parentNode.parentNode.remove();
+                //2.删除localStorage上的元素
+                //拿到标签上的用户名
+                const user = target.getAttribute('data-name');
+                const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+                const index = locaData.findIndex((item) => {
+                    return item.name === user;
+                });
+                //删除
+                locaData.splice(index, 1);
+                //存放进localStorage
+                localStorage.setItem('users', JSON.stringify(locaData));
+            }
+        })
+
+
+        //用户点击搜索,我们这里做一个模糊搜索
+        const ipt = document.querySelector('#ipt');
+        const search = document.querySelector('#search');
+        const btnSearch = document.querySelector('#btnSearch')
+        btnSearch.addEventListener('click', () => {
+            //拿到要搜索的用户名
+            const uName = ipt.value.trim();
+            const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+            let strHTML = ``;
+            //我们用indexOf,如果!= --1 代表模糊匹配到了
+            locaData.forEach(function(item) {
+                if (item.username.indexOf(uName) != -1) {
+                    strHTML += `
+                      <tr>
+                        <td>${item.username}</td>
+                        <td>${item.password}</td>
+                        <td>${item.tel}</td>
+                        <td>${moment(item.time).format("YYYY-MM-DD HH:mm:ss")}</td>
+                        <td>${item.status == 1 ? '启用' : '禁用'}</td>
+                        <td>
+							<a data-name="${item.username}" href="javascript:void(0)" class='on'>启用</a>|
+                   			 <a data-name="${item.username}" href="javascript:void(0)" class='del'>删除</a>
+                        </td>
+                      </tr>
+                    `
+                }
+            })
+            tab.innerHTML = strHTML;
+        })
+
+
+        //阻止表单默认提交
+        search.onsubmit = () => {
+            return false;
+        }
+
+        //点击退出,注销sessionStorage
+        const out = document.querySelector('#out');
+        out.onclick = () => {
+            sessionStorage.removeItem('user');
+            alert('退出成功!')
+            location.replace('login.html');
+        }
+    </script>
+
+</body>
+
+</html>

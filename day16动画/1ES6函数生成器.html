@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function* fn() {
+            //yield相当于断点
+            let x = yield 10;
+            let y = yield 20;
+            let z = yield 30;
+
+            return "aaa";
+        }
+
+        var iterator = fn();
+
+        //需要调用nex,才会执行下一个yield
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+        console.log(iterator.next());
+    </script>
+
+</body>
+
+</html>

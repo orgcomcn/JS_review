@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匀速动画</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <button>走吧孩子</button>
+    <button>回把孩子</button>
+    <div class="box">盒子</div>
+
+    <script>
+        //盒子一定要加定位,否则无法移动
+        let box = document.querySelector('.box');
+        let oBtns = document.querySelectorAll('button');
+
+        //走
+        oBtns[0].onclick = function() {
+            animate(box, 100)
+        };
+        //回
+        oBtns[1].onclick = function() {
+            animate(box, 20)
+        };
+
+        //封装一个函数,来回都合适使用
+        //移动的目标元素,要移动到的位置
+        function animate(eleTag, targetIndex) {
+            //1.每次都要清除上一次的定时器
+            clearInterval(eleTag.timer);
+            //2.判断是往前走还是往后走
+            //如果offsetLeft 小于目标值 那么就是往前走 正数
+            //如果offsetLeft 大于目标值 那么就是往回走 负数
+            let stpes = eleTag.offsetLeft < targetIndex ? 10 : -10;
+            eleTag.timer = setInterval(() => {
+                //3.新的位置 = 当前位置 + 步长
+                eleTag.style.left = eleTag.offsetLeft + stpes + 'px';
+                //4.判断来回的临界点,这里我们用Math.abs
+                if (Math.abs(targetIndex - eleTag.offsetLeft) <= Math.abs(stpes)) {
+                    eleTag.style.left = targetIndex + 'px';
+                    clearInterval(eleTag.time);
+                    eleTag.time = null;
+                }
+            }, 100)
+        }
+    </script>
+
+</body>
+
+</html>

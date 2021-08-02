@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <button>出发到500</button>
+    <button>回到0</button>
+    <div id="box"></div>
+
+    <script>
+        var box = document.getElementById("box");
+        var btns = document.querySelectorAll('button');
+        var timer = null;
+        btns[0].onclick = function() {
+            animate(box, 500, 11)
+
+        }
+        btns[1].onclick = function() {
+            animate(box, 0, 11)
+        }
+
+        //我们发现代码很多相同固定的,除了目标位置,我们直接封装成一个函数
+        // 元素,要移动到的位置,步长
+        //传入要移动的盒子,要移动的目标位置
+        //如果目标位置> box.offsetLeft那么就是＋  如果 目标位置<boxoffsetLeft 那么就是-
+        function animate(elem, index, step) {
+            clearInterval(timer);
+            //如果步长大于 盒子距离左边的长度 那么就是- 如果小于 那么就是+
+            step = index > elem.offsetLeft ? step : -step;
+            timer = setInterval(() => {
+
+                //增加
+                if (step > 0 && elem.offsetLeft > index) {
+                    elem.style.left = index + 'px';
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                }
+                //减少
+                if (step < 0 && elem.offsetLeft < index) {
+                    elem.style.left = index + 'px';
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                }
+
+                //当盒子距离 等于 移动到的目标的时候 清空定时器
+                if (elem.offsetLeft === index) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                } else {
+                    elem.style.left = elem.offsetLeft + step + 'px';
+                }
+            }, 60)
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //字符串方法search match split replace
+        var str = "1a2b3c4d5e6f7";
+
+        //split 可以将字符串拆分成一个数组
+        //使用正则 根据任意字母拆分
+        var result = str.split(/[a-zA-Z]/);
+        console.log(result);
+
+
+        //search搜索字符串中是否含有指定内容
+        //如果搜索到指定内容会返回第一次搜索到的索引 没有搜到返回-1
+        //搜索字符串中是否有abc
+        var str = "hello woabcrld";
+        console.log(str.search(/abc/));
+
+        //搜索字符串种是否有abc 或 aec 或者 afc
+        var str = "asadacc aec afc";
+        console.log(str.search(/a[bef]c/)); //[]代表或者
+
+
+        //match
+        //可以根据正则表达式,从一个字符串中将符合条件的内容提取出来
+        //默认情况下 match只会找到一个符合要求的,找到以后就停止检索
+        //我们可以设置正则表达式为全局匹配模式,这样就会匹配所有内容.
+        // 匹配模式 顺序是无所谓的 i不区分大小写 g全局
+        //match 会返回一个真数组,即使只查到了一个
+        var str = "1a2b3c4d5e6f7";
+        //我想把字母都提取出来
+        var ret = str.match(/[a-zA-z]/); //默认情况 只会找一个
+        var ret1 = str.match(/[a-zA-z]/g); //全局搜索,找到后继续找
+        console.log(ret, ret1);
+
+        //replace 
+        //可以将我们字符串种的指定内容替换成新的内容
+        // -参数1 被替换的内容  可以接受正则表达式
+        // -参数2 新的内容
+        //把字符串中的大写a和小写a替换成 @_@ 不会改变原来的数组
+        var str = "12A31a2A3asa__1@qq.com";
+        var result = str.replace(/a/gi, "@_@");
+
+        console.log(result);
+        //把字母全部去掉
+        var result = str.replace(/[a-zA-Z]/g, "");
+        console.log(result);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <button id="left">左</button>
+    <button id="right">右</button>
+    <div id="box"></div>
+
+    <script>
+        var left = document.getElementById('left');
+        var right = document.getElementById('right');
+        var box = document.getElementById('box');
+
+        var num = 10;
+        var timer = null;
+        left.onclick = function() {
+            clearInterval(timer)
+            timer = setInterval(() => {
+                if (box.offsetLeft === 500) {
+                    clearInterval(timer);
+                } else {
+                    box.style.left = box.offsetLeft + 10 + 'px';
+                }
+
+
+            }, 50)
+        }
+    </script>
+
+</body>
+
+</html>

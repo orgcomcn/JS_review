@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var wset = new WeakSet();
+        //add 
+        var o = {
+            name: '刘德华'
+        };
+        wset.add(o);
+        wset.add(o); //不能添加地址相同的
+
+        //添加了不能很好操作被添加的对象,需要使用for..of
+        console.log(wset)
+            //可以添加,因为他们的地址不一样
+        wset.add({
+            name: '刘德华'
+        })
+        wset.add({
+            name: '刘德华'
+        })
+        console.log(wset)
+
+        console.log(wset.has(o)); //判断是否存在
+    </script>
+</body>
+
+</html>

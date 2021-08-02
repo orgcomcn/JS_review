@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>过去</button>
+    <button>回来</button>
+    <button>斜着走</button>
+    <div class="box"></div>
+
+
+    <!-- <script src="./js/animate0.0.1.js"></script> -->
+    <script src="./js/animate0.0.2.js"></script>
+    <script>
+        let btns = document.querySelectorAll('button');
+        let box = document.querySelector('.box');
+        //过去 本来是可以这样操作的
+        btns[0].onclick = function() {
+            Tools.animate(box, {
+                left: 500
+            })
+        };
+        //回来 本来是可以这样操作的
+        btns[1].onclick = function() {
+            Tools.animate(box, {
+                left: 20
+            })
+        };
+        //斜着走 这里需要传一个对象
+        btns[2].onclick = function() {
+            Tools.animate(box, {
+                left: 200,
+                top: 600
+            })
+        };
+    </script>
+</body>
+
+</html>

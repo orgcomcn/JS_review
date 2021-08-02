@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function GarfieldCat(fur, glasses) {
+            this.fur = fur;
+            this.glasses = glasses;
+            this.eat = function() {
+                console.log('eat');
+            };
+            this.miaow = function() {
+                console.log('miaow');
+            };
+            this.talk = function() {
+                console.log("talk");
+            }
+        }
+
+        var garfieldCat = new GarfieldCat('哈哈', '呵呵');
+
+
+        function TomCat(fur, glasses) {
+            this.fur = fur;
+            this.glasses = glasses;
+            this.eat = function() {
+                console.log('eat');
+            };
+            this.miaow = function() {
+                console.log('miaow');
+            };
+            this.catchMouse = function() {
+                console.log("catchMouse");
+            }
+        }
+
+        var garfieldCat = new GarfieldCat('哈哈', '呵呵');
+        garfieldCat.eat();
+        garfieldCat.miaow();
+        garfieldCat.talk();
+
+
+        var tomCat = new TomCat('嘎嘎', 'had');
+        tomCat.eat();
+        tomCat.miaow();
+        tomCat.catchMouse();
+    </script>
+
+
+</body>
+
+</html>

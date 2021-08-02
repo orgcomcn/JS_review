@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>过去吧孩子</button>
+    <button>回来吧孩子</button>
+    <div class="box"></div>
+
+    <script>
+        let oBtns = document.querySelectorAll('button');
+        let box = document.querySelector('.box');
+
+        // 封装考虑兼容性 获取非行间样式的方法
+        // obj  要获取哪一个对象的非行间样式
+        // arrt 要获取哪一个属性
+        function getStyle(obj, arrt) {
+            //getComputedStyle(obj,":after") 可以获取伪元素的
+            return obj.currentStyle ? obj.currentStyle[arrt] : getComputedStyle(obj, null)[arrt];
+        }
+
+        //如果不考虑兼容性问题
+        function getStyle1(obj, arrt) {
+            return getComputedStyle(obj, null)[arrt];
+        }
+
+        //封装一个方法,缓动动画,其实就是修改步长
+        //oEle 目标元素
+        //attr 方向 (top,left,width,height..)
+        //target 方向的值
+        function animate(oEle, attr, target) {
+            //0. 记住第一步要清除定时器,避免重复点击
+            console.log(oEle, attr, target)
+            clearInterval(oEle.timer);
+            oEle.timer = setInterval(function() {
+                //我们通过getStyle获取到的值会带px 我们要转换成整数
+                // 获取当前位置
+                let current = parseInt(getStyle(oEle, attr));
+                //缓动步长 = 目标位置 - 当前位置 / 10;
+                let stpes = (target - current) / 10;
+                //现在记住stpes > 0 向上取整 否则向下取整 有一点点疑惑
+                stpes = stpes > 0 ? Math.ceil(stpes) : Math.floor(stpes);
+
+                //目标位置 =  当前位置 + 步长
+                oEle.style[attr] = current + stpes + 'px';
+                //
+                if (current == target) {
+                    clearTimeout(oEle.timer);
+                    oEle.timer = null;
+                }
+            }, 50)
+        }
+
+        oBtns[0].onclick = function() {
+            animate(box, "left", 400)
+        }
+        oBtns[1].onclick = function() {
+            animate(box, "left", 0)
+        }
+    </script>
+
+</body>
+
+</html>

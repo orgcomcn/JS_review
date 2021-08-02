@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        body {
+            background-color: #000;
+        }
+        
+        .nav {
+            width: 800px;
+            height: 42px;
+            background-color: #fff;
+            margin: 100px auto;
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .cloud {
+            width: 83px;
+            height: 42px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url("1.jpg") no-repeat;
+        }
+        
+        .nav ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .nav li {
+            float: left;
+            width: 83px;
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            color: #000;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <div class="nav" id="nav">
+        <span class="cloud" id="cloud"></span>
+        <ul>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+            <li>测试测试</li>
+        </ul>
+    </div>
+    <script>
+        class CloudNav {
+            constructor(setting = {}) {
+                this.el = document.querySelector(setting.el);
+                this.oCloud = this.el.children[0]; //云朵
+                this.oLis = Array.from(this.el.children[1].children);
+
+            }
+
+        }
+    </script>
+</body>
+
+</html>

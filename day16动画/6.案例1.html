@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        li {
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            background-color: pink;
+            list-style: none;
+            margin: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul id="box">
+        <li>测试1</li>
+        <li>测试2</li>
+        <li>测试3</li>
+        <li>测试4</li>
+        <li>测试5</li>
+    </ul>
+    <script src="Tools_animate.js"></script>
+    <script>
+        class VerticalNav {
+            constructor(setting = {}) {
+                this.el = document.querySelector(setting.el);
+                this.mouseHanlder();
+            };
+            //行为
+            mouseHanlder() {
+                Array.from(this.el.children).forEach((item, index) => {
+                    item.addEventListener('mouseenter', (event) => {
+                        let e = event || window.event;
+                        let target = e.target || e.srcElement;
+                        Tools.animate(target, "width", 600);
+                    })
+                    item.addEventListener('mouseleave', (event) => {
+                        let e = event || window.event;
+                        let target = e.target || e.srcElement;
+                        Tools.animate(target, "width", 200);
+                    })
+                })
+            }
+        }
+
+        new VerticalNav({
+            el: '#box'
+        })
+    </script>
+
+</body>
+
+</html>

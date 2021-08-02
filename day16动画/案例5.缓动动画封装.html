@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+        
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+
+    <button>过去400</button>
+    <button>回来0</button>
+
+    <div class="box"></div>
+
+
+    <script>
+        var box = document.querySelector('.box');
+        var btns = document.querySelectorAll('button');
+        var timer = null;
+        //过去
+        btns[0].onclick = function() {
+            animate(box, 400)
+        };
+
+        //回来
+        btns[1].onclick = function() {
+            animate(box, 0)
+        };
+
+        //函数的封装 传一个要移动的盒子标签进来 传一个目标值进来
+        function animate(tag, tagPos) {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                var step = (tagPos - tag.offsetLeft) / 10;
+                //如果是正数向上取整 如果是负数 向下取整
+                step = step > 0 ? Math.ceil(step) : Math.floor(step);
+
+                if (tag.offsetLeft === tagPos) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                } else {
+                    tag.style.left = tag.offsetLeft + step + 'px';
+                }
+            }, 60)
+        }
+    </script>
+
+
+
+</body>
+
+</html>

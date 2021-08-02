@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="go-400">去400</button>
+    <button id="go-back8"> 回400</button>
+    <div id="box"></div>
+    <script>
+        var oBtn_go = document.querySelector('#go-400');
+        var oBtn_back = document.querySelector('#go-back8');
+        var box = document.querySelector('#box');
+
+
+        oBtn_go.onclick = function() {
+            clearInterval(box.timer);
+            let step = 10;
+            box.timer = setInterval(() => {
+                box.style.left = box.offsetLeft + step + 'px';
+                if (400 - box.offsetLeft <= 10) {
+                    box.style.left = 400 + 'px';
+                    clearInterval(box.timer)
+                }
+            }, 30);
+        }
+
+        oBtn_back.onclick = function() {
+            clearInterval(box.timer);
+            let step = -10;
+            box.timer = setInterval(() => {
+                box.style.left = box.offsetLeft + step + 'px';
+                if (Math.abs(8 - box.offsetLeft) <= Math.abs(step)) {
+                    box.style.left = 8 + 'px';
+                    clearInterval(box.timer)
+                }
+            }, 30);
+        }
+    </script>
+
+
+
+</body>
+
+</html>

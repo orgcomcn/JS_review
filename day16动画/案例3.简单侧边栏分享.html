@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: relative;
+            left: -100px;
+        }
+        
+        .box span {
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: green;
+            position: absolute;
+            text-align: center;
+            line-height: 30px;
+            right: -30px;
+            top: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        我是广告呀
+        <span>出</span>
+    </div>
+
+
+    <script>
+        var box = document.querySelector('.box');
+        var span = document.querySelector('.box span');
+
+        var timer = null;
+        box.addEventListener('mouseover', function() {
+            setAnimate(box, 0, 5);
+        });
+        box.addEventListener('mouseout', function() {
+            setAnimate(box, -100, 5);
+        });
+
+
+        function setAnimate(elem, end, step) {
+            clearInterval(timer);
+
+            step = end > elem.offsetLeft ? step : -step
+            timer = setInterval(() => {
+                if (box.offsetLeft === end) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                } else {
+                    box.style.left = box.offsetLeft + step + 'px';
+                }
+            }, 60)
+        }
+    </script>
+
+
+
+</body>
+
+</html>

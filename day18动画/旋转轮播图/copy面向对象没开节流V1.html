@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>旋转木马轮播图</title>
+    <link rel="stylesheet" href="css/css.css" />
+
+
+</head>
+
+<body>
+    <div class="wrap" id="wrap">
+        <div class="slide" id="slide">
+            <ul>
+                <li>
+                    <a href="#"><img src="images/slidepic1.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="images/slidepic2.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="images/slidepic3.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="images/slidepic4.jpg" alt="" /></a>
+                </li>
+                <li>
+                    <a href="#"><img src="images/slidepic5.jpg" alt="" /></a>
+                </li>
+            </ul>
+            <div class="arrow" id="arrow">
+                <a href="javascript:;" class="prev"></a>
+                <a href="javascript:;" class="next"></a>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
+
+<script src="./js/animate.1.0.1.js"></script>
+<script>
+    var jsonData = [{ // 2
+        width: 600,
+        top: 70,
+        left: 0,
+        opacity: .80,
+        zIndex: 3
+    }, { // 3
+        width: 800,
+        top: 100,
+        left: 200,
+        opacity: 1,
+        zIndex: 4
+    }, { // 4
+        width: 600,
+        top: 70,
+        left: 600,
+        opacity: .80,
+        zIndex: 3
+    }, { //5
+        width: 400,
+        top: 20,
+        left: 750,
+        opacity: .20,
+        zIndex: 2
+    }, {
+        //  1
+        width: 400,
+        top: 20,
+        left: 50,
+        opacity: 0.2,
+        zIndex: 2
+    }];
+</script>
+
+
+
+
+<script>
+    class Swiper {
+        constructor(sttings = {}) {
+            this.sttings = Object.assign({
+                auto: true
+            }, sttings);
+            //拿到wrap
+            this.el = document.querySelector(this.sttings.el);
+            //拿到oLi
+            this.oLis = this.el.children[0].children[0].children;
+            //拿到prev next
+            this.oArrow = this.el.children[0].children[1];
+            this.init();
+            this.mouseHanlder();
+            this.clickHanlder();
+        };
+        //初始化渲染
+        init() {
+            Array.from(this.oLis).forEach((item, index) => {
+                Utils.animate(item, jsonData[index]);
+            })
+        };
+        //移动显示
+        mouseHanlder() {
+                let that = this;
+                this.el.addEventListener('mouseenter', function() {
+                    Utils.animate(that.oArrow, {
+                        opacity: 1
+                    })
+                })
+                this.el.addEventListener('mouseleave', function() {
+                    Utils.animate(that.oArrow, {
+                        opacity: 0
+                    })
+                })
+            }
+            //事件委托
+        clickHanlder() {
+            this.el.addEventListener("click", (event) => {
+                let e = event || window.event;
+                let target = e.target || e.srcElement;
+
+                if (target.nodeName != 'A') {
+                    return;
+                }
+
+
+                if (target.className == 'prev') {
+                    jsonData.unshift(jsonData.pop());
+                    this.init();
+                }
+
+
+                if (target.className == 'next') {
+                    jsonData.push(jsonData.shift());
+                    this.init();
+                }
+
+            })
+        }
+
+    }
+
+    new Swiper({
+        el: '#wrap'
+    })
+</script>

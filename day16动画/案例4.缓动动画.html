@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <button>过去</button>
+    <button>回来</button>
+
+    <div class="box"></div>
+
+    <!-- 
+      缓动动画
+
+      1，让盒子每次移动的距离慢慢变小，速度就会慢慢落下来
+      2，核心算法：（目标值-现在的位置）/10 作为每次移动的距离  步长
+      3，停止的条件是：让当前盒子位置等于目标位置就停止定时器
+      4，注意步长值需要取整  判断步长是正值还是负值，如果是正值，步长往大了取整，如果是负值, 步长向小了取整
+   -->
+    <script>
+        //移动400
+        var targetEnd = 400;
+        //回来到0
+        var targetStart = 0;
+        //定时器
+        var timer = null;
+
+        var btns = document.querySelectorAll('button');
+        var box = document.querySelector('.box');
+        //过去400
+        btns[0].onclick = function() {
+            clearTimeout(timer);
+            timer = setInterval(function() {
+                var step = Math.ceil((targetEnd - box.offsetLeft) / 10); //步长
+                if (box.offsetLeft === targetEnd) {
+                    clearTimeout(timer);
+                    timer = null;
+                    return;
+                } else {
+                    box.style.left = box.offsetLeft + step + 'px';
+                }
+            }, 50)
+        };
+
+        //回来到0
+        btns[1].onclick = function() {
+            clearTimeout(timer);
+            timer = setInterval(function() {
+                var step = Math.floor((targetStart - box.offsetLeft) / 10);
+                if (box.offsetLeft === targetStart) {
+                    clearTimeout(timer);
+                    timer = null;
+                    return;
+                } else {
+                    box.style.left = box.offsetLeft + step + 'px';
+                }
+            }, 50)
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

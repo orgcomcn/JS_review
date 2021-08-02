@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button id="go-400">去400</button>
+    <button id="go-back8"> 回400</button>
+    <div id="box"></div>
+
+
+    <script>
+        var oBtn_go = document.querySelector('#go-400');
+        var oBtn_back = document.querySelector('#go-back8');
+        var box = document.querySelector('#box');
+
+        oBtn_go.onclick = function() {
+            animate(box, 400)
+        }
+        oBtn_back.onclick = function() {
+            animate(box, 8)
+        }
+
+        function animate(eleTag, target) {
+            //1.清除上一次的定时器
+            if (eleTag.timer)
+                clearInterval(eleTag.timer);
+            //2.步长,需要当前位置
+            let step = eleTag.offsetLeft < target ? 10 : -10;
+            //3.开启一个新的定时器
+            eleTag.timer = setInterval(() => {
+                //新的位置等于 当前位置加步长
+                eleTag.style.left = eleTag.offsetLeft + step + 'px';
+                if (Math.abs(target - eleTag.offsetLeft) <= Math.abs(step)) {
+                    eleTag.style.left = target + 'px';
+                    clearInterval(eleTag.timer);
+                }
+            }, 50)
+        }
+    </script>
+
+
+
+</body>
+
+</html>

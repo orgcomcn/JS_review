@@ -1948,7 +1948,15 @@ ES6 的模块自动采用严格模式，不管你有没有在模块头部加上`
 
 ​	全局严格,局部严格
 
-严格模式的好处背5条
+严格模式的好处
+
+​	1.消除代码运行的一些不安全之处，保证代码运行的安全；
+
+​	2.提高编译器效率，增加运行速度；
+
+​	3.消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为;
+
+严格模式要注意:背5条
 
 ​	1.不允许省略var关键字
 
@@ -1962,7 +1970,7 @@ ES6 的模块自动采用严格模式，不管你有没有在模块头部加上`
 
 ​	6.eval作用域,加了严格模式,会有eval作用域
 
-​	7.无法使用delete删除变量
+​	7.进制使用delete 删除 window对象的属性
 
 ​	8.无法使用with
 
@@ -2172,6 +2180,12 @@ ES6 的模块自动采用严格模式，不管你有没有在模块头部加上`
   console.log(str4.repeat(10));
   ```
 
+* padStart/padEnd
+
+  ```
+  在字符前面补全空,或者在字符串后面补全.
+  ```
+
 #### 新增的Array方法
 
 * Array.from转数组
@@ -2365,49 +2379,87 @@ let fn5 = (a,b,c) => return a + b + c;
   }
   ```
 
+#### Object新增的方法
+
+ * Object.is()
+
+   ```javascript
+   1 == '1'; -- >　1 == Number('1');   // true 会有隐式类型转换
+   
+   1 === '1';  -->  // false 不会有隐士类型转换,如果不类型不相等直接返回false
+   
+   //ES6之前
+   -0 === +0; // true;
+   NaN === NaN; //false 
+       
+   //ES6新增Object.is,基本和===一致 除了以下这两种情况
+   Object.is(-0,+0); //false
+   object.is(NaN,NaN); // true;
+   ```
+
+ * Object.assign()
+
+   ```javascript
+   //假设我们要合并当前对象为另外一个对象,在没有Object.assign之前
+           var o1 = {name: '刘德华',sex: "男"};
+           var o2 = {age: 60,name: "蔡依林"};
+           var o3 = {}
+           for (var key in o1) {
+               o3[key] = o1[key];
+           }
+           for (var key in o2) {
+               o3[key] = o2[key];
+           }
+           console.log(o3)
+   
+   //现在有了Object.assign
+   	  var o1 = {name: '刘德华',sex: "男"};
+         var o2 = {age: 60,name: "蔡依林"};
+         var o3 = {}
+         Object.assign(o3,o1,o2);
+   	  console.log(o3);
+   ```
+
+   
+
+#### 碎片知识点
+
+* indexOf 与 findIndex 区别
+
+  ```txt
+  indexOf ：查找值作为第一个参数，采用 === 比较，更多的是用于查找基本类型，如果是对象类型，则是判断是否是同一个对象的引用
   
+  findIndex ：比较函数作为第一个参数，多用于非基本类型(例如对象)的数组索引查找，或查找条件很复杂
+  ```
 
-​	
+### day13 面向对象
 
+面向对象的特性
 
+* 继承
+  * 子类拥有父类的属性或方法,提取成一个类
+* 封装
+  * 将相同的属性或方法,提取成一个类
+  * 类:抽象的,模板,不具体.(模型,施工图)
+  * 对象,具体,对象是属性的实例
+  * 对象的组成(属性+方法)
+* 多态
+  * 重写 override 子类重写父类的属性或方法
+  * 重载 overload javascript中不存在重载
 
+闭包
 
+​	是一种机制,函数嵌套函数,内部函数可以访问外部函数的变量和参数,外部函数的变量和参数不会被垃圾回收机制回收
 
+new操作符做了什么事情
 
+​	1.创建一个空对象
 
-操作
+​	2.对象的__proto__指向构造函数的prototype 
 
+​	3.将构造函数的this指向空对象
 
+​	4.将属性和方法挂在到空对象
 
-
-
-
-
-三步走:map提取--reduce处理--filter过滤
-
-push和pop就是栈,push和shift就是队列
-
-什么是伪数组
-
-1，具有length属性
-
-2，能够使用数组遍历方法遍历它们
-
-3，不具有数组的push,pop等方法
-
-
-
-
-
-页面阻塞的解决方案 目前知道三个 看图片
-
-
-
-
-
-如何判断数据是不是真数组：
-
-数据 instanceof Array
-
-Object.prototype.toString.call( 数据 ) === '[object Array]'
+​	5.隐式return this
 

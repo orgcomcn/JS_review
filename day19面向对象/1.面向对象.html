@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.run = function() {
+                console.log("我能跑");
+            }
+        }
+
+        //如果不加new,那么构造函数Person指向window,它里面的属性和方法都属于window
+        Person('zhangsan', '20');
+        console.log(name, age); //能打印,因为里面的属性和方法都属于window
+
+        //如果加了new,那么构造函数Person指向该对象,它里面的属性和方法对属于这个对象
+        let person1 = new Person('张三', '20');
+        console.log(person1.age, person1.name);
+
+
+        // 使用object 不够具体
+    </script>
+
+</body>
+
+</html>

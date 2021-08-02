@@ -114,11 +114,9 @@
                         <td>${moment(item.time).format("YYYY-MM-DD HH:mm:ss")}</td>
                         <td>${item.status == 1 ? '启用' : '禁用'}</td>
                         <td>
-                       
                             <a data-name="${item.username}" class="on" href="javascript:void(0)">启用</a>|
                             <a  data-name="${item.username}"  class="off" href="javascript:void(0)">禁用</a>|
                             <a  data-name="${item.username}"  class="del" href="javascript:void(0)">删除</a>
-                           
                         </td>
                       </tr>
                     `
@@ -131,8 +129,18 @@
         content.addEventListener('click', function(event) {
             var e = event || window.event;
             var target = e.target || e.srcElement;
+
+            //触发input事件必须是A标签 class名可以是on,off,del否则不触发事件委托
+            if (!(target.nodeName === 'INPUT' &&
+                    target.id === 'on' ||
+                    target.id === 'off' ||
+                    target.id === 'del')) {
+                return false;
+            }
+
+
             //这是开启,开启,我们要替换webstorage里面的数据,也要动态修改网页里面的数据
-            if (target.nodeName === 'A' && target.className === 'on') {
+            if (target.className === 'on') {
                 target.parentNode.parentNode.children[4].innerHTML = '开启';
                 var name = target.getAttribute('data-name')
 
@@ -147,7 +155,7 @@
             }
 
             //这是关闭
-            if (target.nodeName === 'A' && target.className === 'off') {
+            if (target.className === 'off') {
                 target.parentNode.parentNode.children[4].innerHTML = '禁用';
                 var name = target.getAttribute('data-name')
                 var locaData = JSON.parse(localStorage.getItem('users') || '[]');
@@ -159,7 +167,7 @@
             }
 
             //这是删除 逻辑一样 很简单 代码很冗余
-            if (target.nodeName === 'A' && target.className === 'del') {
+            if (target.className === 'del') {
                 if (!confirm('您确定要删除吗?删除后无法恢复数据!')) {
                     return false;
                 }
@@ -173,6 +181,8 @@
                 localStorage.setItem('users', JSON.stringify(locaData));
                 target.parentNode.parentNode.remove();
             }
+
+
         })
 
 

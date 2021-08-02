@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        class Person {
+            constructor(name, age, sex) {
+                this.name = name;
+                this.age = age;
+                this.sex = sex;
+            }
+            food() {
+                console.log(`我是${this.name}我爱吃你`)
+            }
+            static eat() {
+                console.log(`我是静态方法,你猜我能不能被继承?`);
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, age, sex, sno) {
+                super(name, age, sex);
+                this.sno = sno;
+            }
+            daydaUp() {
+                console.log('我是学生我要上学');
+            }
+        }
+
+
+        const stu = new Student('张三', 18, '男', 11);
+        stu.food(); //调用父类的方法
+        Student.eat(); //调用父类的静态方法  -- 静态方法可以被继承
+        Person.eat(); //父类自己调用静态方法
+        stu.daydaUp(); //调用自己的方法
+
+        //constructor(){}//如果有属性,就需要使用,如果没有就可以省略
+    </script>
+
+</body>
+
+</html>

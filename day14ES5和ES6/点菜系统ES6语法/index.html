@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box .item {
+            float: left;
+            margin-right: 30px;
+        }
+        
+        .box .item img {
+            width: 100px;
+            height: 100px;
+        }
+        
+        .clear_fix::after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>巴拉巴拉饭店</h1>
+    <div class="box clear_fix">
+
+
+    </div>
+    <div><a href="cart.html">查看购物车</a></div>
+
+</body>
+
+
+<script>
+    var data = [{
+        id: 1,
+        name: "青椒炒肉",
+        price: 18,
+        image: "./images/1.jpg"
+    }, {
+        id: 2,
+        name: "爆炒肥肠",
+        price: 28,
+        image: "./images/2.jpg"
+    }, {
+        id: 3,
+        name: "蒜苔炒肉",
+        price: 20,
+        image: "./images/3.jpg"
+    }, {
+        id: 4,
+        name: "小炒肉",
+        price: 16,
+        image: "./images/4.jpg"
+    }, {
+        id: 5,
+        name: "香干炒肉",
+        price: 12,
+        image: "./images/5.jpg"
+    }, {
+        id: 6,
+        name: "鳝鱼",
+        price: 38,
+        image: "./images/6.jpg"
+    }]
+</script>
+
+</html>

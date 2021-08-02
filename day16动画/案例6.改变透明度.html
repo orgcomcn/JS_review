@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            opacity: 1;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+
+    </div>
+
+    <script>
+        var box = document.querySelector('.box');
+
+        box.onmouseover = function() {
+            opacityAnimate(box, 20);
+        }
+
+        box.onmouseout = function() {
+            opacityAnimate(box, 100);
+        }
+
+        var timer = null;
+        var alpha = 30;
+        var speed = 0;
+
+        function opacityAnimate(obj, endOpcacity) {
+            clearTimeout(timer);
+            timer = setInterval(() => {
+                //求速度
+                speed = endOpcacity > alpha ? 10 : -10;
+
+                //边界的处理
+                if (alpha === endOpcacity) {
+                    console.log('123')
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                }
+
+                alpha += speed;
+                console.log(alpha);
+                obj.style.opacity = (alpha / 100);
+            }, 60)
+        }
+    </script>
+
+
+</body>
+
+</html>

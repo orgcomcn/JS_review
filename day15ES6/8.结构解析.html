@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        var obj = {
+            name: "刘德华",
+            age: 20,
+            address: "中国",
+            list: {
+                show: "你好"
+            }
+        };
+
+        //如何快速取出list 中的show?
+        let {
+            list: {
+                show
+            }
+        } = obj;
+        console.log(show)
+
+        //数组的对称赋值
+        var arr = [10, 20];
+        var [a, b] = arr;
+
+        //对称赋值,进行交换位置
+        [b, a] = [a, b];
+        console.log(a, b)
+
+        // 如果有多个怎么办
+        var arr = [10, 20, 30, 40];
+        var [, , , a] = arr;
+        console.log(a)
+        var [a, ...arr1] = arr;
+        console.log(a, arr1)
+
+        // rest参数是一个真正的数组，它可使用Array.prototype上的所有方法；
+        //对函数使用length属性时，不包含rest参数；
+        //rest参数只能作为最后一个参数，在它之后不能再有其他参数，否则会报错。
+    </script>
+
+</body>
+
+</html>

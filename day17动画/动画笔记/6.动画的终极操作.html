@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+        }
+        
+        .inner {
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            position: absolute;
+            top: 180px;
+            left: 180px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>操作把</button>
+    <div class="box"></div>
+    <div class="inner"></div>
+
+
+    <script src="./js/animate0.0.3.js"></script>
+    <script>
+        let btn = document.querySelector('button');
+        let box = document.querySelector('.box');
+        let inner = document.querySelector('.inner');
+        btn.onclick = function() {
+            Utils.animate(box, {
+                width: 100,
+                height: 100,
+                left: 180,
+                top: 180,
+                opacity: 0.5,
+                zIndex: 2
+            }, function() {
+                alert('1')
+            });
+            Utils.animate(inner, {
+                width: 200,
+                height: 200,
+                left: 8,
+                top: 35,
+                opacity: 0.5,
+                zIndex: 1
+            }, function() {
+                alert('2')
+            })
+        }
+    </script>
+
+</body>
+
+</html>

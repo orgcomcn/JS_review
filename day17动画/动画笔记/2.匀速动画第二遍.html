@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>匀速动画</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .box {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button>走吧</button>
+    <button>回把</button>
+    <!-- 必须加定位 -->
+    <div class="box"> </div>
+
+
+    <script>
+        let box = document.querySelector('.box');
+        let oBtns = document.querySelectorAll('button');
+
+        //箭头函数的this,看出生时候的上下文 这里的this是window
+        oBtns[0].onclick = () => {
+            animate(box, 400, 10);
+        };
+
+        //普通函数的this,在点击事件中是点击事件,这里的this是btn
+        oBtns[1].onclick = function() {
+            animate(box, 0, 30);
+        };
+        //为了方便,我们直接封装一个函数来完成操作
+        // targetEle 要移动的目标元素
+        // targetIndex 要移动到的目标位置
+        // steps 步长,每次移动多少 
+        function animate(targetEle, targetIndex, steps) {
+            //0.定时器必须要清除,避免用户重复点击
+            clearInterval(targetEle.timer);
+            //1.首选确定好步长
+            //如果元素的offsetLeft 小于 目标位置 那么步长就是 正数
+            //如果元素的offsetLeft 大于 目标位置 那么步长就是 负数
+            stpes = targetEle.offsetLeft < targetIndex ? steps : -steps;
+            targetEle.timer = setInterval(() => {
+                //2.在定时器里,移动目标元素,想要移动目标元素: 新的位置 = 当前位置 +　步长　+ 'px';
+                targetEle.style.left = targetEle.offsetLeft + stpes + 'px';
+                //3.判断临界点 使用Math.abs()
+                // 如果目标位置 - 元素位置 小于或者 等于 步长, 证明已经移动到了临界点 那么我们要清除定时器
+                if (Math.abs((targetIndex - targetEle.offsetLeft)) <= Math.abs(stpes)) {
+                    // 但是我们要考虑一个问题 
+                    // 如果步长不是整数, 无法等于目标位置, 那么肯定就是小于的状态, 那么我们要把最终的结果
+                    // 赋值到元素位置
+                    targetEle.style.left = targetIndex + 'px';
+                    clearInterval(targetEle.timer);
+                    timer = null;
+                }
+                //其实上面的if也不是很严谨,现在不想考虑这个问题,当前值等于目标值就可以清空了,
+                //上面这个if 也有 可能 不小于等于目标值
+
+            }, 30)
+        }
+    </script>
+
+</body>
+
+</html>

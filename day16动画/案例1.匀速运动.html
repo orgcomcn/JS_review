@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <button>出发到500</button>
+    <button>回到0</button>
+    <div id="box"></div>
+
+    <script>
+        var box = document.getElementById("box");
+        var btns = document.querySelectorAll('button');
+        var timer = null;
+        btns[0].onclick = function() {
+
+            clearInterval(timer);
+
+            timer = setInterval(() => {
+                if (box.offsetLeft === 500) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                } else {
+                    box.style.left = box.offsetLeft + 10 + 'px';
+                }
+            }, 60)
+
+
+        }
+        btns[1].onclick = function() {
+            clearInterval(timer);
+
+            timer = setInterval(() => {
+                if (box.offsetLeft === 0) {
+                    clearInterval(timer);
+                    timer = null;
+                    return;
+                } else {
+                    box.style.left = box.offsetLeft - 10 + 'px';
+                }
+            }, 60)
+        }
+    </script>
+
+</body>
+
+</html>

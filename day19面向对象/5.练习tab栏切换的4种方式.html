@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style-type: none;
+        }
+        
+        .box {
+            width: 400px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        
+        .hd {
+            height: 45px;
+        }
+        
+        .hd span {
+            display: inline-block;
+            width: 90px;
+            background-color: pink;
+            line-height: 45px;
+            text-align: center;
+        }
+        
+        .hd span.current {
+            background-color: purple;
+        }
+        
+        .bd li {
+            height: 255px;
+            background-color: purple;
+            display: none;
+        }
+        
+        .bd li.current {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="hd">
+            <span class="current">体育</span>
+            <span>娱乐</span>
+            <span>新闻</span>
+            <span>综合</span>
+        </div>
+        <div class="bd">
+            <ul>
+                <li class="current">我是体育模块</li>
+                <li>我是娱乐模块</li>
+                <li>我是新闻模块</li>
+                <li>我是综合模块</li>
+            </ul>
+        </div>
+    </div>
+</body>
+
+<script>
+    //方式1 设置自定义属性
+    let span = document.querySelectorAll('span');
+    let li = document.querySelectorAll('li');
+
+    // for (var i = 0; i < span.length; i++) {
+    //     //设置自定义属性
+    //     span[i].setAttribute("index", i);
+    //     //绑定点击事件
+    //     span[i].onclick = function() {
+    //         //获取自定义属性
+    //         var indexTemp = this.getAttribute('index');
+    //         //排他思想
+    //         for (var j = 0; j < span.length; j++) {
+    //             span[j].className = indexTemp == j ? 'current' : '';
+    //         }
+    //     }
+    // }
+
+    //方式2 forEach
+    // span.forEach((item, indexTemp) => {
+    //     item.onclick = () => {
+    //         span.forEach((item, index) => {
+    //             item.className = indexTemp == index ? 'current' : '';
+    //             li[index].className = indexTemp == index ? 'current' : '';
+    //         })
+    //     }
+    // })
+
+    // 方式3 let
+    // for (let i = 0; i < span.length; i++) {
+    //     span[i].onclick = () => {
+    //         for (let j = 0; j < span.length; j++) {
+    //             span[j].className = i == j ? 'current' : '';
+    //             li[j].className = i == j ? 'current' : '';
+    //         }
+    //     }
+    // }
+
+    //方式4 闭包
+    for (var i = 0; i < span.length; i++) {
+        (function(j) {
+            span[j].onclick = function() {
+                for (var k = 0; k < span.length; k++) {
+                    span[k].className = k == j ? 'current' : '';
+                    li[k].className = k == j ? 'current' : '';
+                }
+            }
+        }(i));
+    }
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //检查一个字符串中是否有.
+        //. 表示除了换行和结束之外的任意字符, 所以我们要转义
+        var reg = /\./;
+        console.log(reg.test("123.123"));
+
+
+        /**
+         * \w  任意字母/数字/下划线 [A-z0-9_]
+         * \W  除了字母数字下划线 [^A-z0-9_]
+         * \d  任意数字 [0-9]
+         * \D  除了数字 [^0-9]
+         * \s  空格 
+         * \S  除了空格
+         * \b  单词边界
+         * \B  除了单词边界
+         * 
+         */
+
+        // \b演示
+        var reg = /\bchild\b/;
+        console.log(reg.test("hellochildasd")); //false
+        console.log(reg.test("hello childasd")); //false
+        console.log(reg.test("hello child asd")); //true
+    </script>
+
+</body>
+
+</html>

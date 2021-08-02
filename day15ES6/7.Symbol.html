@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //ES6-Symbol  标识符,表示独一无二的类型
+        //目前干什么用的我也不知道,没搞懂
+
+
+
+        //我有一个对象,想自己定义遍历时候返回的数据
+
+        var obj = {
+            data: [{
+                name: '周杰伦'
+            }, {
+                name: '刘德华'
+            }],
+            [Symbol.iterator]() {
+                let self = this;
+                let index = -1;
+                return {
+                    next() {
+                        index++;
+                        if (index == self.data.length) {
+                            return {
+                                done: true, //什么时候终止 true
+                                value: "111"
+                            }
+                        } else {
+                            return {
+                                done: false,
+                                value: self.data[index]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for (var key of obj) {
+            console.log(key);
+        }
+        //如果想用 for..of进行遍历,就需要自己重写  [Symbol.iterator]()
+        // 这个方法里头,必须返回一个对象,对象里,必须有next方法,next必须
+        //返回一个对象,对象里必须有 {done,value}
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <form id="register">
+        <h1>注册</h1>
+        <p>
+            <input type="text" name="uname" placeholder="用户名" id="uname">
+            <span class="uNameMsg"></span>
+        </p>
+        <p>
+            <input type="text" name="upwd" placeholder="密码" id="upwd">
+            <span class="uPwdMsg"></span>
+        </p>
+        <p>
+            <input type="text" name="utel" placeholder="手机号" id="utel">
+            <span class="uTelMsg"></span>
+        </p>
+        <p><button id="btn">注册</button></p>
+    </form>
+    <a href="./login.html">立即去登录</a>
+
+    <script>
+        //拿到所有要操作的dom节点
+        const register = document.querySelector('#register');
+        const uName = document.querySelector('#uname');
+        const uPwd = document.querySelector('#upwd');
+        const uTel = document.querySelector('#utel');
+        const btn = document.querySelector('#btn');
+        //拿到错误显示DOM标签
+        const uNameMsg = document.querySelector('.uNameMsg');
+        const uPwdMsg = document.querySelector('.uPwdMsg');
+        const uTelMsg = document.querySelector('.uTelMsg');
+        //用户名,密码,手机校验,假设全部不通过
+        let isUserName = false;
+        let isOk = false;
+        let isPwd = false;
+        let isTel = false;
+
+        //1.当用户输入的时候,我们要随时检测input框中的内容是否符合要求,这里直接用事件委托来做.
+        register.addEventListener('input', (event) => {
+            //拿到事件对象,用事件委托来做事
+            const e = event || window.event;
+            const target = e.target || e.srcElement;
+            //触发input事件必须是input框 id名可以是uname,upwd,utel,否则不触发事件委托
+            if (!(target.nodeName === 'INPUT' &&
+                    target.id === 'uname' ||
+                    target.id === 'upwd' ||
+                    target.id === 'utel')) {
+                return false;
+            }
+
+
+            //上面已经过滤了input框的条件,这里我们直接判断标签的id名字,就可以得知目前是什么input框在输入
+            if (target.id === 'uname') {
+                const reg = /^\w{6,}$/; //用户名正则
+                const errMsg = "用户名只包含数字,字母,下划线, 且长度不小于6位";
+                isUserName = isReg(target, reg, errMsg, uNameMsg);
+
+                //1.1用户名是否已经存在
+                locaDate = JSON.parse(localStorage.getItem('users') || '[]');
+                isOk = locaDate.some(function(item) {
+                    return item.username === target.value.trim();
+                });
+                //如果用户名存在
+                if (isOk) uNameMsg.innerText = '用户名存在,请更换'
+
+                //用户名合法 以及 用户名
+                isUser = isUserName && !isOk;
+                if (isUser) uNameMsg.innerHTML = "恭喜您用户未被注册,并且该用户名合法";
+
+
+            }
+            //密码框
+            if (target.id === 'upwd') {
+                const errMsg = "密码长度在8到16位"
+                const reg = /^.{8,16}$/i; //密码正则
+                isPwd = isReg(target, reg, errMsg, uPwdMsg);
+            }
+            //手机号框
+            if (target.id === 'utel') {
+                const errMsg = "手机号长度11位"
+                const reg = /^[1][3-9]\d{9}$/; //手机号正则
+                isTel = isReg(target, reg, errMsg, uTelMsg);
+            }
+
+        });
+
+        //2.当用户点击注册的时候,拿到用户名,密码,手机号,
+        register.onsubmit = () => {
+            // 三个验证全部通过,才能存入localStorage,如果不成立 无法继续执行
+            if (!(isUserName && isPwd && isTel)) {
+                alert('仔细看看页面哪里填错了');
+                return false;
+            }
+            //判断用户名否被注册
+            if (isOk) {
+                alert('用户名已经被注册');
+                return false;
+            }
+
+            //存入数据的时候,我们把数据做成一个对象,并且添加一些额外的属性
+            //注册时间,以及是否禁用.
+            const user = {
+                username: uName.value.trim(),
+                password: uPwd.value.trim(),
+                tel: uTel.value.trim(),
+                time: Date.now(),
+                status: 1
+            }
+
+            //拿到localStorage,这里我们要考虑,第一次没有数据的情况,我们要返回一个空数组.
+            //存入要用JSON.Stringfly, 取出要用JSON.parse
+            const locaData = JSON.parse(localStorage.getItem('users') || '[]');
+            locaData.push(user);
+            localStorage.setItem('users', JSON.stringify(locaData));
+
+            alert('注册成功,请前往登录');
+            location.replace("login.html")
+            return false;
+        }
+
+
+
+
+        /**
+         * 用户名正则判断 通用方法
+         * target 目标输入框
+         * reg 正则表达式
+         * errMsg 报错信息
+         * msgTag 报错信息显示的标签
+         * 返回值: 通过正则判断返回true 不通过返回false
+         */
+        function isReg(target, reg, errMsg, msgTag) {
+            const str = target.value.trim();
+            if (reg.test(str)) {
+                msgTag.innerText = '输入合法';
+                return true;
+            } else {
+                msgTag.innerText = errMsg;
+                return false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

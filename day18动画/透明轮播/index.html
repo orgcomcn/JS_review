@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        #box {
+            height: 500px;
+            width: 800px;
+            border: 1px solid #c0c0c0;
+            position: absolute;
+            margin: 100px auto;
+            left: 100px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        ul {
+            list-style: none;
+            height: 100%;
+            width: 100%;
+        }
+        
+        ul>li {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            font-size: 30px;
+            text-align: center;
+        }
+        
+        ol {
+            list-style: none;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        ol>li {
+            height: 100px;
+            width: 146px;
+            margin-left: 8px;
+            float: left;
+            text-align: center;
+            border: 1px solid #999999;
+        }
+        
+        ol>li img {
+            height: 100px;
+            width: 146px;
+            float: left;
+        }
+    </style>
+
+
+
+</head>
+
+<body>
+
+
+    <div id="box">
+        <ul id="ul">
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic1.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic2.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic3.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic4.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic5.jpg" alt="" /></a>
+            </li>
+        </ul>
+
+        <ol id="ol">
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic1.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic2.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic3.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic4.jpg" alt="" /></a>
+            </li>
+            <li>
+                <a href="javascript:void(0)"><img src="images/slidepic5.jpg" alt="" /></a>
+            </li>
+        </ol>
+    </div>
+</body>
+
+</html>
+<script src="./js/animate.1.0.1.js"></script>
+<script>
+    class SwiperBanner {
+        constructor(sttings = {}) {
+            //第一种写法: 如果用户不传,默认自动播放
+            //this.sttings = Object.assign({auto: true}, sttings);
+            //第二种写法: 必须要传true 才会自动播放 其他的方法需要用到初始化相关的属性
+            this.sttings = Object.assign({}, sttings);
+            //拿到大盒子
+            this.el = document.querySelector(this.sttings.el);
+            //拿到ul下的li
+            this.oUlLis = this.el.children[0].children;
+            //拿到ol下的li
+            this.oOlLis = this.el.children[1].children;
+            //图片的索引
+            this.imgIndex = 0;
+            //初始化
+            this.init();
+            //鼠标进入和离开
+            this.mouseHanlder();
+            //鼠标点击
+            this.clickHanlder();
+            //自动播放
+            if (this.sttings.auto) {
+                this.timer = setInterval(() => {
+                    this.imgIndex++;
+                    if (this.imgIndex > 4) {
+                        this.imgIndex = 0;
+                    }
+                    this.autoPlay();
+                }, 1000)
+            }
+        };
+        init() {
+            //排他思想
+            Array.from(this.oUlLis).forEach((item, index) => {
+                //ul下第一张图片的透明度为1,其他图片的透明度为0;
+                item.style.opacity = index == this.imgIndex ? 1 : 0;
+                //ol下第一张图片的透明度为1,其他图片的透明度为0.3;
+                this.oOlLis[index].style.opacity = index == this.imgIndex ? 1 : 0.3;
+            })
+        };
+        autoPlay() {
+            Array.from(this.oUlLis).forEach((item, index) => {
+                Utils.animate(item, {
+                    opacity: index == this.imgIndex ? 1 : 0
+                })
+
+                Utils.animate(this.oOlLis[index], {
+                    opacity: index == this.imgIndex ? 1 : 0.3
+                })
+            })
+        };
+        mouseHanlder() {
+            //进来清除定时器
+            this.el.addEventListener('mouseenter', () => {
+                clearInterval(this.timer);
+                this.timer = null;
+            });
+            //出去重新开启定时器
+            this.el.addEventListener('mouseleave', () => {
+                this.timer = setInterval(() => {
+                    this.imgIndex++;
+                    if (this.imgIndex > 4) {
+                        this.imgIndex = 0;
+                    }
+                    this.autoPlay();
+                }, 1000)
+            });
+        };
+        //点击完了  记得自动播放
+        clickHanlder() {
+            Array.from(this.oOlLis).forEach((item, index) => {
+                let self = this;
+                item.onclick = function() {
+                    self.imgIndex = index;
+                    //设置完了index 记得重新播放
+                    self.autoPlay();
+                }
+            })
+        }
+    }
+
+    new SwiperBanner({
+        el: '#box',
+        auto: false
+    })
+</script>

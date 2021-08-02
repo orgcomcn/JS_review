@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div class="box"></div>
+
+
+    <script>
+        function createFactorter(el) {
+            let obj = new Object();
+            //属性
+            obj.el = document.querySelector(el);
+
+            //按下方法
+            obj.DragDown = function() {
+                obj.el.onmousedown = function(e) {
+                    let msX = e.pageX - this.offsetLeft;
+                    let msY = e.pageY - this.offsetTop;
+
+                    obj.DragMove(msX, msY);
+                    obj.DragUp();
+                }
+            }
+
+            //移动方法
+            obj.DragMove = function(msX, msY) {
+                let that = this;
+                document.onmousemove = function(e) {
+                    that.el.style.left = e.pageX - msX + 'px';
+                    that.el.style.top = e.pageY - msY + 'px';
+                }
+            }
+
+            //松开方法
+            obj.DragUp = function() {
+                let that = this;
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                }
+            }
+            return obj;
+        }
+
+        let obj1 = new createFactorter('.box');
+        obj1.DragDown();
+    </script>
+
+
+</body>
+
+</html>

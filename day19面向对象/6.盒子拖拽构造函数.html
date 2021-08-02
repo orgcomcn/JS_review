@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div class="box"></div>
+
+
+    <script>
+        // //面向过程
+        // let box = document.querySelector('.box');
+        // box.addEventListener('mousedown', (event) => {
+        //     //拿到鼠标距离页面距离 和盒子距离页面的距离
+        //     let msX = event.pageX - box.offsetLeft;
+        //     let msY = event.pageY - box.offsetTop;
+        //     document.addEventListener('mousemove', move)
+        //     document.addEventListener('mouseup', () => {
+        //         document.removeEventListener('mousemove', move)
+        //     })
+
+        //     function move(e) {
+        //         box.style.left = e.pageX - msX + 'px';
+        //         box.style.top = e.pageY - msY + 'px';
+        //     }
+        // })
+        function DragBox(el) {
+            this.el = document.querySelector(el);
+
+            //鼠标按下
+            this.DragDown = function(event) {
+                let that = this;
+                this.el.onmousedown = function(e) {
+                    let msX = e.pageX - this.offsetLeft;
+                    let msY = e.pageY - this.offsetTop;
+                    that.DragMove(msX, msY);
+                    that.DragUp();
+                }
+            }
+
+            //鼠标移动
+            this.DragMove = function(msX, msY) {
+                let that = this;
+                document.onmousemove = function(event) {
+                    that.el.style.left = event.pageX - msX + 'px';
+                    that.el.style.top = event.pageY - msY + 'px'
+
+                }
+            }
+
+            //鼠标松开
+            this.DragUp = function() {
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                }
+            }
+        }
+
+        var DragBox = new DragBox('.box');
+        DragBox.DragDown();
+    </script>
+
+
+</body>
+
+</html>
