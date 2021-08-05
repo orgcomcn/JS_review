@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //如果构造函数和原型有相同属性,以构造函数内的属性为准
+        //如果构造函数上没有属性,那么就到原型上去找
+        function Person() {
+            //属性写在里面
+            this.name = '不会被共享';
+            this.family = ['哈哈', '呵呵'];
+        }
+        //共享的方法写在外面
+        Person.prototype.add = function(name) {
+            this.family.push(name);
+        }
+
+        let p1 = new Person();
+        p1.add('看看会不会被共享'); //不会被共享
+
+        console.log(p1);
+
+        let p2 = new Person();
+        console.log(p2);
+    </script>
+</body>
+
+</html>

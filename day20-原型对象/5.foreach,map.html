@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let arr = [11, 22, 33, 44, 55];
+
+
+        //forEach
+        Array.prototype.myForEach = function(callback) {
+            for (var i = 0; i < this.length; i++) {
+                callback(this[i], i, this);
+            }
+        }
+
+        arr.forEach(function(item, index, obj) {
+            console.log(item, index, obj)
+        })
+
+        //Map 放大10倍
+        Array.prototype.myMap = function(callback) {
+            let list = [];
+            for (let i = 0; i < this.length; i++) {
+                let ret = callback(this[i], i, this);
+                list.push(ret);
+            }
+            return list;
+        }
+
+        let ret = arr.myMap(function(item, index, obj) {
+            return item * 10;
+        })
+        console.log(ret)
+    </script>
+
+
+</body>
+
+</html>

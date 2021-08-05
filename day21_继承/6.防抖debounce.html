@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box"></div>
+
+
+    <script>
+        let box = document.querySelector('.box');
+        let count = 0;
+
+        function doSomeThing() {
+            box.innerHTML = count++;
+        }
+
+        box.onmouseover = debounce(doSomeThing, 2000);
+
+        function debounce(fn, delay) {
+            let timer = null;
+            return function(event) {
+                if (timer) clearTimeout(timer);
+                let that = this;
+                let e = event;
+                timer = setInterval(function() {
+                    fn.apply(that, e);
+                }, delay);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

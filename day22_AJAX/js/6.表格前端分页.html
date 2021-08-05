@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.js"></script>
+</head>
+
+<body>
+    <button id="prev">上一页</button>
+
+    <button id="next">下一页</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>年龄</th>
+                <th>手机号</th>
+                <th>真实姓名</th>
+                <th>注册日期</th>
+            </tr>
+        </thead>
+        <tbody id="tab">
+
+        </tbody>
+    </table>
+    <script src="ajax.js"></script>
+    <script>
+        class Tools {
+            constructor(settings = {}) {
+                //用户可以传每页显示多少条数据,以及第几页数据
+                this.settings = Object.assign({
+                    pageSize: 5,
+                    pageIndex: 1
+                }, settings);
+                this.url = this.settings.url;
+                this.pageSize = this.settings.pageSize;
+                this.pageIndex = this.settings.pageIndex;
+                this.el = document.querySelector(this.settings.el);
+                this.data = []; // 数据
+                this.maxPageSize = 0; //最大页码
+                Utils.get(this.url, {}, (res) => {
+                    let {
+                        data
+                    } = JSON.parse(res);
+                    //所有数据
+                    this.data = data;
+                    //计算出最大页码 一共有多少页
+                    this.maxPageSize = Math.ceil(this.data.length / this.pageSize);
+                    //渲染数据,把数据截取出来,保存到数组
+                    let newData = this.data.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize);
+                    //数据的渲染
+                    this.render(newData);
+                })
+
+            };
+
+            //渲染数据
+            render(data) {
+                let str = ``;
+                data.forEach(item => {
+                    str += `
+                      <tr>
+                        <td>${item.uname}</td>  
+                        <td>${item.upwd}</td>  
+                        <td>${item.uage}</td>  
+                        <td>${item.uphone}</td>  
+                        <td>${item.realname}</td>  
+                        <td>${moment(item.datetime).format("YYYY-MM-DD HH:mm:ss")}</td>  
+                      </tr>
+                    `
+                })
+                this.el.innerHTML = str;
+            };
+            //上一页
+            prev() {
+                this.pageIndex--;
+                if (this.pageIndex <= 0) {
+                    this.pageIndex = 1;
+
+                }
+                let newData = this.data.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize);
+                this.render(newData);
+            };
+            //下一页
+            next() {
+                this.pageIndex++;
+                console.log(this.pageIndex)
+                if (this.pageIndex >= this.maxPageSize) {
+                    this.pageIndex = this.maxPageSize;
+
+                }
+                let newData = this.data.slice((this.pageIndex - 1) * this.pageSize, this.pageIndex * this.pageSize);
+                this.render(newData);
+            }
+        }
+
+        let page = new Tools({
+            el: '#tab',
+            url: 'http://useker.cn/getUsers',
+            pageSize: 50
+        })
+
+        let oPrev = document.querySelector("#prev");
+        oPrev.onclick = function() {
+            page.prev()
+        }
+
+        let oNext = document.querySelector("#next");
+        oNext.onclick = function() {
+            page.next()
+        }
+    </script>
+
+</body>
+
+</html>

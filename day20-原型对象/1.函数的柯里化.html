@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        //函数的柯里化:函数嵌套函数,最后一个函数被执行,而返回结果
+        // function fn(i) {
+        //     return function(j) {
+        //         return function(k) {
+        //             return i + j + k;
+        //         }
+        //     }
+        // }
+
+        //let ret = fn(1)(3)(5);
+
+        // let ff = fn(1)(3);
+        // let ret = ff(5);
+        // console.log(ret);
+
+
+        // let ff = fn(1)(3);
+        // let ret = ff(8);
+        // console.log(ret);
+
+
+        let fn = a => b => c => a + b + c;
+        let ret = fn(1)(3)(5);
+    </script>
+
+</body>
+
+</html>

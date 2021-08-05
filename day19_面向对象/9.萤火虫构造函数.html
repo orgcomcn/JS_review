@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(images/bg.jpg) no-repeat center;
+            background-size: cover;
+            overflow: hidden;
+        }
+        
+        img {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./js/animate.1.0.1.js"></script>
+    <script>
+        window.onload = function() {
+            function Fireworm() {
+                this.ele = null;
+                this.init = function() {
+
+                    this.ele = document.createElement("div");
+                    this.ele.style.height = "10px";
+                    this.ele.style.width = "10px";
+                    this.ele.style.backgroundImage = "url(images/snow.gif)";
+                    this.ele.style.backgroundSize = "cover"
+                    this.ele.style.position = "absolute";
+                    this.ele.style.left = this.position().left + "px"
+                    this.ele.style.top = this.position().top + "px"
+
+                    document.body.appendChild(this.ele);
+
+                    return this;
+                }
+                this.fly = function() {
+                    var self = this;
+                    Utils.animate(this.ele, this.position(), function() {
+                        self.fly();
+                    });
+                };
+                //获取随机位置
+                this.position = function() {
+                    var result = {};
+                    result.left = parseInt(Math.random() * document.documentElement.scrollWidth);
+                    result.top = parseInt(Math.random() * document.documentElement.scrollHeight);
+                    return result;
+                }
+            }
+            for (var i = 0; i < 20; i++) {
+                new Fireworm().init().fly();
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

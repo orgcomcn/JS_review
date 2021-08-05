@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(images/bg.jpg) no-repeat center;
+            background-size: cover;
+            overflow: hidden;
+        }
+        
+        img {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script src="./js/animate.tools.js"></script>
+    <script>
+        function Base(settings = {}) {
+            //默认参数 + 传入的参数 =  一个新对象
+            this.settings = Object.assign({
+                width: '10px',
+                height: '10px'
+            }, settings);
+        }
+
+        Base.prototype.init = function() {
+            this.el = document.createElement('div');
+            document.body.appendChild(this.el);
+            this.el.style.position = 'absolute';
+            this.el.style.backgroundSize = '100% 100%';
+            this.el.style.backgroundRepeat = 'no-repeat';
+            this.el.style.left = this.location().left;
+            for (let key in this.settings) {
+                this.el.style[key] = this.settings[key];
+                if (this.settings[key] == './images/1.jpg') {
+                    //萤火虫
+                    this.el.style.top = this.location().top;
+                } else if (this.settings[key] == './images/snow.gif') {
+                    //雪花  
+                    this.el.style.top = "0px";
+                }
+            }
+            return this;
+        }
+
+        Base.prototype.location = function() {
+            return {
+                left: parseInt(Math.random() * document.documentElement.scrollWidth) + 'px',
+                top: parseInt(Math.random() * document.documentElement.scrollHeight) + 'px'
+            }
+        };
+        //飞方法的模板,给子类继承,重写
+        Base.prototype.fly = function() {}
+
+        //使用对象冒充继承 无法继承到原型上的属性和方法
+        function Fireworm(settings) {
+            Base.call(this, settings);
+        }
+        //原型继承 可以继承到原型上的属性和方法
+        Fireworm.prototype = new Base();
+        //重写Base类的fly方法
+        Fireworm.prototype.fly = function() {
+            Utils.animate(this.el, this.location(), () => {
+                this.fly();
+            })
+        }
+
+        let fire = new Fireworm({
+            "background-image": "url(./images/1.jpg)",
+            width: "20px",
+            height: "20px"
+        }).init();
+        fire.fly();
+
+
+
+        // snow
+        // 初始化
+        //对象冒充继承 无法继承父类原型上的方法
+        function Snow(settings) {
+            Base.apply(this, [settings]);
+        }
+        // 原型继承 可以继承原型上的方法和属性
+        Snow.prototype = new Base();
+        Snow.prototype.fly = function() {
+            let steps = 10;
+            let timer = setInterval(() => {
+                //新的位置 = 当前位置 + 步长
+                this.el.style.top = this.el.offsetTop + steps + 'px';
+                if (this.el.offsetTop > document.documentElment.offsetHeight) {
+                    clearInterval(timer);
+                    this.el.remove();
+                }
+            }, 60);
+        }
+
+        setInterval(() => {
+            // xx.init().fly() 链式编程, 核心是要看最后有没有返回this
+            new Snow({
+                "background-image": "url(./images/snow.gif)"
+            }).init().fly()
+        }, 100);
+        //当调用了init()方法最好返回了this ,其实它就是实例化后的对象
+        //它等价于Snow
+        // let snow = new Snow({
+        //     "background-image": "url(./images/snow.gif)"
+        // });
+        // snow.init();
+        // snow.fly();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!-- 
+    封装自己的
+    sort/filter/map/forEach/some/every/reduct
+  -->
+
+
+    <script>
+        var arr = [41, 31, 33, 56, 11, 23, 55, 66, 10];
+        //mySort
+        Array.prototype.mySort = function(callback) {
+            for (let i = 0; i < this.length - 1; i++) {
+                for (let j = 0; j < this.length - 1 - i; j++) {
+                    if (callback(this[j], this[j + 1]) > 0) {
+                        let temp = this[j];
+                        this[j] = this[j + 1];
+                        this[j + 1] = temp;
+                    }
+                }
+            }
+        };
+        //a-b 从小到大 b-a 从大到小
+        arr.mySort(function(a, b) {
+            return a - b;
+        })
+        console.log(arr);
+        //myMap
+        Array.prototype.myMap = function(callback) {
+            let arr = [];
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], this[i + 1])) {
+                    arr.push(this[i]);
+                }
+            }
+            return arr;
+        }
+
+        let ret1 = arr.myMap(function(item, index, obj) {
+            return item % 3 == 0;
+        })
+        console.log(ret1);
+        //myForEach
+        Array.prototype.myForEach = function(callback) {
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], this[i + 1])) {
+                    console.log(this[i]);
+                }
+            }
+        }
+        arr.myForEach(function(item, index, obj) {
+            return item % 2 == 0
+        })
+
+        //mySome()
+        Array.prototype.mySome = function(callback) {
+            for (let i = 0; i < this.length; i++) {
+                if (callback(this[i], i, this)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        let isOk = arr.mySome(function(item, index, obj) {
+            return item > 64 ? true : false;
+        })
+        console.log(isOk);
+
+        //myEvery
+        Array.prototype.myEvery = function(callback) {
+            for (let i = 0; i < this.length; i++) {
+                if (!callback(this[i], this[i + 1]))
+                    return false;
+            }
+            return true;
+        }
+        let isOkk = arr.myEvery(function(item, index, obj) {
+            return item > 9;
+        })
+        console.log(isOkk);
+    </script>
+
+
+
+</body>
+
+</html>

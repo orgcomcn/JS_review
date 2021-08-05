@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div class="box"></div>
+
+
+    <script>
+        class DragBox {
+            constructor(el) {
+                this.el = document.querySelector(el);
+                this.DragDown();
+
+            }
+
+            DragDown() {
+                let that = this;
+                this.el.onmousedown = function(e) {
+                    let msX = e.pageX - this.offsetLeft;
+                    let msY = e.pageY - this.offsetTop;
+
+                    that.DragMove(msX, msY);
+                    that.DragUp();
+                }
+            }
+            DragMove(msX, msY) {
+                let that = this;
+                document.onmousemove = function(e) {
+                    that.el.style.left = e.pageX - msX + "px";
+                    that.el.style.top = e.pageY - msY + "px";
+                }
+            }
+            DragUp() {
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                }
+            }
+
+        }
+        new DragBox('.box')
+
+        //  使用构造函数完成对盒子的拖动
+        // function DragBox(el) {
+        //     //属性,拿到标签  
+        //     this.el = document.querySelector(el);
+        //     //方法: 按下,移动,松开
+        //     this.DragDwon = function() {
+        //         let that = this;
+        //         this.el.onmousedown = function(e) {
+        //             let msX = e.pageX - this.offsetLeft;
+        //             let msY = e.pageY - this.offsetTop;
+        //             that.DragMove(msX, msY);
+        //             that.DragUp();
+        //         }
+
+
+        //     }
+
+        //     this.DragMove = function(msX, msY) {
+        //         let that = this;
+        //         document.onmousemove = function(e) {
+        //             that.el.style.left = e.pageX - msX + "px";
+        //             that.el.style.top = e.pageY - msY + "px";
+        //         }
+        //     }
+
+        //     this.DragUp = function() {
+        //         document.onmouseup = function() {
+        //             document.onmousemove = document.onmouseup = null;
+        //         }
+        //     }
+
+        // }
+
+        // const fn = new DragBox('.box');
+        // fn.DragDwon();
+
+        //使用工厂模式完成对盒子的移动
+        // function createFactory(el) {
+
+        //     let obj = new Object();
+
+        //     //属性
+        //     obj.el = document.querySelector(el);
+
+        //     //方法 按下 移动 松开
+        //     obj.DragDwon = function() {
+        //         obj.el.onmousedown = function(e) {
+        //             let msX = e.pageX - obj.el.offsetLeft;
+        //             let msY = e.pageY - obj.el.offsetTop;
+        //             obj.DragMove(msX, msY);
+        //             obj.DragUp();
+        //         }
+        //     }
+
+        //     obj.DragMove = function(msX, msY) {
+        //         document.onmousemove = function(e) {
+        //             obj.el.style.left = e.pageX - msX + "px";
+        //             obj.el.style.top = e.pageY - msY + "px";
+        //         }
+        //     }
+        //     obj.DragUp = function() {
+        //         document.onmouseup = function() {
+        //             document.onmousemove = document.onmouseup = null;
+        //         }
+        //     }
+
+        //     return obj;
+        // }
+        // let obj = createFactory('.box');
+        // obj.DragDwon();
+
+        //使用class完成对盒子的移动
+
+        // class DragMove {
+        //     constructor(el) {
+        //         this.el = document.querySelector(el);
+
+        //         this.DragDwon();
+        //     }
+
+        //     DragDwon() {
+        //         let that = this;
+        //         this.el.onmousedown = function(e) {
+        //             let msX = e.pageX - this.offsetLeft
+        //             let msY = e.pageY - this.offsetTop;
+
+        //             that.DragMove(msX, msY);
+        //             that.DragUp();
+        //         }
+        //     }
+
+        //     DragMove(msX, msY) {
+        //         let that = this;
+        //         document.onmousemove = function(e) {
+        //             that.el.style.left = e.pageX - msX + "px";
+        //             that.el.style.top = e.pageY - msY + "px";
+        //         }
+        //     }
+        //     DragUp() {
+        //         document.onmouseup = function() {
+        //             document.onmousemove = document.onmouseup = null;
+        //         }
+        //     }
+        // }
+
+        // new DragMove('.box');
+    </script>
+
+
+</body>
+
+</html>

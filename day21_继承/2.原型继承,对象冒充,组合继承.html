@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        // 对象冒充 + 原型链继承 = 组合继承
+
+        // 对象冒充继承 : 无法继承原型链的
+        // 原型链继承 不能让自己的属性进行初始化
+        // 组合继承 会多出父类的原型上的属性,虽然是undefined,但是还是要为他开辟空间
+
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype.eat = function() {
+            console.log('我爱吃红烧肉');
+        }
+
+        function Student(name, age, sId, sex) {
+            //对象冒充继承,无法继承原型上的方法和属性
+            Person.bind(this, name, age)();
+            this.sex = sex;
+            this.sId = sId;
+        }
+
+
+        //原型链继承,不能让自己的属性进行初始化
+        Student.prototype = new Person();
+
+        var stu = new Student('周杰伦', 20, '10086', '男');
+        console.log(stu);
+        stu.eat();
+
+        //对象冒充 + 原型链继承 = 组合继承
+        // 组合继承也有缺点,会多出父类的原型上的属性,虽然是undefined,但是也要为他开辟空间
+
+
+        //1.总结:
+        // 对象冒充: 对象冒充的方式，无法继承通过prototype方式定义的变量和方法，
+        // 原型链继承: 原型链继承,不能让自己的属性进行初始化
+        // 组合继承: 会多出父类的原型上的属性,虽然是undefined,但是也要为他开辟空间
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>

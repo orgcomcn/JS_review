@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            position: absolute;
+        }
+        
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+        }
+        
+        .box2 {
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box"></div>
+    <div class="box1"></div>
+    <div class="box2"></div>
+
+    <script>
+        //粉色的div可以随意拖拽DragBox;
+        class DragBox {
+            constructor(el) {
+                this.el = document.querySelector(el);
+            }
+            dragDown() {
+                let that = this;
+                this.el.onmousedown = function(event) {
+                    let msX = event.pageX - this.offsetLeft;
+                    let msY = event.pageY - this.offsetTop;
+                    that.dragIng(msX, msY);
+                    that.dragEnd();
+                }
+            }
+            dragIng(msX, msY) {
+                let that = this;
+                document.onmousemove = function(event) {
+                    that.el.style.left = event.pageX - msX + 'px';
+                    that.el.style.top = event.pageY - msY + 'px';
+                }
+            }
+            dragEnd() {
+                document.onmouseup = function() {
+                    document.onmouseup = document.onmousemove = null;
+                }
+            }
+        }
+        new DragBox('.box').dragDown();
+
+        //红色的div可以拖拽,但是不能超出左边界和上边界DragBoxLimit;
+        class DragBoxLimit extends DragBox {
+            constructor(el) {
+                super(el);
+            }
+            dragIng(msX, msY) {
+                let that = this;
+                document.onmousemove = function(event) {
+                    let x = event.pageX - msX;
+                    let y = event.pageY - msY;
+                    if (x <= 0) {
+                        x = 0;
+                    }
+                    if (y <= 0) {
+                        y = 0;
+                    }
+
+                    that.el.style.left = x + 'px';
+                    that.el.style.top = y + 'px';
+                }
+
+            }
+        }
+        new DragBoxLimit('.box1').dragDown();
+
+        //黄色的div在红色div基础上可以显示当前坐标位置DragBoxLimitText
+
+        class DragBoxLimitText extends DragBoxLimit {
+            constructor(el) {
+                super(el);
+            }
+            dragIng(msX, msY) {
+                let that = this;
+                document.onmousemove = function(event) {
+                    let x = event.pageX - msX;
+                    let y = event.pageY - msY;
+
+                    that.el.style.left = x + 'px';
+                    that.el.style.top = y + 'px';
+
+                    that.el.innerText = `left=${x},top=${y}`
+                }
+            }
+        }
+        new DragBoxLimitText('.box2').dragDown();
+    </script>
+
+</body>
+
+</html>

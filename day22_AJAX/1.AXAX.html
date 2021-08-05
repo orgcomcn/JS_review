@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #msg {
+            position: relative;
+            height: 30px;
+            width: 200px;
+            line-height: 30px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="msg">我是跑马灯</div>
+
+    <button>加载数据</button>
+
+    <script>
+        let oMsg = document.querySelector('#msg');
+
+        setInterval(function() {
+            oMsg.style.left = oMsg.offsetLeft + 10 + 'px';
+            if (oMsg.offsetLeft > document.documentElement.clientWidth) {
+                oMsg.style.left = 0;
+            }
+        }, 60)
+
+        let oBtn = document.querySelector('button');
+        oBtn.onclick = function() {
+            let url = 'http://useker.cn/getUsers';
+            let res = ajax(url);
+            let data = JSON.parse(res);
+            console.log(data);
+        }
+
+
+        // AJAX兼容性写法
+        function createXHR() {
+            if (window.XMLHttpRequest) {
+                return new XMLHttpRequest();
+            }
+            return new ActiveXObject('Microsoft.XMLHttp');
+        }
+
+        function ajax(url) {
+            let xhr = createXHR();
+            //false 同步 按照顺序执行
+            xhr.open('get', url, false);
+            xhr.send(null);
+
+            //同步才能用return
+            if (xhr.status == 200) {
+                return xhr.response;
+            }
+        }
+
+        // AJAX 同步会造成线程阻塞,我们不推荐使用
+    </script>
+
+
+</body>
+
+</html>

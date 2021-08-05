@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // //prototype 的作用是共享属性和方法
+        // 原型的方法是object  地址是一样的
+        // 好处: 节省内存的开销
+        // 缺点: 原型创建的属性所有的值都是一致的
+        // 凡是属性写到构造函数中 方法写到原型中
+
+        // function Person() {
+
+        // }
+
+
+        // Person.prototype.name = '刘德华';
+        // Person.prototype.age = '20';
+        // Person.prototype.run = function() {
+
+        // }
+        // let p1 = new Person();
+        // let p2 = new Person();
+
+        // console.log(p1.name === p2.name); // true  比较值和类型
+        // console.log(p1.age === p2.age); // true  比较值和类型
+        // console.log(p1.run === p2.run); // true 引用类型比较地址
+
+        function Person() {
+            this.name = '刘德华';
+            this.age = '20';
+            this.run = function() {
+
+            }
+        }
+
+        let p1 = new Person();
+        let p2 = new Person();
+
+        console.log(p1.name === p2.name); // true 比较值和类型
+        console.log(p1.age === p2.age); // true  比较值和类型
+        console.log(p1.run === p2.run); // false 引用类型比较地址
+    </script>
+
+</body>
+
+</html>

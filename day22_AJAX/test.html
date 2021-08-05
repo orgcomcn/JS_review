@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button class='btn'>点击</button>
+    <script>
+        let btn = document.querySelector('.btn');
+
+        data = {
+            'id': '2105358216665972738',
+            'schoolCode': '11077',
+            'schoolName': '长沙学院',
+            'identityType': '1',
+            'userId': '2010090002324077100',
+            'mobilePhone': '17397311162',
+            'name': '杨将',
+            'jobNo': 'B20180302511',
+            'departmentCode': '2002121049491152',
+            'department': '计算机工程与应用数学学院',
+            'specialitiesCode': '2010131525139490',
+            'specialities': '计算机科学与技术专业（专升本）',
+            'classCode': '2010131525139491',
+            'className': '18计科05',
+            'provinceCode': '86043',
+            'province': '湖南省',
+            'cityCode': '8604301',
+            'city': '长沙市',
+            'inSchool': '1',
+            'contactArea': '1',
+            'isPatient': '1',
+            'contactPatient': '1',
+            'linkPhone': '17397311162',
+            'parentsPhone': '17873242370',
+            'createTime': '',
+            'createDate': '',
+            'updateTime': '',
+            'locationInfo': '湖南省长沙市岳麓区天顶街道山枣铺梅岭公园',
+            'longitudeAndLatitude': '112.882467,28.195351',
+            'isSuspected': '1',
+            'healthStatusNew': '1',
+            'identitySecondType': '11',
+            'districtCode': '860430104',
+            'district': '岳麓区',
+            'isFamiliyPatient': '1',
+            'isCommunityPatient': '1',
+            'isTodayBack': '1',
+            'backRemark': '',
+            'backProvince': '',
+            'backCity': '',
+            'backDistrict': '',
+            'patientHospital': '',
+            'isolatedPlace': '',
+            'country': '',
+            'address': '湖南省长沙市岳麓区',
+            'backWay': '',
+            'backWayName': '',
+            'backAddress': '',
+            'temperatureAfter': '36.6',
+            'remark': '今天状态很好，继续保持努力学习！',
+            'isInCompany': '',
+            'backProvinceCode': '',
+            'backCityCode': '',
+            'backDistrictCode': '',
+            'token': '',
+            'uuToken': 'CEe3kCFnrDnhWVUD7HODiwV7yz6j3GwKuglRauzVe/BHU0RVjJBnQxkA/NodTEbiKs5QPf5vuUobkFqaZmSffA==',
+            'loginUserId': '2010090002324077100',
+            'loginUserName': '杨将',
+            'loginSchoolCode': '11077',
+            'loginSchoolName': '长沙学院'
+        }
+
+        btn.onclick = function() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://h5.xiaofubao.com/marketing/health/doDetail');
+            xhr.send(data);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        console.log(xhr.response)
+                    }
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

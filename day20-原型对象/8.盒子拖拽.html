@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script>
+        function DragBox(el) {
+            this.el = document.querySelector(el);
+        }
+        //方式1
+        // DragBox.prototype.dragStart = function() {
+        //     let self = this;
+        //     this.el.onmousedown = function(e) {
+        //         let msX = e.pageX - this.offsetLeft;
+        //         let msY = e.pageY - this.offsetTop;
+        //         self.dragIng({
+        //             x: msX,
+        //             y: msY
+        //         });
+        //         self.dragEnd();
+        //     }
+        // }
+        // DragBox.prototype.dragIng = function({
+        //     x,
+        //     y
+        // }) {
+        //     let self = this;
+        //     document.onmousemove = function(e) {
+        //         self.el.style.left = e.pageX - x + 'px';
+        //         self.el.style.top = e.pageY - y + 'px';
+
+        //     }
+        // }
+        // DragBox.prototype.dragEnd = function() {
+        //     document.onmouseup = function() {
+        //         document.onmousemove = document.onmouseup = null;
+        //     }
+        // }
+        // new DragBox('.box').dragStart();
+
+        //方式2
+        DragBox.prototype = {
+            //强行指回来
+            constructor: DragBox,
+            dragStart() {
+                let that = this;
+                this.el.onmousedown = function(e) {
+                    let msX = e.pageX - this.offsetLeft;
+                    let msY = e.pageY - this.offsetTop;
+                    that.dragIng(msX, msY);
+                    that.dragEnd();
+                }
+            },
+            dragIng(x, y) {
+                let that = this;
+                document.onmousemove = function(e) {
+                    that.el.style.left = e.pageX - x + 'px';
+                    that.el.style.top = e.pageY - y + 'px';
+                }
+            },
+            dragEnd() {
+                document.onmouseup = function() {
+                    document.onmousemove = document.onmouseup = null;
+                }
+            }
+        }
+        new DragBox('.box').dragStart();
+    </script>
+
+</body>
+
+</html>

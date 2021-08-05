@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 30px;
+            position: relative;
+        }
+    </style>
+    <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.js"></script>
+</head>
+
+<body>
+    <!-- 第一个接口
+  http://useker.cn/getUsersPage?pageSize=5&pageIndex=2
+  后端已经做好分页,只需要传递2个参数 页大小,第几页
+  第二个接口
+  http://useker.cn/getUsers   实现前端分页 (不需要带参数 -->
+
+    <div class="box">
+        跑马灯
+    </div>
+
+    <button class="prev">上一页</button>
+    <button class="next">下一页</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>电话</th>
+                <th>注册时间</th>
+            </tr>
+        </thead>
+        <tbody id="tab">
+
+        </tbody>
+    </table>
+
+
+    <script src="ajax.js"></script>
+    <script>
+        // 跑马灯单独实现
+        let box = document.querySelector('.box');
+
+        setInterval(function() {
+            box.style.left = box.offsetLeft + 10 + 'px';
+            if (box.offsetLeft >= document.documentElement.offsetWidth) {
+                box.style.left = 0;
+            }
+        }, 100)
+
+        class Tools {
+            constructor(settings = {}) {
+                this.settings = Object.assign({
+                    pageIndex: 1,
+                    pageSize: 10
+                }, settings);
+                this.el = document.querySelector(this.settings.el);
+                this.url = this.settings.url;
+                this.pageIndex = this.settings.pageIndex
+                this.pageSize = this.settings.pageSize;
+                //请求过来的数据
+                this.data = [];
+                //总条数
+                this.count = 0;
+                //最大页数
+                this.pageMax = 0;
+
+                Utils.get(this.url, {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize
+                }, (res) => {
+                    let {
+                        data,
+                        count
+                    } = JSON.parse(res); // {msg:'xxx',data:[xxx],count:236}
+                    this.data = data;
+                    this.count = count;
+                    this.pageMax = Math.ceil(count / this.pageSize);
+                    this.render(this.data);
+                })
+            }
+
+            render(data) {
+                let str = ``;
+                data.forEach(item => {
+                    str += `
+                    <tr>
+                        <td>${item.uname}</td>  
+                        <td>${item.upwd}</td>  
+                        <td>${item.uage}</td>  
+                        <td>${item.uphone}</td>  
+                        <td>${item.realname}</td>  
+                        <td>${moment(item.datetime).format("YYYY-MM-DD HH:mm:ss")}</td>  
+                      </tr>
+                    `
+                })
+                this.el.innerHTML = str;
+            }
+
+            prev() {
+                this.pageIndex--;
+                if (this.pageIndex <= 0) {
+                    this.pageIndex = 1;
+                    alert('第一1')
+                }
+                Utils.get(this.url, {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize
+                }, (res) => {
+                    let {
+                        data,
+                        count
+                    } = JSON.parse(res);
+                    this.data = data;
+                })
+            }
+
+            next() {
+                this.pageIndex++;
+                if (this.pageIndex >= this.pageMax) {
+                    this.pageIndex = this.pageMax;
+                }
+                Utils.get(this.url, {
+                    pageIndex: this.pageIndex,
+                    pageSize: this.pageSize
+                }, (res) => {
+                    let {
+                        data,
+                        count
+                    } = JSON.parse(res);
+                    this.data = data;
+                    this.render(this.data);
+                })
+            }
+        }
+
+        //默认显示第一页,显示五条数据
+        let tools = new Tools({
+            el: '#tab',
+            url: 'http://useker.cn/getUsersPage',
+            pageIndex: 1,
+            pageSize: 50
+        })
+
+        let oPrev = document.querySelector(".prev");
+        oPrev.onclick = function() {
+            tools.prev();
+        }
+
+        let oNext = document.querySelector(".next");
+        oNext.onclick = function() {
+            tools.next();
+        }
+    </script>
+
+
+</body>
+
+</html>

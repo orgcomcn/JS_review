@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let data = "";
+        //异步没办法用return 
+        function ajax(ff) {
+            setTimeout(() => {
+                data = '123';
+                ff(data);
+                //return data; //异步的return 没意义
+            }, 1000)
+        }
+        ajax(function(data) {
+            console.log(data);
+        });
+    </script>
+
+
+</body>
+
+</html>

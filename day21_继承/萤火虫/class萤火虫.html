@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+        
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background: url(images/bg.jpg) no-repeat center;
+            background-size: cover;
+            overflow: hidden;
+        }
+        
+        img {
+            width: 18px;
+            height: 18px;
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="./js/animate.tools.js"></script>
+    <script>
+        class Base {
+            constructor(flag = "snow") {
+                this.el = document.createElement('div');
+                document.body.appendChild(this.el);
+                this.el.style.position = 'absolute';
+                this.el.style.backgroundSize = '100% 100%';
+                this.el.style.backgroundRepeat = 'no-repeat';
+                this.el.style.left = this.location().left;
+                this.el.style.width = '20px';
+                this.el.style.height = '20px';
+                if (flag == 'snow') {
+                    this.el.style.backgroundImage = 'url(./images/snow.gif)';
+                    this.el.style.top = '0px';
+                } else {
+                    this.el.style.backgroundImage = 'url(./images/1.jpg)';
+                    this.el.style.top = this.location().top;
+                }
+            }
+            location() {
+                return {
+                    left: parseInt(Math.random() * document.documentElement.scrollWidth) + 'px',
+                    top: parseInt(Math.random() * document.documentElement.scrollHeight) + 'px'
+                }
+            };
+            //默认雪花飞
+            fly() {
+                let stpes = 10;
+                let timer = setInterval(() => {
+                    this.el.style.top = this.el.offsetTop + stpes + 'px';
+                    console.log(this.el.style.top)
+                    if (this.el.offsetTop > document.documentElement.clientHeight) {
+                        clearInterval(timer);
+                        this.el.remove();
+                    }
+                }, 50)
+            }
+        }
+
+        class Fireworm extends Base {
+            constructor(flag) {
+                super(flag);
+            }
+            fly() {
+                Utils.animate(this.el, this.location(), () => {
+                    this.fly();
+                })
+            }
+        }
+
+        class Snow extends Base {
+            constructor(flag) {
+                super(flag);
+            }
+        }
+
+        for (let i = 0; i < 20; i++) {
+            new Fireworm('Fireworm').fly();
+        }
+
+        setInterval(() => {
+            new Snow('snow').fly();
+        }, 100)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 500px;
+            height: 500px;
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+
+    </div>
+
+    <script>
+        let count = 0;
+        let box = document.querySelector('.container');
+
+        function doSomeThings() {
+            box.innerText = count++;
+        }
+
+        box.onmousemove = throttle(doSomeThings, 1000);
+
+        function throttle(fn, delay) {
+            let now = 0;
+            return function() {
+                let current = Date.now();
+                if (current - now > delay) {
+                    fn.apply();
+                    now = current;
+                }
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

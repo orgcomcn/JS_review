@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // 对象冒充继承,不能继承原型上的属性和方法
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+            this.eat = function() {
+                console.log("吃吃吃呀")
+            }
+            this.run = function() {
+                console.log("跑跑跑呀")
+            }
+        }
+
+        function Student(name, age, sid, sex) {
+            //1.改变this指向 不会立即执行
+            //Person.bind(this, name, age)();
+            //2.改变this指向 会立即执行
+            //Person.call(this, name, age);
+            //3.改变this指向 会立即执行 第二个参数是数组
+            Person.apply(this, [name, age]);
+
+
+            this.sid = sid;
+            this.sex = sex;
+            this.study = function() {
+                console.log("学习");
+            }
+        }
+        let stu = new Student('刘德华', '28', '12', '男');
+        console.log(stu)
+    </script>
+
+
+</body>
+
+</html>

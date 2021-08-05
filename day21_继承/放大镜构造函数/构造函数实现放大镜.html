@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        
+        .wrapper {
+            position: absolute;
+            left: 100px;
+            top: 100px;
+        }
+        
+        .wrapper .middle {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            border: 1px solid red;
+        }
+        
+        .wrapper .middle .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            opacity: 0.3;
+            cursor: move;
+            display: none;
+        }
+        
+        .wrapper .big {
+            position: absolute;
+            left: 480px;
+            top: 0px;
+            width: 600px;
+            height: 560px;
+            border: 1px solid red;
+            overflow: hidden;
+            display: none;
+        }
+        
+        .wrapper .big img {
+            position: absolute;
+        }
+        
+        .wrapper .small {
+            position: absolute;
+            border: 1px solid red;
+            top: 460px;
+        }
+        
+        .wrapper .small ul {
+            display: flex;
+            width: 450px;
+            height: 100px;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .wrapper .small ul li {
+            width: 54px;
+            height: 54px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+      wrapper 大盒子
+      big 大区域
+      middel 放大镜中区域
+      mask 遮罩层
+      small 小图片
+     -->
+    <div class="wrapper" id="wrapper">
+        <div class="big">
+            <img src="" />
+        </div>
+        <div class="middle">
+            <img src="" />
+            <div class="mask"></div>
+        </div>
+        <div class="small">
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        //假设数据是从后端请求过来的
+        let data = {
+            bigImgs: [
+                "images/1_3.jpeg",
+                "images/2_3.jpeg",
+                "images/3_3.jpeg",
+                "images/4_3.jpeg",
+                "images/5_3.jpeg",
+            ],
+            middleImgs: [
+                "images/1_2.jpeg",
+                "images/2_2.jpeg",
+                "images/3_2.jpeg",
+                "images/4_2.jpeg",
+                "images/5_2.jpeg",
+            ],
+            smallImgs: [
+                "images/1_1.jpeg",
+                "images/2_1.jpeg",
+                "images/3_1.jpeg",
+                "images/4_1.jpeg",
+                "images/5_1.jpeg",
+            ],
+        }
+
+        function Zoom(settings = {}) {
+            //属性
+            this.settings = Object.assign({}, settings);
+            this.el = document.querySelector(this.settings.el);
+            //大/中/小 图片盒子
+            this.bigImg = this.el.children[0];
+            this.middleImg = this.el.children[1];
+            this.samllImg = this.el.children[2];
+            this.samllImgClick = this.samllImg.children[0];
+
+            //mask 模态框
+            this.mask = this.middleImg.children[1];
+            //wrapper 这个this
+            let that = this;
+            //假设这是后端图片数据,模拟一份
+            this.data = this.settings.data;
+
+
+            //方法
+            //1.网页打开,动态加载图片
+            this.init = function() {
+                let {
+                    bigImgs,
+                    middleImgs,
+                    smallImgs
+                } = this.data;
+                //动态渲染小图片
+                let strHTML = ``;
+                smallImgs.forEach((item, index) => {
+                    strHTML += `
+                    <li><img src="${item}" data-id="${index}"></li>
+                  `
+                });
+                //给ul 添加5个li
+                this.samllImg.children[0].innerHTML = strHTML;
+                //默认给第一个li加边框
+                this.samllImg.children[0].children[0].style.border = '1px solid black';
+
+                //大图,中图,默认显示第一张
+                this.bigImg.children[0].src = bigImgs[0];
+                this.middleImg.children[0].src = middleImgs[0];
+            };
+
+            //2.鼠标在中盒子里面 移入移出
+            this.middleOver = function() {
+                that.middleImg.onmouseover = function() {
+                    //遮罩层和大图片区域要显示出来
+                    that.bigImg.style.display = 'block';
+                    that.mask.style.display = 'block';
+
+                    //改变遮罩层的大小,让遮罩层也要成比例关系
+                    //公式 
+                    //模态框W = (中图W/大图W)*大区域W  W代表宽度
+                    //模态框H = (中图H/大图H)*大区域H  H代表高度
+                    that.mask.style.width = that.middleImg.children[0].offsetWidth / that.bigImg.children[0].offsetWidth * that.bigImg.offsetWidth + 'px';
+                    that.mask.style.height = that.middleImg.children[0].offsetHeight / that.bigImg.children[0].offsetHeight * that.bigImg.offsetHeight + 'px';
+                }
+
+
+                //鼠标移入中盒子
+                document.onmousemove = function(e) {
+                    //让模态框跟随鼠标
+                    //公式: 鼠标距离盒子左边距离 =  页面到鼠标的距离 - 盒子距离页面左边的距离
+                    let msX = e.pageX - that.el.offsetLeft - that.mask.offsetWidth / 2;
+                    let msY = e.pageY - that.el.offsetTop - that.mask.offsetHeight / 2;
+
+                    //不让遮罩层出去
+                    if (msX <= 0) {
+                        msX = 0;
+                    } else if (msX >= that.middleImg.offsetWidth - that.mask.offsetWidth) {
+                        msX = that.middleImg.offsetWidth - that.mask.offsetWidth;
+                    }
+                    if (msY <= 0) {
+                        msY = 0;
+                    } else if (msY >= that.middleImg.offsetHeight - that.mask.offsetHeight) {
+                        msY = that.middleImg.offsetHeight - that.mask.offsetHeight;
+                    }
+                    //模态框的移动
+                    that.mask.style.left = msX + 'px';
+                    that.mask.style.top = msY + 'px';
+
+                    //中图和大图进行移动
+                    //移动的比例公式 
+                    // scaleW = 大图W / 中图W W代表宽度
+                    // scaleH = 大图H / 中图H H代表高度
+                    let scaleW = that.bigImg.children[0].offsetWidth / that.middleImg.children[0].offsetWidth;
+                    let scaleH = that.bigImg.children[0].offsetHeight / that.middleImg.children[0].offsetHeight;
+
+                    //当模态框移动的时候,大图也要进行移动
+                    that.bigImg.children[0].style.left = -scaleW * msX + 'px';
+                    that.bigImg.children[0].style.top = -scaleH * msY + 'px';
+                }
+            }
+
+            //鼠标离开中盒子
+            this.middleOut = function() {
+                that.middleImg.onmouseout = function() {
+                    //遮罩层和大图片区域要隐藏
+                    that.bigImg.style.display = 'none';
+                    that.mask.style.display = 'none';
+                }
+            }
+
+            //点击切换图片
+            this.clickList = function() {
+                let {
+                    bigImgs,
+                    middleImgs,
+                    smallImgs
+                } = this.data;
+                this.samllImgClick.addEventListener('click', function(e) {
+                    let target = e.target;
+                    if (target.tagName != 'IMG') return false;
+                    //获取小图的下标
+                    let indexTemp = target.getAttribute('data-id');
+
+                    //排他思想,点击哪个图,给哪个图加边框
+                    Array.from(that.samllImgClick.children).forEach((item, index) => {
+                        item.style.border = index == indexTemp ? '1px solid black' : '';
+                    })
+
+                    //修改大图,中图
+                    that.bigImg.children[0].src = bigImgs[indexTemp];
+                    that.middleImg.children[0].src = middleImgs[indexTemp];
+                })
+            }
+        }
+        let zoom = new Zoom({
+            el: '.wrapper',
+            data
+        });
+        //初始化
+        zoom.init();
+        //绑定 移入/移出/点击 方法
+        zoom.middleOver();
+        zoom.middleOut();
+        //点击事件
+        zoom.clickList();
+    </script>
+
+
+</body>
+
+</html>

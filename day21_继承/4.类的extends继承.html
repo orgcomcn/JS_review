@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        class Person {
+            constructor(name, sex) {
+                this.name = name;
+                this.sex = sex;
+            }
+        }
+
+        class Student extends Person {
+            constructor(sId, name, sex) {
+                super(name, sex);
+                this.sId = sId;
+            }
+        }
+        // 对象冒充,原型链,组合继承 都不完美
+        //比较完美的继承就是寄生组合继承 + es6的 extends继承
+        let stu = new Student('张三', '男', '20');
+        console.log(stu)
+    </script>
+
+
+</body>
+
+</html>

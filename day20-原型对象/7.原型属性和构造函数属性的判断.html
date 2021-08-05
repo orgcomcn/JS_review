@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+        function Person(name) {
+            this.name = name;
+        }
+
+        let p = new Person('周杰伦');
+        console.log(p.name);
+
+        console.log('name' in p); //name在p对象中吗?
+        //hasOwnProperty 检测构造函数中的属性
+        //'name' in p 只能判断是否存在,不能知道是否是原型还是在构造函数中
+
+        //自己封装一个方法,判断是否为原型上的 属性
+        function isPrototyProperty(o, attr) {
+            //如果是属性上的,但是不是在构造函数上
+            if (attr in o && !o.hasOwnProperty(attr)) {
+                return true;
+            }
+            return false;
+            // 优化写法
+            // return (attr in o && !o.hasOwnProperty(attr));
+        }
+        //判断是否为原型上的 属性
+        console.log(isPrototyProperty(p, "name"));
+
+        //hasOwnProperty使用场景,拿构造函数的私有属性和方法
+        var obj = {
+            name: '刘德华',
+            age: 20
+        }
+        Object.prototype.sex = '周杰伦';
+        for (let key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                //不会拿原型上的sex
+                console.log(key, obj[key]);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

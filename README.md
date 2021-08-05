@@ -2463,3 +2463,196 @@ new操作符做了什么事情
 
 ​	5.隐式return this
 
+### day14 原型对象
+
+#### 函数的的柯里化
+
+```javascript
+ // 1 + 3 + 5 和
+function fn(i){
+    return function(j){
+        return function(k){
+            return i + j + k;
+        }
+    }
+}
+let ret = fn(1)(2)(3);
+console.log(ret)
+
+//箭头函数写法
+let ret1 = i => j => k => i + j + k;
+console.log(ret1(1)(2)(3))
+```
+
+#### 原型
+
+​	每个函数都会自带prototype属性,它的值是一个对象,它的作用是让属性和方法被共享.
+
+​	创建对象的标准做法:构造函数内部写属性,原型上写公共的方法.
+
+​	当前构造函数内部有一个属性,原型上也有该属性,构造函数内部的属性优先
+
+​	1.构造函数原型上的构造指向当前构造函数
+
+```javascript
+Person.prototype.constructor == Person
+```
+
+​	2.判断某一个对象是否指向了该构造函数的原型
+
+```javascript
+Person.prototype.isPrototypeOf(p)
+```
+
+#### 原型链
+
+​	对象的__proto _ _指向构造构造函数的prototype
+
+​	hasOwnProperty检测构造函数中的属性
+
+```javascript
+Person function(name) {this.name = name;}
+let p = new Person();
+p.hasOwnProperty('name'); //true
+```
+
+​	name in obj 只能判断是否存在,无法判断是否是原型还是构造函数中
+
+```javascript
+// name in obj 使用场景 : 有该属性,但是不在构造函数中
+function isPrototyProperty(obj,attr){
+    return (attr in obj && !(obj.hasOwnProperty(attr));
+}
+
+```
+
+​	hasOwnProperty使用场景
+
+```javascript
+//使用场景,不拿共享的属性和方法
+Object.prototype.sex = "男";
+var obj = { name: "刘德华", age: 20 };
+for(let key in obj){
+    if(obj.hasOwnProperty(key)){
+        console.log(key,obj[key]);
+    }
+}
+```
+
+### day15继承
+
+#### 改变this指向bind/call/apply
+
+```javascript
+//bind apply call
+let o = { name: "周杰伦"}
+let name = "刘德华"; //window上的name
+
+setTimeout(function() {
+    console.log(this.name);
+}.bind(o));
+
+setTimeout(function() {
+    console.log(this.name);
+}.apply(o));
+
+setTimeout(function() {
+    console.log(this.name);
+}.call(o));
+```
+
+#### 对象冒充继承bind/apply/call
+
+​	只能继承基类Base构造函数中的属性和方法,无法继承基类Base原型上的属性和方法.
+
+```javascript
+function Person(name,age){
+    this.name = name;
+    this.age = age;
+}
+
+Person.prototype.eat = function(){console.log('Person原型上的方法')};
+
+function Student(sid,name,age){
+    //对象冒充继承,可以让Student拥有Person构造函数中的属性,但是不能继承原型上的属性和方法.
+    Person.bind(this,name,age)(); //改变this指向,并且执行
+    //Person.apply(this,[name,age]);//apply第二个参数是数组;
+    //Person.call(this,name,age); 
+    
+    //这个子类的属性和方法必须写在后面
+    this.sid = sid;
+}
+```
+
+#### 原型继承
+
+​	不能继承基类Base构造函数中的属性和方法,只能继承基类Base原型上的属性和方法.
+
+```javascript
+function Person(name,age){
+    this.name = name;
+    this.age = age;
+}
+Person.prototype.eat = function(){ console.log('Person原型上的方法')};
+
+function Student(sid){
+    this.sid = sid;
+}
+//原型链继承
+Student.prototype = new Person();
+```
+
+#### 对象冒充+原型组合继承
+
+​	会多出父类的原型上的属性,虽然是undefined,但是也要为它开辟空间
+
+```javascript
+function Person(name,age){
+    this.name = name;
+    this.age = age;
+}
+Person.prototype.eat = function(){console.log('Person原型上的方法')}
+
+function Student(sid){
+    //1.先使用对象冒充
+    Person.call(this,name,age);
+    this.sid = sid;
+}
+//2.在使用原型继承
+Student.prototype = new Person();
+```
+
+#### inherit寄生继承+对象冒充
+
+​	避免了多出父类原型上的多余属性,与此同时,原型链还能保持不变.
+
+```javascript
+function Person(name, age) {
+    this.name = name;
+    this.age = age;
+}
+Person.prototype.eat = function() {
+    console.log('Person原型上的方法')
+}
+
+function Student(sid, name, age) {
+    //对象冒充
+    Person.call(this, name, age)
+    this.sid = sid;
+}
+
+//寄生继承
+function inherit(base, child) {
+    //复印一份父亲的房产证
+    let basePrototype = Object.create(base.prototype);
+    //把父亲的房产证名字改成自己的
+    basePrototype.constructor = child;
+    //随身携带父亲的房产证
+    child.prototype = basePrototype;
+}
+inherit(Person, Student);
+```
+
+#### 节流和防抖
+
+​	专门写了一个markdown

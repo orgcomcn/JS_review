@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let arr = [14, 22, 56, 78, 25, 7];
+        // for (let i = 0; i < arr.length - 1; i++) {
+        //     for (let j = 0; j < arr.length - 1 - i; j++) {
+        //         if (arr[j] > arr[j + 1]) {
+        //             let temp = arr[j];
+        //             arr[j] = arr[j + 1];
+        //             arr[j + 1] = temp;
+        //         }
+        //     }
+        // }
+
+
+
+
+        Array.prototype.mySort = function(callback) {
+            for (let i = 0; i < this.length - 1; i++) {
+                for (let j = 0; j < this.length - 1 - i; j++) {
+                    if (callback(this[j], this[j + 1]) > 0) {
+                        let temp = this[j];
+                        this[j] = this[j + 1];
+                        this[j + 1] = temp;
+                    }
+                }
+            }
+            // return this;
+        }
+
+        arr.mySort(function(a, b) {
+            return a - b;
+        })
+        console.log(arr);
+    </script>
+
+
+
+</body>
+
+</html>

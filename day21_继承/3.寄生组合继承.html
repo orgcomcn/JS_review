@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 寄生继承 + 对象冒充 = 寄生组合继承
+        function Person(name, age, sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        Person.prototype.pRun = function() {
+            console.log('我是Person,我会跑');
+        }
+
+        function Student(sId, name, age, sex) {
+            //无法继承到原型上的属性和方法
+            Person.bind(this, name, age, sex)(); //这里的参数要和Person的一致
+            this.sId = sId;
+        }
+
+        function inherit(base, child) {
+            //1.偷取父亲的房产证
+            let base_prototype = Object.create(base.prototype);
+            //2.把原型(房产证)上构造器指向自己
+            base_prototype.constructor = child;
+            //3.让房产证随身携带
+            child.prototype = base_prototype;
+        }
+        inherit(Person, Student);
+        let stu = new Student('B001', '周杰伦', '27', '男');
+        console.log(stu);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #msg {
+            width: 100px;
+            height: 30px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- http://useker.cn/person -->
+    <div id="msg">我是跑马灯</div>
+
+    <button id="btn">加载数据</button>
+
+    <table id="tab">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        let msg = document.querySelector('#msg');
+        let btn = document.querySelector('#btn');
+        let tab = document.querySelector('#tab');
+
+        setInterval(function() {
+            msg.style.left = msg.offsetLeft + 10 + 'px';
+            if (msg.offsetLeft > document.documentElement.clientWidth) {
+                msg.style.left = 0;
+            }
+        }, 60);
+
+        btn.onclick = function() {
+            let res = ajax();
+            let data = JSON.parse(res);
+            let strHtml = ``;
+            data.forEach(function(item) {
+                let {
+                    id,
+                    name,
+                    age,
+                    sex,
+                    phone,
+                    qq,
+                    address
+                } = item;
+
+                strHtml += `
+                  <tr>
+                    <td>${id}</td>  
+                    <td>${name}</td>  
+                    <td>${age}</td>  
+                    <td>${sex}</td>  
+                    <td>${phone}</td>  
+                    <td>${qq}</td>  
+                    <td>${address}</td>   
+                  </tr>
+                `
+            })
+
+            tab.children[0].innerHTML = strHtml;
+        }
+
+        function ajax() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('get', 'http://useker.cn/person', false); //同步
+            xhr.send(null); //因为是get请求 所以发送null
+
+            if (xhr.status == 200) {
+                return xhr.response;
+            }
+            return [];
+        }
+    </script>
+
+</body>
+
+</html>

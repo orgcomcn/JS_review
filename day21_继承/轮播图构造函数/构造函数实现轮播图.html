@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .wrapper {
+            position: relative;
+            width: 500px;
+            height: 200px;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+        
+        .wrapper ul {
+            position: absolute;
+            width: 3000px;
+            height: 200px;
+        }
+        
+        .wrapper ul li {
+            float: left;
+        }
+        
+        .wrapper .nav {
+            position: absolute;
+            left: 50%;
+            bottom: 10px;
+            transform: translateX(-50%);
+        }
+        
+        .wrapper .nav a {
+            float: left;
+            width: 20px;
+            height: 20px;
+            opacity: .5;
+            background-color: red;
+            margin: 0 5px;
+            border-radius: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- 图片轮播  -->
+        <ul>
+            <li><img src="./images/1.jpg" alt=""></li>
+            <li><img src="./images/2.jpg" alt=""></li>
+            <li><img src="./images/3.jpg" alt=""></li>
+            <li><img src="./images/4.jpg" alt=""></li>
+            <li><img src="./images/5.jpg" alt=""></li>
+        </ul>
+        <!-- 点击按钮 -->
+        <div class="nav">
+            <a href="javascript:void(0)" class="current"></a>
+            <a href="javascript:void(0)"></a>
+            <a href="javascript:void(0)"></a>
+            <a href="javascript:void(0)"></a>
+            <a href="javascript:void(0)"></a>
+        </div>
+    </div>
+    <!-- 引入动画库 -->
+    <script src="./js/animate.tools.js"></script>
+    <!-- 构造函数的方法实现轮播图 -->
+    <script>
+        function SwiperBanner(settings = {}) {
+            this.settings = Object.assign({
+                auto: true //如果不传参数 默认自动轮播
+            }, settings);
+            //拿到大盒子 ul 和 nav
+            this.el = document.querySelector(this.settings.el);
+            this.oLis = this.el.children[0];
+            this.oAs = this.el.children[1];
+            //初始化默认显示的下标 -- 图片
+            this.imgIndex = 0;
+            // 图片多克隆了一张,不能和图片下标共用一个 
+            this.pointIndex = 0;
+            let that = this;
+            let timer = null;
+
+            //给下标添加 初始样式 ,并且把第一张图片 放到 ul最后面
+            this.init = function() {
+                this.oAs.children[0].style.opacity = 1;
+                this.oLis.appendChild(this.oLis.children[0].cloneNode(true));
+                //给图片下标初始化自定义属性
+                Array.from(this.oAs.children).forEach((item, index) => {
+                    item.setAttribute('data-id', index);
+                });
+
+                //如果自动轮播为true,那么就开始轮播图片 否则不轮播
+                if (this.settings.auto) {
+                    timer = setInterval(() => {
+                        that.imgIndex++;
+
+                        if (that.imgIndex > 5) {
+                            that.imgIndex = 1;
+                            that.oLis.style.left = 0;
+                        }
+                        that.pointIndex++;
+                        if (that.pointIndex > 4) {
+                            that.pointIndex = 0;
+                        }
+                        that.autoPlay();
+                    }, 2000)
+                }
+            }
+
+            //点击轮播
+            this.clickItem = function() {
+                this.oAs.addEventListener('click', function(e) {
+                    let target = e.target;
+                    if (target.nodeName != 'A') return false;
+                    let tempIndex = target.getAttribute('data-id');
+                    that.pointIndex = that.imgIndex = tempIndex;
+                    that.autoPlay();
+                })
+            };
+            //进来停止自动轮播,离开自动轮播
+
+            //自动轮播
+            this.autoPlay = function() {
+                Utils.animate(this.oLis, {
+                    left: this.imgIndex * -500
+                });
+                Array.from(that.oAs.children).forEach((item, index) => {
+                    item.style.opacity = index == that.pointIndex ? 1 : 0.5;
+                });
+            }
+
+            this.mouseHanlder = function() {
+                this.el.onmouseover = function() {
+                    clearInterval(timer);
+                }
+                this.el.onmouseout = function() {
+                    timer = setInterval(() => {
+                        that.imgIndex++;
+                        if (that.imgIndex > 5) {
+                            that.imgIndex = 1;
+                            that.oLis.style.left = 0;
+                        }
+                        that.pointIndex++;
+                        if (that.pointIndex > 4) {
+                            that.pointIndex = 0;
+                        }
+                        that.autoPlay();
+                    }, 2000)
+                }
+            }
+        }
+
+        let swiper = new SwiperBanner({
+            el: '.wrapper',
+            auto: true //判断是否自动轮播
+        });
+        //初始化,点击,移入移出
+        swiper.init();
+        swiper.clickItem();
+        swiper.mouseHanlder();
+    </script>
+</body>
+
+</html>
