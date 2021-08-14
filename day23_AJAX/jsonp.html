@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <!-- <script>
+        function fn(res) {
+            console.log(res);
+        }
+    </script> -->
+    <!-- 
+        ?后面的是参数
+        wd 是搜索的内容
+        cb 是指定的函数
+
+        url = https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su
+        data = wd=miqi&cb=fn
+     -->
+    <!-- <script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=miqi&cb=fn"></script> -->
+
+    <button id="btn">百度一下</button>
+    <input type="text" id="txt">
+
+
+
+
+
+    <script src="jsonp.js"></script>
+    <script>
+        let oBtn = document.querySelector('#btn');
+        let input = document.querySelector('#txt')
+
+
+
+        oBtn.onclick = function() {
+            $.JSONP({
+                url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                data: {
+                    wd: input.value,
+                },
+                jsonp: "cb",
+                jsonpCallback: 'fn', //自定义函数名
+                success(res) {
+                    console.log(res);
+                }
+            })
+        }
+    </script>
+
+</body>
+
+</html>

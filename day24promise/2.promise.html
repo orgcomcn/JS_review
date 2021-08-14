@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let promise = new Promise(function(resolve, reject) {
+            if (Math.random() > 0.5) {
+                resolve('resolve大于0.5');
+            } else {
+                reject('reject小于0.5');
+            }
+        })
+
+
+        //then里面的func对应resolve catch 里面的func对应reject  写法1
+        promise.then(function(res) {
+            console.log(res);
+        }).catch(function(res) {
+            console.log(res)
+        });
+
+
+        //第一个func对应resolve 第二个func对应reject  写法2
+        promise.then(function(res) {
+            console.log(res);
+        }, function(res) {
+            console.log(res);
+        })
+    </script>
+
+</body>
+
+</html>

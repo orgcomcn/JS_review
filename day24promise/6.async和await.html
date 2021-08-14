@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="ajax.tools.js"></script>
+    <script>
+        //async和await是黄金搭档,必须一起使用
+        //async 异步
+        //await 等待  他们两个是用来解决promise代码的冗余问题
+
+        //await后面必须是 Promise 对象
+
+
+        async function getDate() {
+            let url = "http://useker.cn/login";
+            let data = {
+                uname: 'abc123',
+                upwd: '123123'
+            };
+            //await等待ajax把结果赋值给res, await必须放置在一个异步函数里
+            let res1 = await $.ajax({
+                url: url,
+                data: data
+            })
+            console.log(res1)
+
+            let res2 = await $.ajax({
+                url: url,
+                data: data
+            })
+            console.log(res2)
+        }
+
+        getDate();
+    </script>
+
+
+</body>
+
+</html>

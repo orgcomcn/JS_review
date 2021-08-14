@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="JSONPpromise.js"></script>
+    <script>
+        // $.JSONP({
+        //     url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+        //     data: {
+        //         wd: '吴亦凡'
+        //     },
+        //     jsonp: 'cb',
+        // }).then(function(res) {
+        //     console.log(res)
+        // })
+        async function getData() {
+            let res = await $.JSONP({
+                url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+                data: {
+                    wd: '吴亦凡'
+                },
+                jsonp: 'cb',
+            })
+            console.log(res);
+        }
+        getData();
+    </script>
+
+
+</body>
+
+</html>

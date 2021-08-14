@@ -354,5 +354,18 @@ undefined == 0 //false
 null == 0  // false   null在设计上，对比等于的时候不尝试转型. 所以null == 0结果为false. > < >= <=都会尝试类型转换
 '100' == 100 //true
 '100' === 100 //false
+
+
+0 == '' //true
+0 == false //true
+false == '' //true
+null == undefined //true
+
+
+//没注意的细节
+let s = (null && 1); // 这里我容易理解为 s的值为布尔实际上为null
+let s1 = ('a'||'ab'); // s1='ab'; 这里我容易理解为布尔值
+let s2 = (10 && 0); //s2=0 ,切记啊 不是布尔类型
+let s3 = !window.abc; //一个值,才是布尔类型
 ```
 

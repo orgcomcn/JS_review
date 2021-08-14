@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <!--先看一个案例 -->
+    <script>
+        let flag = false;
+
+        setTimeout(function() {
+            console.log('哈哈,我是第一个异步任务');
+            flag = true;
+        }, 1000)
+
+        if (flag) {
+            setTimeout(function() {
+                console.log('我是第二个异步任务,第一个执行完了再执行我');
+            }, 1000)
+        }
+        // 因为let flag = false. 和 if 属于同步任务
+        // setTimeout属于异步任务, 所以,就算第一个异步任务执行完了,也不会执行第二个
+        // if比setTimeout里面的代码先执行
+
+        let promise = new Promise((resolve, reject) => {
+            //如果执行resolve,就代表成功
+            //如果执行reject,就代表失败
+            //成功和失败,只能执行一个!
+            if (Math.random() > 0.5) {
+                resolve('resolve');
+            } else {
+                reject('reject');
+            }
+        });
+
+        // promise.then(resolve => {
+        //     console.log('resolve')
+        // }).then(resolve => {
+        //     console.log(resolve)
+        // }).catch(err => {
+        //     console.log(err)
+        // })
+
+
+        // promise.then(function(result) {
+        //     console.log(result);
+        // }, function(error) {
+        //     console.log(result);
+        // }).then(function(result) {
+        //     console.log(result)
+        // }, function(error) {
+        //     console.log(error);
+        // })
+    </script>
+
+</body>
+
+</html>

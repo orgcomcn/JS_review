@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // Promise.all(); 
+        // Promise.race();
+        // Promise.resolve();
+        // Promise.reject();
+
+
+        function fn1() {
+            //有异步代码,必须要new Promise
+            return new Promise(function(resolve, reject) {
+                setTimeout(() => {
+                    var res = "你好我的xxx"
+                    resolve(res);
+                }, 2000)
+            })
+        }
+
+        function fn2() {
+            var res = '没有异步代码'
+            return Promise.resolve(res);
+        }
+
+        fn1().then(function(res) {
+            console.log(res);
+        })
+        fn2().then(function(res) {
+            console.log(res);
+        })
+    </script>
+</body>
+
+</html>

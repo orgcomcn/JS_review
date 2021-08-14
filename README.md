@@ -2463,6 +2463,24 @@ new操作符做了什么事情
 
 ​	5.隐式return this
 
+this指向问题
+
+​	1.给元素绑定事件,在事件里面,this指向当前元素
+
+ 	2.在对象的方法里,this指向当前对象
+
+   		如果方法里包含方法,嵌套的方法指向window
+
+ 	3.在定时器延时器里,this指向window(非箭头函数)
+
+ 	4.箭头函数里面的this指向上下文对象
+
+ 	5.函数里的this,默认指向window,在严格模式下是undefined
+
+ 	6.ES5 bind 改变this的指向 (call apply)
+
+ 	7.new 操作符 也能改变this指向, 让构造函数里的this不再指向window,指向当前构造函数的原型
+
 ### day14 原型对象
 
 #### 函数的的柯里化
@@ -2509,6 +2527,8 @@ Person.prototype.isPrototypeOf(p)
 ​	对象的__proto _ _指向构造构造函数的prototype
 
 ​	hasOwnProperty检测构造函数中的属性
+
+​		凡是构造函数的原型属性（原型对象包含的属性），都是继承属性，使用 hasOwnProperty() 方法检测时，都会返回 false。但是，对于原型对象本身来说，这些原型属性又是原型对象的自有属性，所以返回值又是 true。
 
 ```javascript
 Person function(name) {this.name = name;}

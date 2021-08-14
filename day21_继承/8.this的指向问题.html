@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <!-- 
+
+  1.给元素绑定事件,在事件里面,this指向当前元素
+  2.在对象的方法里,this指向当前对象
+      如果方法里包含方法,嵌套的函数指向window
+  3.在定时器延时器里,this指向window(非箭头函数)
+  4.箭头函数里面的this指向上下文对象
+  5.函数里的this,默认指向window,在严格模式下是undefined
+  6.ES5 bind 改变this的指向 (call apply)
+  7.new 操作符 也能改变this指向, 让构造函数里的this不再指向window,指向当前构造函数的原型
+ -->
+
+    <script>
+        function a() {
+            function b() {
+                var bb = 123;
+                aa = 0;
+            }
+            var aa = 456;
+            b();
+            console.log(aa);
+        }
+        var glob = 100;
+        a();
+    </script>
+
+
+
+
+
+</body>
+
+</html>

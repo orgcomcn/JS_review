@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <img src="" alt="" id="pic">
+    <input type="file" value="请选择要上传的图片" id="upload">
+    <input type="button" value="上传" id="send">
+    <script>
+        //图片上传要用form表单和formData
+
+        function ajax(url, data, callback) {
+            let xhr = new XMLHttpRequest();
+
+            xhr.responseText = 'json';
+            xhr.open('post', url);
+
+            xhr.send(data);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.response);
+                    callback(xhr.response);
+                }
+            }
+        }
+    </script>
+
+    <script>
+        let oPic = document.querySelector('#pic');
+        let oUpload = document.querySelector('#upload');
+        let send = document.querySelector('#send');
+
+        //图片上传是change事件
+        oUpload.onchange = function() {
+            //图片预览
+            let file = new FileReader(); //相当于文件读取器,U盘
+            file.readAsDataURL(this.files[0]); //预览图片
+            //文件读取完成
+            file.onload = function() {
+                oPic.src = file.result;
+                console.log(oPic.src);
+            }
+        }
+
+        //点击上传按钮,图片上传要用formData
+        send.onclick = function() {
+            let data = new FormData();
+            data.append('aaa', oUpload.files[0]);
+
+            ajax('http://useker.cn/upload', data, function(res) {
+                console.log(res);
+            })
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .bgDiv {
+            box-sizing: border-box;
+            width: 595px;
+            height: 55px;
+            position: relative;
+        }
+        
+        .search-input-text {
+            border: 1px solid #b6b6b6;
+            width: 495px;
+            background: #fff;
+            height: 33px;
+            line-height: 33px;
+            font-size: 18px;
+            padding: 3px 0 0 7px;
+        }
+        
+        .search-input-button {
+            width: 90px;
+            height: 38px;
+            color: #fff;
+            font-size: 16px;
+            letter-spacing: 3px;
+            background: #3385ff;
+            border: .5px solid #2d78f4;
+            margin-left: -5px;
+            vertical-align: top;
+            opacity: .9;
+        }
+        
+        .search-input-button:hover {
+            opacity: 1;
+            cursor: pointer;
+        }
+        
+        .suggest {
+            width: 502px;
+            position: absolute;
+            top: 38px;
+            background: #fff;
+        }
+        
+        .suggest ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .suggest ul li {
+            padding: 3px;
+            font-size: 17px;
+            line-height: 25px;
+            cursor: pointer;
+        }
+        /* .suggest ul li:hover {
+            background-color: #e5e5e5
+        } */
+    </style>
+</head>
+
+<body>
+
+    <div class="bgDiv">
+        <!-- autofocus 自动聚焦 -->
+        <input type="text" class="search-input-text" placeholder="关键词">
+        <input type="button" value="搜索一下" class="search-input-button" id="btn">
+        <div class="suggest">
+            <ul id="search-result">
+            </ul>
+        </div>
+    </div>
+
+    <script src="jsonp.js"></script>
+    <script>
+        //防抖
+        function debounce(fn, delay) {
+            let timer = null;
+            //不管37二十一,直接先生成一个闭包
+            return function() {
+                //如果你在delay时间内,又触发了,我就清空定时器,让delay重新计时
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(function() {
+                    //因为this的指向变了,所以这里要改变this指向
+                    fn.apply(this, arguments);
+                }, delay)
+            }
+        }
+        //用类来实现
+        class searchTab {
+            constructor(settings = {}) {
+                //拿到所有节点
+                this.settings = Object.assign({}, settings);
+                this.el = document.querySelector(this.settings.el);
+                this.ipt = this.el.children[0];
+
+                this.result = this.el.children[2].children[0];
+
+                this.data = [];
+
+                //输入事件,当我开始输入,就执行
+                this.inputHandler();
+                //鼠标移入,移出事件
+                this.overHanlder();
+                //点击事件
+                this.clickHanlder();
+
+            };
+            //输入就开始GOGOGO
+            inputHandler() {
+                let that = this;
+                //这里直接调我们写好的防抖,减少一定事件内执行的次数,400毫秒
+                this.ipt.oninput = debounce(function() {
+                    //内容为空,渲染空数据
+                    if (that.ipt.value == '') {
+                        that.render([]);
+                    } else {
+                        $.JSONP({
+                            url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                            data: {
+                                wd: that.ipt.value,
+                            },
+                            jsonp: "cb",
+                            jsonpCallback: 'fn', //自定义函数名
+                            success(res) {
+                                let s = res.s;
+                                //数据保存一份,后续有用,这里不能传that.data给that.render()
+                                that.data = s;
+                                console.log(s);
+                                that.render(s)
+                            }
+                        });
+                    }
+                }, 400);
+            };
+            //拿到数据,立马渲染
+            render(data) {
+                let strHTML = ``;
+                data.forEach((item, index) => {
+                    strHTML += `
+                        <li data-id=${index} >${item}</li>
+                    `
+                })
+                this.result.innerHTML = strHTML;
+            };
+            //触摸我,我变色,利用事件委托
+            overHanlder() {
+                let that = this;
+                this.result.addEventListener('mouseover', function(e) {
+                    //如果不是li, 直接return
+                    if (e.target.nodeName != 'LI') return false;
+                    //如果是li,那么li变色,并且把li的内容填充到输入框中
+                    that.ipt.value = e.target.innerText;
+                    let indexTemp = e.target.getAttribute('data-id');
+                    Array.from(that.result.children).forEach((item, index) => {
+                        item.style.backgroundColor = indexTemp == index ? '#f40' : '';
+                    })
+                })
+            };
+            //点击,内容保存到输入框,并且删除ul下的所有儿子
+            clickHanlder() {
+                let that = this;
+                this.result.addEventListener('click', function(e) {
+                    //如果不是li, 直接return
+                    if (e.target.nodeName != 'LI') return false;
+                    //如果点击了某一个li,直接删除ul下的所有li 
+                    e.target.parentNode.innerHTML = "";
+                    // 方法一：通过元素的innerHTML属性
+                    // 元素element.innerHTML="";
+                    // 方法二：通过元素的removeChild方法
+                    // 子元素element.parentNode.removeChild(子元素element);
+                })
+            }
+        }
+        new searchTab({
+            el: '.bgDiv'
+        })
+    </script>
+</body>
+
+</html>

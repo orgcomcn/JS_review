@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="ajax.js"></script>
+    <style>
+        img {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 1.12.4 是jquery 最后一个pc版本 -->
+
+    <form>
+        <p><input type="text" name="uname"></p>
+        <p><input type="text" name="upwd"></p>
+        <button>登录</button>
+    </form>
+    <img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0131565aeff3c5a801219b7f6906a7.gif&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1630823707&t=b392588782498d73fc48628224aebf95"
+        alt="">
+
+    <script>
+        document.forms[0].onsubmit = function() {
+
+            let oUsers = {
+                uname: this.uname.value,
+                upwd: this.upwd.value
+            }
+
+            $.ajax({
+                url: 'http://www.useker.cn/login',
+                type: 'post',
+                data: oUsers,
+                dataType: 'json',
+                //发送之前..
+                beforeSend: function() {
+                    document.querySelector('img').style.display = 'block';
+                },
+                //发送完毕,回调函数
+                success: function(res) {
+                    document.querySelector('img').style.display = 'none';
+                    let {
+                        code,
+                        data,
+                        msg
+                    } = res;
+                    console.log(code, data, msg);
+                }
+            })
+
+
+            return false;
+        }
+    </script>
+
+</body>
+
+</html>

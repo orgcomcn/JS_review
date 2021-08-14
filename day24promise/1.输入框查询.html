@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .search-box {
+            border: 1px solid black;
+            display: inline-block;
+        }
+        
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .search_box ul li {
+            height: 30px;
+            line-height: 30px;
+            width: 170px;
+            border: 1px solid black;
+        }
+        
+        .search_box li.current {
+            background-color: #f40;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="search_box">
+        <input type="text" id="txt">
+        <ul>
+
+        </ul>
+    </div>
+
+    <script src="JSONP.js"></script>
+    <script>
+        class Tools {
+            constructor(settings = {}) {
+                this.settings = Object.assign({}, settings);
+                this.el = document.querySelector(this.settings.el);
+                this.input = this.el.children[0];
+                this.ul = this.el.children[1];
+
+                this.inputChange();
+                this.overHanlder();
+            }
+
+            inputChange() {
+                let that = this;
+                this.input.addEventListener('input', function(e) {
+                    $.JSONP({
+                        url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
+                        data: {
+
+                            wd: this.value,
+                        },
+                        jsonp: "cb",
+                        jsonpCallback: 'fn', //自定义函数名
+                        success(res) {
+                            that.data = res.s;
+                            that.render();
+                        }
+                    });
+
+                })
+            }
+
+            render() {
+                let str = ``;
+                this.data.forEach(item => {
+                    str += ` <li>${item} </li>`
+                });
+                this.ul.innerHTML = str;
+            }
+
+            overHanlder() {
+                let that = this;
+                this.ul.addEventListener('mouseover', function(e) {
+                    if (e.target.nodeName != 'LI') return;
+
+                    [...that.ul.children].forEach(item => {
+                        item.style.backgroundColor = item == e.target ? 'red' : '';
+                    })
+                })
+
+            }
+
+        }
+
+
+
+        new Tools({
+            el: '.search_box'
+        })
+    </script>
+
+</body>
+
+</html>
