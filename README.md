@@ -127,7 +127,7 @@
    parseInt(Math.random() * 10) % 5 + 1;
    
    //取0-100; 为什么*101因为  如果写100,它会取0-99.9999....
-   parseInt(parseInt(Math.random() * 101))
+   parseInt(Math.random() * 101)
    ```
 
  * switch() 括号里面做的运算是 === 恒等于 , 以前不知道.
