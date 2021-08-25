@@ -135,6 +135,7 @@
                     this.autoPlay();
                 }, 1000)
             }
+            this.autoPlay();
         };
         init() {
             //排他思想
@@ -146,6 +147,7 @@
             })
         };
         autoPlay() {
+            console.log(this.imgIndex)
             Array.from(this.oUlLis).forEach((item, index) => {
                 Utils.animate(item, {
                     opacity: index == this.imgIndex ? 1 : 0

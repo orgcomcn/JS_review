@@ -57,11 +57,10 @@
                 let that = this;
                 this.input.addEventListener('input', function(e) {
                     $.JSONP({
-                        url: "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su",
-                        data: {
-
-                            wd: this.value,
-                        },
+                        url: "https://you.163.com/xhr/search/searchAutoComplete.json?__timestamp=1629353855059&keywordPrefix=q",
+                        // data: {
+                        //     wd: this.value,
+                        // },
                         jsonp: "cb",
                         jsonpCallback: 'fn', //自定义函数名
                         success(res) {

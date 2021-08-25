@@ -88,9 +88,11 @@
             return function() {
                 //如果你在delay时间内,又触发了,我就清空定时器,让delay重新计时
                 if (timer) clearTimeout(timer);
+                let that = this;
+                let args = arguments;
                 timer = setTimeout(function() {
                     //因为this的指向变了,所以这里要改变this指向
-                    fn.apply(this, arguments);
+                    fn.apply(that, args);
                 }, delay)
             }
         }

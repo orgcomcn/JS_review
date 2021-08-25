@@ -22,7 +22,6 @@ class Utils {
         xhr.open('get', url + '?' + Utils.getParams(data));
         xhr.send(null);
 
-
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 callback(xhr.response);

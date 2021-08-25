@@ -8,7 +8,6 @@ const $ = (function() {
         return arr.join("&");
     }
 
-
     const JSONP = (settings = {}) => {
         //1.先定义函数(函数名随机)  也可以自定义函数名称
         //如果 settings.jsonpCallback 有名称 就用自己的名称

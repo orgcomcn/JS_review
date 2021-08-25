@@ -16,6 +16,7 @@ const $ = (function() {
         fnName = settings.jsonpCallback ? settings.jsonpCallback : fnName;
         //把函数名挂在到window上,并赋予函数
         window[fnName] = settings.success;
+        console.log(fnName);
         //拼接请求的路径
         let newUrl = settings.url + "?" + getParams(settings.data) + "&" + settings.jsonp + "=" + fnName;
         //动态创建script,并配置src属性
